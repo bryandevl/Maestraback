@@ -3,13 +3,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Connection } from 'typeorm';
 import { FotogestionesEntity } from '../entities/vrc-fotogestion.entity';
-import { ObtenerGestionDto } from 'src/dtos/vrc-obtenergestioncliente.dto';
+import { ObtenerDetalleGestionDto } from 'src/dtos/vrc-obtenergestioncliente.dto';
 
 @Injectable()
 export class GestionService {
 constructor(private readonly connection: Connection) {}
 
-async obtenerGestion(dto: ObtenerGestionDto): Promise<FotogestionesEntity[]> {
+async obtenerGestion(dto: ObtenerDetalleGestionDto): Promise<FotogestionesEntity[]> {
     const { dni, num_cta, campania } = dto;
 
     const query = `

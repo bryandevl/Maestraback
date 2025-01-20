@@ -12,7 +12,7 @@ export class ObtenerSmsMasivoCltService {
     private readonly smsmasivoCltRepository: Repository<ObtenerSmsMasivoClt>,
   ) {}
 
-  async obtenerDatos(dto: ObtenerSmsMasivoCltDto): Promise<ObtenerSmsMasivoClt[]> {
+  async obtenerDatosSms(dto: ObtenerSmsMasivoCltDto): Promise<ObtenerSmsMasivoClt[]> {
     const { dni, num_cta } = dto;
     return await this.smsmasivoCltRepository.query(
       `EXEC [dbo].[SP_CR_ObtenerSMSmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`,

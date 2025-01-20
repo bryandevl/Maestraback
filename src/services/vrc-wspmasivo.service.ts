@@ -12,7 +12,7 @@ export class ObtenerWspmasivoCltService {
     private readonly wspmasivoCltRepository: Repository<ObtenerWspmasivoClt>,
   ) {}
 
-  async obtenerDatos(dto: ObtenerWspmasivoCltDto): Promise<ObtenerWspmasivoClt[]> {
+  async obtenerDatosWsp(dto: ObtenerWspmasivoCltDto): Promise<ObtenerWspmasivoClt[]> {
     const { dni, num_cta } = dto;
     return await this.wspmasivoCltRepository.query(
       `EXEC [dbo].[SP_CR_ObtenerWspmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`,

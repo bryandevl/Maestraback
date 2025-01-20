@@ -1,7 +1,6 @@
-// src/dto/vrc-obtenergestioncliente.dto.ts
 import { IsOptional, IsString } from 'class-validator';
 
-export class ObtenerDetalleGestionDto {
+export class ObtenerDetalleDeudaDto {
   @IsString()
   dni: string;
 
