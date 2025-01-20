@@ -1,2 +1,20 @@
-node_modules
-dist
+# Ignore node_modules directory
+node_modules/
+
+# Ignore log files
+*.log
+
+# Ignore environment variables file
+.env
+
+# Ignore build directory
+dist/
+build/
+
+# Ignore temporary files
+*.tmp
+*.swp
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db
