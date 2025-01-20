@@ -66,6 +66,7 @@ const campania_entity_1 = __webpack_require__(18);
 const vrc_principal_cliente_entity_1 = __webpack_require__(20);
 const vrc_pagos_entity_1 = __webpack_require__(21);
 const vrc_fotogestion_entity_1 = __webpack_require__(22);
+<<<<<<< HEAD
 const campania_service_1 = __webpack_require__(23);
 const vrc_principal_cliente_service_1 = __webpack_require__(24);
 const vrc_pagos_service_1 = __webpack_require__(25);
@@ -73,12 +74,27 @@ const vrc_fotogestion_service_1 = __webpack_require__(26);
 const maestra_controller_1 = __webpack_require__(27);
 const cargasignacion_service_1 = __webpack_require__(31);
 const cargabases_controller_1 = __webpack_require__(33);
+=======
+const vrc_wspmasivo_entity_1 = __webpack_require__(23);
+const vrc_smsmasivo_entity_1 = __webpack_require__(24);
+const campania_service_1 = __webpack_require__(25);
+const vrc_principal_cliente_service_1 = __webpack_require__(26);
+const vrc_pagos_service_1 = __webpack_require__(27);
+const vrc_fotogestion_service_1 = __webpack_require__(28);
+const vrc_wspmasivo_service_1 = __webpack_require__(29);
+const vrc_smsmasivo_service_1 = __webpack_require__(30);
+const maestra_controller_1 = __webpack_require__(31);
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+<<<<<<< HEAD
             typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity]),
+=======
+            typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity, vrc_wspmasivo_entity_1.ObtenerWspmasivoClt, vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt]),
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 envFilePath: '.env',
@@ -87,8 +103,13 @@ exports.AppModule = AppModule = __decorate([
             }),
             database_module_1.DatabaseModule,
         ],
+<<<<<<< HEAD
         providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService],
         controllers: [app_controller_1.AppController, maestra_controller_1.MaestraController, cargabases_controller_1.ExcelController],
+=======
+        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService],
+        controllers: [app_controller_1.AppController, maestra_controller_1.MaestraController],
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
     })
 ], AppModule);
 
@@ -1003,6 +1024,107 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+<<<<<<< HEAD
+=======
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerWspmasivoClt = void 0;
+const typeorm_1 = __webpack_require__(19);
+let ObtenerWspmasivoClt = exports.ObtenerWspmasivoClt = class ObtenerWspmasivoClt {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], ObtenerWspmasivoClt.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoClt.prototype, "documento", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoClt.prototype, "cuenta", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'date' }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], ObtenerWspmasivoClt.prototype, "fecha", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoClt.prototype, "telefono", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoClt.prototype, "mensaje", void 0);
+exports.ObtenerWspmasivoClt = ObtenerWspmasivoClt = __decorate([
+    (0, typeorm_1.Entity)('ObtenerWspmasivoClt')
+], ObtenerWspmasivoClt);
+
+
+/***/ }),
+/* 24 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerSmsMasivoClt = void 0;
+const typeorm_1 = __webpack_require__(19);
+let ObtenerSmsMasivoClt = exports.ObtenerSmsMasivoClt = class ObtenerSmsMasivoClt {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], ObtenerSmsMasivoClt.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoClt.prototype, "documento", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoClt.prototype, "cuenta", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'date' }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], ObtenerSmsMasivoClt.prototype, "fecha", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoClt.prototype, "telefono", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoClt.prototype, "mensaje", void 0);
+exports.ObtenerSmsMasivoClt = ObtenerSmsMasivoClt = __decorate([
+    (0, typeorm_1.Entity)('ObtenerSmsMasivoClt')
+], ObtenerSmsMasivoClt);
+
+
+/***/ }),
+/* 25 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
@@ -1029,7 +1151,11 @@ exports.CampaignService = CampaignService = __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 24 */
+=======
+/* 26 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1067,7 +1193,11 @@ exports.MainClientService = MainClientService = __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 25 */
+=======
+/* 27 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1109,7 +1239,11 @@ exports.PagosService = PagosService = __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 26 */
+=======
+/* 28 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1154,7 +1288,11 @@ exports.GestionService = GestionService = __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 27 */
+=======
+/* 29 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1170,6 +1308,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+<<<<<<< HEAD
 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MaestraController = void 0;
@@ -1183,10 +1322,114 @@ const vrc_fotogestion_service_1 = __webpack_require__(26);
 const vrc_obtenergestioncliente_dto_1 = __webpack_require__(30);
 let MaestraController = exports.MaestraController = class MaestraController {
     constructor(campaignService, clientMainService, pagosService, gestionService) {
+=======
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerWspmasivoCltService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const vrc_wspmasivo_entity_1 = __webpack_require__(23);
+let ObtenerWspmasivoCltService = exports.ObtenerWspmasivoCltService = class ObtenerWspmasivoCltService {
+    constructor(wspmasivoCltRepository) {
+        this.wspmasivoCltRepository = wspmasivoCltRepository;
+    }
+    async obtenerDatos(dto) {
+        const { dni, num_cta } = dto;
+        return await this.wspmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerWspmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
+    }
+};
+exports.ObtenerWspmasivoCltService = ObtenerWspmasivoCltService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(vrc_wspmasivo_entity_1.ObtenerWspmasivoClt)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], ObtenerWspmasivoCltService);
+
+
+/***/ }),
+/* 30 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerSmsMasivoCltService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const vrc_smsmasivo_entity_1 = __webpack_require__(24);
+let ObtenerSmsMasivoCltService = exports.ObtenerSmsMasivoCltService = class ObtenerSmsMasivoCltService {
+    constructor(smsmasivoCltRepository) {
+        this.smsmasivoCltRepository = smsmasivoCltRepository;
+    }
+    async obtenerDatos(dto) {
+        const { dni, num_cta } = dto;
+        return await this.smsmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerSMSmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
+    }
+};
+exports.ObtenerSmsMasivoCltService = ObtenerSmsMasivoCltService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], ObtenerSmsMasivoCltService);
+
+
+/***/ }),
+/* 31 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.MaestraController = void 0;
+const common_1 = __webpack_require__(2);
+const campania_service_1 = __webpack_require__(25);
+const vrc_obtenercliente_dto_1 = __webpack_require__(32);
+const vrc_principal_cliente_service_1 = __webpack_require__(26);
+const vrc_pagoscliente_dto_1 = __webpack_require__(33);
+const vrc_pagos_service_1 = __webpack_require__(27);
+const vrc_fotogestion_service_1 = __webpack_require__(28);
+const vrc_obtenergestioncliente_dto_1 = __webpack_require__(34);
+const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(35);
+const vrc_wspmasivo_service_1 = __webpack_require__(29);
+const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(36);
+const vrc_smsmasivo_service_1 = __webpack_require__(30);
+let MaestraController = exports.MaestraController = class MaestraController {
+    constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService) {
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
         this.campaignService = campaignService;
         this.clientMainService = clientMainService;
         this.pagosService = pagosService;
         this.gestionService = gestionService;
+<<<<<<< HEAD
+=======
+        this.wspmasivoCltService = wspmasivoCltService;
+        this.smsmasivoCltService = smsmasivoCltService;
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
     }
     async getCampaigns() {
         try {
@@ -1205,6 +1448,15 @@ let MaestraController = exports.MaestraController = class MaestraController {
     async obtenerGestion(obtenerGestionDto) {
         return this.gestionService.obtenerGestion(obtenerGestionDto);
     }
+<<<<<<< HEAD
+=======
+    async obtenerDatosWSP(dto) {
+        return await this.wspmasivoCltService.obtenerDatos(dto);
+    }
+    async obtenerDatosSMS(dto) {
+        return await this.smsmasivoCltService.obtenerDatos(dto);
+    }
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 };
 __decorate([
     (0, common_1.Post)('campaings'),
@@ -1216,31 +1468,67 @@ __decorate([
     (0, common_1.Post)('dataprivate'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
+<<<<<<< HEAD
     __metadata("design:paramtypes", [typeof (_e = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _e : Object]),
     __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+=======
+    __metadata("design:paramtypes", [typeof (_g = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _g : Object]),
+    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 ], MaestraController.prototype, "obtenerDatos", null);
 __decorate([
     (0, common_1.Post)('pagos'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
+<<<<<<< HEAD
     __metadata("design:paramtypes", [typeof (_g = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _g : Object]),
+=======
+    __metadata("design:paramtypes", [typeof (_j = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _j : Object]),
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "getPagos", null);
 __decorate([
     (0, common_1.Post)('gestiones'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
+<<<<<<< HEAD
     __metadata("design:paramtypes", [typeof (_h = typeof vrc_obtenergestioncliente_dto_1.ObtenerGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerGestionDto) === "function" ? _h : Object]),
     __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], MaestraController.prototype, "obtenerGestion", null);
 exports.MaestraController = MaestraController = __decorate([
     (0, common_1.Controller)('maestra'),
     __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object])
+=======
+    __metadata("design:paramtypes", [typeof (_k = typeof vrc_obtenergestioncliente_dto_1.ObtenerGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerGestionDto) === "function" ? _k : Object]),
+    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], MaestraController.prototype, "obtenerGestion", null);
+__decorate([
+    (0, common_1.Post)('wspmasivo'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_m = typeof vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto !== "undefined" && vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto) === "function" ? _m : Object]),
+    __metadata("design:returntype", Promise)
+], MaestraController.prototype, "obtenerDatosWSP", null);
+__decorate([
+    (0, common_1.Post)('smsmasivo'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_o = typeof vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto !== "undefined" && vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto) === "function" ? _o : Object]),
+    __metadata("design:returntype", Promise)
+], MaestraController.prototype, "obtenerDatosSMS", null);
+exports.MaestraController = MaestraController = __decorate([
+    (0, common_1.Controller)('maestra'),
+    __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object, typeof (_e = typeof vrc_wspmasivo_service_1.ObtenerWspmasivoCltService !== "undefined" && vrc_wspmasivo_service_1.ObtenerWspmasivoCltService) === "function" ? _e : Object, typeof (_f = typeof vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService !== "undefined" && vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService) === "function" ? _f : Object])
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 ], MaestraController);
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 28 */
+=======
+/* 32 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1275,7 +1563,11 @@ __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 29 */
+=======
+/* 33 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1315,7 +1607,11 @@ __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 30 */
+=======
+/* 34 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1350,6 +1646,7 @@ __decorate([
 
 
 /***/ }),
+<<<<<<< HEAD
 /* 31 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1616,6 +1913,8 @@ exports.ExcelController = ExcelController = __decorate([
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
+=======
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /* 35 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
@@ -1630,6 +1929,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+<<<<<<< HEAD
 exports.UploadExcelDto = void 0;
 const class_validator_1 = __webpack_require__(9);
 const swagger_1 = __webpack_require__(4);
@@ -1654,10 +1954,60 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UploadExcelDto.prototype, "list_id", void 0);
+=======
+exports.ObtenerWspmasivoCltDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class ObtenerWspmasivoCltDto {
+}
+exports.ObtenerWspmasivoCltDto = ObtenerWspmasivoCltDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoCltDto.prototype, "dni", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerWspmasivoCltDto.prototype, "num_cta", void 0);
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 
 
 /***/ }),
 /* 36 */
+<<<<<<< HEAD
+=======
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerSmsMasivoCltDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class ObtenerSmsMasivoCltDto {
+}
+exports.ObtenerSmsMasivoCltDto = ObtenerSmsMasivoCltDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoCltDto.prototype, "dni", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerSmsMasivoCltDto.prototype, "num_cta", void 0);
+
+
+/***/ }),
+/* 37 */
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -1699,7 +2049,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(1);
 const common_1 = __webpack_require__(2);
 const documentacion_1 = __webpack_require__(3);
+<<<<<<< HEAD
 const bodyParser = __webpack_require__(36);
+=======
+const bodyParser = __webpack_require__(37);
+>>>>>>> 9186b8a851e63817374324f46d3527511554b1b2
 const app_module_1 = __webpack_require__(5);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
