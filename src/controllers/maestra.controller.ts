@@ -14,6 +14,13 @@ import { FotogestionesEntity } from 'src/entities/vrc-fotogestion.entity';
 import { GestionService } from '../services/vrc-fotogestion.service';
 import { ObtenerGestionDto } from 'src/dtos/vrc-obtenergestioncliente.dto';
 
+import { ObtenerWspmasivoClt } from 'src/entities/vrc-wspmasivo.entity';
+import { ObtenerWspmasivoCltDto } from 'src/dtos/vrc-obtenerwspmasivo.dto';
+import { ObtenerWspmasivoCltService } from 'src/services/vrc-wspmasivo.service';
+
+import { ObtenerSmsMasivoCltDto } from 'src/dtos/vrc-obtenersmsmasivo.dto';
+import { ObtenerSmsMasivoClt } from 'src/entities/vrc-smsmasivo.entity';
+import { ObtenerSmsMasivoCltService } from 'src/services/vrc-smsmasivo.service';
 
 @Controller('maestra')
 export class MaestraController {
@@ -21,7 +28,8 @@ export class MaestraController {
               private readonly clientMainService: MainClientService,
               private readonly pagosService: PagosService,
               private readonly gestionService: GestionService,
-
+              private readonly wspmasivoCltService: ObtenerWspmasivoCltService,
+              private readonly smsmasivoCltService: ObtenerSmsMasivoCltService
   ) {}
 
   @Post('campaings')
@@ -48,4 +56,13 @@ export class MaestraController {
     return this.gestionService.obtenerGestion(obtenerGestionDto);
   }
 
+  @Post('wspmasivo')
+  async obtenerDatosWSP(@Body() dto: ObtenerWspmasivoCltDto) {
+    return await this.wspmasivoCltService.obtenerDatos(dto);
+  }
+
+  @Post('smsmasivo')
+  async obtenerDatosSMS(@Body() dto: ObtenerSmsMasivoCltDto) {
+    return await this.smsmasivoCltService.obtenerDatos(dto);
+  }
 }
