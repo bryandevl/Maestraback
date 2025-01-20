@@ -6,6 +6,10 @@ import { MainClientes } from 'src/entities/vrc-principal-cliente.entity';
 import { ObtenerDatosCltDto } from 'src/dtos/vrc-obtenercliente.dto';
 import { MainClientService } from 'src/services/vrc-principal-cliente.service';
 
+import { DatosAdicionalesCltEntity } from 'src/entities/vrc-adicional-cliente.entity';
+import { ObtenerDatosAdicionalesCltDto } from 'src/dtos/vrc-obteneradicionaldatos.dto';
+import { DatosAdicionalCltService } from 'src/services/vrc-adicional-cliente.service';
+
 import { PagosEntity } from 'src/entities/vrc-pagos.entity';
 import { PagosClienteDto } from 'src/dtos/vrc-pagoscliente.dto';
 import { PagosService } from 'src/services/vrc-pagos.service';
@@ -22,6 +26,7 @@ import { ObtenerSmsMasivoCltDto } from 'src/dtos/vrc-obtenersmsmasivo.dto';
 import { ObtenerSmsMasivoClt } from 'src/entities/vrc-smsmasivo.entity';
 import { ObtenerSmsMasivoCltService } from 'src/services/vrc-smsmasivo.service';
 
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -29,7 +34,8 @@ export class MaestraController {
               private readonly pagosService: PagosService,
               private readonly gestionService: GestionService,
               private readonly wspmasivoCltService: ObtenerWspmasivoCltService,
-              private readonly smsmasivoCltService: ObtenerSmsMasivoCltService
+              private readonly smsmasivoCltService: ObtenerSmsMasivoCltService,
+              private readonly DatosAdicionalesService: DatosAdicionalCltService
   ) {}
 
   @Post('campaings')
@@ -65,4 +71,10 @@ export class MaestraController {
   async obtenerDatosSMS(@Body() dto: ObtenerSmsMasivoCltDto) {
     return await this.smsmasivoCltService.obtenerDatos(dto);
   }
+
+  @Post('dataaditional')
+  async obtenerDatosAdicional(@Body() dto: ObtenerDatosAdicionalesCltDto): Promise<DatosAdicionalesCltEntity[]> {
+    return this.DatosAdicionalesService.obtenerDatosPorCampania(dto);
+  }
+
 }
