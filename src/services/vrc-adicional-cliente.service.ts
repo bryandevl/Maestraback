@@ -11,12 +11,19 @@ export class DatosAdicionalCltService {
     private readonly datosAdicionalesRepository: Repository<DatosAdicionalesCltEntity>,
   ) {}
 
-  async obtenerDatosPorCampania(dto: ObtenerDatosAdicionalesCltDto): Promise<DatosAdicionalesCltEntity[]> {
+  async obtenerDatosPorCampania(dto: ObtenerDatosAdicionalesCltDto): Promise<any> {
     const { campania, dni, num_cta } = dto;
-
-    return this.datosAdicionalesRepository.query(
-      `EXEC SP_CR_ObtenerDatosPorCampaña_VRC @campania = ?, @dni = ?, @cta = ?`,
+    try {
+    const resultados = await this.datosAdicionalesRepository.query(
+      `EXEC SP_CR_ObtenerDatosPorCampaña_VRC @campania = @0, @dni = @1, @cta = @2`,
       [campania, dni, num_cta || null],
     );
+
+    return resultados;
+    } catch (error) {
+      // Manejo de errores con logs detallados
+      console.error('Error al ejecutar el procedimiento almacenado:', error.message);
+      throw new Error('No se pudieron obtener los datos. Verifique los parámetros ingresados.');
+    }
   }
 }
