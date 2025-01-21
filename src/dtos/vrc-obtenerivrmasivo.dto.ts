@@ -1,14 +1,11 @@
-// src/dto/vrc-obtenergestioncliente.dto.ts
+// src/dto/vrc-obtenerivrmasivo.dto.ts
 import { IsOptional, IsString } from 'class-validator';
 
-export class ObtenerDetalleGestionDto {
+export class ObtenerIvrMasivoDto {
   @IsString()
   dni: string;
 
   @IsOptional()
   @IsString()
   num_cta?: string;
-
-  @IsString()
-  campania: string;
 }

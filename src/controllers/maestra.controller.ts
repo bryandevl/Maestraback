@@ -16,7 +16,7 @@ import { PagosService } from 'src/services/vrc-pagos.service';
 
 import { FotogestionesEntity } from 'src/entities/vrc-fotogestion.entity';
 import { GestionService } from '../services/vrc-fotogestion.service';
-import { ObtenerGestionDto } from 'src/dtos/vrc-obtenergestioncliente.dto';
+import { ObtenerDetalleGestionDto } from 'src/dtos/vrc-obtenergestioncliente.dto';
 
 import { ObtenerWspmasivoClt } from 'src/entities/vrc-wspmasivo.entity';
 import { ObtenerWspmasivoCltDto } from 'src/dtos/vrc-obtenerwspmasivo.dto';
@@ -25,6 +25,15 @@ import { ObtenerWspmasivoCltService } from 'src/services/vrc-wspmasivo.service';
 import { ObtenerSmsMasivoCltDto } from 'src/dtos/vrc-obtenersmsmasivo.dto';
 import { ObtenerSmsMasivoClt } from 'src/entities/vrc-smsmasivo.entity';
 import { ObtenerSmsMasivoCltService } from 'src/services/vrc-smsmasivo.service';
+
+import { ObtenerDetalleDeudaDto } from 'src/dtos/vrc-obtenerdetalledeuda.dto';
+import { DetalleDeudaCltService } from 'src/services/vrc-detalledeuda.service';
+import { DetalleDeudaCltEntity } from 'src/entities/vrc-detalledeuda.entity';
+
+import { ObtenerIvrMasivoClt } from 'src/entities/vrc-ivrmasivo.entity';
+import { ObtenerIvrMasivoCltService } from 'src/services/vrc-ivrmasivo.service';
+import { ObtenerIvrMasivoDto } from 'src/dtos/vrc-obtenerivrmasivo.dto';
+
 
 
 @Controller('maestra')
@@ -35,7 +44,9 @@ export class MaestraController {
               private readonly gestionService: GestionService,
               private readonly wspmasivoCltService: ObtenerWspmasivoCltService,
               private readonly smsmasivoCltService: ObtenerSmsMasivoCltService,
-              private readonly DatosAdicionalesService: DatosAdicionalCltService
+              private readonly DatosAdicionalesService: DatosAdicionalCltService,
+              private readonly detalleDeudaService: DetalleDeudaCltService,
+              private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService
   ) {}
 
   @Post('campaings')
@@ -58,23 +69,33 @@ export class MaestraController {
   }
 
   @Post('gestiones')
-  async obtenerGestion(@Body() obtenerGestionDto: ObtenerGestionDto): Promise<FotogestionesEntity[]> {
+  async obtenerGestion(@Body() obtenerGestionDto: ObtenerDetalleGestionDto): Promise<FotogestionesEntity[]> {
     return this.gestionService.obtenerGestion(obtenerGestionDto);
   }
 
   @Post('wspmasivo')
   async obtenerDatosWSP(@Body() dto: ObtenerWspmasivoCltDto) {
-    return await this.wspmasivoCltService.obtenerDatos(dto);
+    return await this.wspmasivoCltService.obtenerDatosWsp(dto);
   }
 
   @Post('smsmasivo')
   async obtenerDatosSMS(@Body() dto: ObtenerSmsMasivoCltDto) {
-    return await this.smsmasivoCltService.obtenerDatos(dto);
+    return await this.smsmasivoCltService.obtenerDatosSms(dto);
   }
 
   @Post('dataaditional')
   async obtenerDatosAdicional(@Body() dto: ObtenerDatosAdicionalesCltDto): Promise<DatosAdicionalesCltEntity[]> {
     return this.DatosAdicionalesService.obtenerDatosPorCampania(dto);
+  }
+
+  @Post('detalledeuda')
+  async obtenerDetalleDeuda(@Body() dto: ObtenerDetalleDeudaDto) : Promise<DetalleDeudaCltEntity[]> {
+    return this.detalleDeudaService.obtenerDetalleDeuda(dto);
+  }
+
+  @Post('ivrmasivo')
+  async obtenerDatosIvr(@Body() dto: ObtenerIvrMasivoDto) {
+    return await this.ivrmasivoCltService.obtenerDatosIvr(dto);
   }
 
 }

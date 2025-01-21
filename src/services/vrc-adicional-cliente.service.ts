@@ -19,7 +19,7 @@ export class DatosAdicionalCltService {
       [campania, dni, num_cta || null],
     );
 
-    return resultados;
+    return resultados[0];
     } catch (error) {
       // Manejo de errores con logs detallados
       console.error('Error al ejecutar el procedimiento almacenado:', error.message);
