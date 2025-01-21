@@ -64,25 +64,29 @@ const Joi = __webpack_require__(17);
 const typeorm_1 = __webpack_require__(14);
 const campania_entity_1 = __webpack_require__(18);
 const vrc_principal_cliente_entity_1 = __webpack_require__(20);
-const vrc_pagos_entity_1 = __webpack_require__(21);
-const vrc_fotogestion_entity_1 = __webpack_require__(22);
-const vrc_wspmasivo_entity_1 = __webpack_require__(23);
-const vrc_smsmasivo_entity_1 = __webpack_require__(24);
-const campania_service_1 = __webpack_require__(25);
-const vrc_principal_cliente_service_1 = __webpack_require__(26);
-const vrc_pagos_service_1 = __webpack_require__(27);
-const vrc_fotogestion_service_1 = __webpack_require__(28);
-const vrc_wspmasivo_service_1 = __webpack_require__(29);
-const vrc_smsmasivo_service_1 = __webpack_require__(30);
-const maestra_controller_1 = __webpack_require__(31);
-const cargasignacion_service_1 = __webpack_require__(37);
-const cargabases_controller_1 = __webpack_require__(39);
+const vrc_adicional_cliente_entity_1 = __webpack_require__(21);
+const vrc_pagos_entity_1 = __webpack_require__(22);
+const vrc_fotogestion_entity_1 = __webpack_require__(23);
+const vrc_wspmasivo_entity_1 = __webpack_require__(24);
+const vrc_smsmasivo_entity_1 = __webpack_require__(25);
+const campania_service_1 = __webpack_require__(26);
+const vrc_principal_cliente_service_1 = __webpack_require__(27);
+const vrc_adicional_cliente_service_1 = __webpack_require__(28);
+const vrc_pagos_service_1 = __webpack_require__(29);
+const vrc_fotogestion_service_1 = __webpack_require__(30);
+const vrc_wspmasivo_service_1 = __webpack_require__(31);
+const vrc_smsmasivo_service_1 = __webpack_require__(32);
+const maestra_controller_1 = __webpack_require__(33);
+const cargasignacion_service_1 = __webpack_require__(40);
+const cargabases_controller_1 = __webpack_require__(42);
+const pagos_service_1 = __webpack_require__(44);
+const fr_pagos_entity_1 = __webpack_require__(47);
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity, vrc_wspmasivo_entity_1.ObtenerWspmasivoClt, vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt]),
+            typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity, vrc_wspmasivo_entity_1.ObtenerWspmasivoClt, vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt, vrc_adicional_cliente_entity_1.DatosAdicionalesCltEntity, fr_pagos_entity_1.FrPagos]),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 envFilePath: '.env',
@@ -91,7 +95,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             database_module_1.DatabaseModule,
         ],
-        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService],
+        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, pagos_service_1.FrPagosService],
         controllers: [app_controller_1.AppController, maestra_controller_1.MaestraController, cargabases_controller_1.ExcelController],
     })
 ], AppModule);
@@ -877,6 +881,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DatosAdicionalesCltEntity = void 0;
+const typeorm_1 = __webpack_require__(19);
+let DatosAdicionalesCltEntity = exports.DatosAdicionalesCltEntity = class DatosAdicionalesCltEntity {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], DatosAdicionalesCltEntity.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DatosAdicionalesCltEntity.prototype, "dni", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DatosAdicionalesCltEntity.prototype, "num_cta", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], DatosAdicionalesCltEntity.prototype, "campania", void 0);
+exports.DatosAdicionalesCltEntity = DatosAdicionalesCltEntity = __decorate([
+    (0, typeorm_1.Entity)({ name: 'SP_CR_ObtenerDatosPorCampaña_VRC' })
+], DatosAdicionalesCltEntity);
+
+
+/***/ }),
+/* 22 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PagosEntity = void 0;
@@ -921,7 +965,7 @@ exports.PagosEntity = PagosEntity = __decorate([
 
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -994,7 +1038,7 @@ exports.FotogestionesEntity = FotogestionesEntity = __decorate([
 
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1043,7 +1087,7 @@ exports.ObtenerWspmasivoClt = ObtenerWspmasivoClt = __decorate([
 
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1092,7 +1136,7 @@ exports.ObtenerSmsMasivoClt = ObtenerSmsMasivoClt = __decorate([
 
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1131,7 +1175,7 @@ exports.CampaignService = CampaignService = __decorate([
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1169,7 +1213,54 @@ exports.MainClientService = MainClientService = __decorate([
 
 
 /***/ }),
-/* 27 */
+/* 28 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DatosAdicionalCltService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const vrc_adicional_cliente_entity_1 = __webpack_require__(21);
+let DatosAdicionalCltService = exports.DatosAdicionalCltService = class DatosAdicionalCltService {
+    constructor(datosAdicionalesRepository) {
+        this.datosAdicionalesRepository = datosAdicionalesRepository;
+    }
+    async obtenerDatosPorCampania(dto) {
+        const { campania, dni, num_cta } = dto;
+        try {
+            const resultados = await this.datosAdicionalesRepository.query(`EXEC SP_CR_ObtenerDatosPorCampaña_VRC @campania = @0, @dni = @1, @cta = @2`, [campania, dni, num_cta || null]);
+            return resultados;
+        }
+        catch (error) {
+            console.error('Error al ejecutar el procedimiento almacenado:', error.message);
+            throw new Error('No se pudieron obtener los datos. Verifique los parámetros ingresados.');
+        }
+    }
+};
+exports.DatosAdicionalCltService = DatosAdicionalCltService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(vrc_adicional_cliente_entity_1.DatosAdicionalesCltEntity)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], DatosAdicionalCltService);
+
+
+/***/ }),
+/* 29 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1190,7 +1281,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PagosService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const vrc_pagos_entity_1 = __webpack_require__(21);
+const vrc_pagos_entity_1 = __webpack_require__(22);
 const typeorm_2 = __webpack_require__(14);
 let PagosService = exports.PagosService = class PagosService {
     constructor(pagosRepository) {
@@ -1211,7 +1302,7 @@ exports.PagosService = PagosService = __decorate([
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1256,7 +1347,7 @@ exports.GestionService = GestionService = __decorate([
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1278,7 +1369,7 @@ exports.ObtenerWspmasivoCltService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
-const vrc_wspmasivo_entity_1 = __webpack_require__(23);
+const vrc_wspmasivo_entity_1 = __webpack_require__(24);
 let ObtenerWspmasivoCltService = exports.ObtenerWspmasivoCltService = class ObtenerWspmasivoCltService {
     constructor(wspmasivoCltRepository) {
         this.wspmasivoCltRepository = wspmasivoCltRepository;
@@ -1296,7 +1387,7 @@ exports.ObtenerWspmasivoCltService = ObtenerWspmasivoCltService = __decorate([
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1318,7 +1409,7 @@ exports.ObtenerSmsMasivoCltService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
-const vrc_smsmasivo_entity_1 = __webpack_require__(24);
+const vrc_smsmasivo_entity_1 = __webpack_require__(25);
 let ObtenerSmsMasivoCltService = exports.ObtenerSmsMasivoCltService = class ObtenerSmsMasivoCltService {
     constructor(smsmasivoCltRepository) {
         this.smsmasivoCltRepository = smsmasivoCltRepository;
@@ -1336,7 +1427,7 @@ exports.ObtenerSmsMasivoCltService = ObtenerSmsMasivoCltService = __decorate([
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1352,29 +1443,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MaestraController = void 0;
 const common_1 = __webpack_require__(2);
-const campania_service_1 = __webpack_require__(25);
-const vrc_obtenercliente_dto_1 = __webpack_require__(32);
-const vrc_principal_cliente_service_1 = __webpack_require__(26);
-const vrc_pagoscliente_dto_1 = __webpack_require__(33);
-const vrc_pagos_service_1 = __webpack_require__(27);
-const vrc_fotogestion_service_1 = __webpack_require__(28);
-const vrc_obtenergestioncliente_dto_1 = __webpack_require__(34);
-const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(35);
-const vrc_wspmasivo_service_1 = __webpack_require__(29);
-const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(36);
-const vrc_smsmasivo_service_1 = __webpack_require__(30);
+const campania_service_1 = __webpack_require__(26);
+const vrc_obtenercliente_dto_1 = __webpack_require__(34);
+const vrc_principal_cliente_service_1 = __webpack_require__(27);
+const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(35);
+const vrc_adicional_cliente_service_1 = __webpack_require__(28);
+const vrc_pagoscliente_dto_1 = __webpack_require__(36);
+const vrc_pagos_service_1 = __webpack_require__(29);
+const vrc_fotogestion_service_1 = __webpack_require__(30);
+const vrc_obtenergestioncliente_dto_1 = __webpack_require__(37);
+const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(38);
+const vrc_wspmasivo_service_1 = __webpack_require__(31);
+const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(39);
+const vrc_smsmasivo_service_1 = __webpack_require__(32);
 let MaestraController = exports.MaestraController = class MaestraController {
-    constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService) {
+    constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService, DatosAdicionalesService) {
         this.campaignService = campaignService;
         this.clientMainService = clientMainService;
         this.pagosService = pagosService;
         this.gestionService = gestionService;
         this.wspmasivoCltService = wspmasivoCltService;
         this.smsmasivoCltService = smsmasivoCltService;
+        this.DatosAdicionalesService = DatosAdicionalesService;
     }
     async getCampaigns() {
         try {
@@ -1399,6 +1493,9 @@ let MaestraController = exports.MaestraController = class MaestraController {
     async obtenerDatosSMS(dto) {
         return await this.smsmasivoCltService.obtenerDatos(dto);
     }
+    async obtenerDatosAdicional(dto) {
+        return this.DatosAdicionalesService.obtenerDatosPorCampania(dto);
+    }
 };
 __decorate([
     (0, common_1.Post)('campaings'),
@@ -1410,45 +1507,52 @@ __decorate([
     (0, common_1.Post)('dataprivate'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _g : Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    __metadata("design:paramtypes", [typeof (_h = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], MaestraController.prototype, "obtenerDatos", null);
 __decorate([
     (0, common_1.Post)('pagos'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_j = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _j : Object]),
+    __metadata("design:paramtypes", [typeof (_k = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _k : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "getPagos", null);
 __decorate([
     (0, common_1.Post)('gestiones'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof vrc_obtenergestioncliente_dto_1.ObtenerGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerGestionDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    __metadata("design:paramtypes", [typeof (_l = typeof vrc_obtenergestioncliente_dto_1.ObtenerGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerGestionDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], MaestraController.prototype, "obtenerGestion", null);
 __decorate([
     (0, common_1.Post)('wspmasivo'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto !== "undefined" && vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto) === "function" ? _m : Object]),
+    __metadata("design:paramtypes", [typeof (_o = typeof vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto !== "undefined" && vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto) === "function" ? _o : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "obtenerDatosWSP", null);
 __decorate([
     (0, common_1.Post)('smsmasivo'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_o = typeof vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto !== "undefined" && vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto) === "function" ? _o : Object]),
+    __metadata("design:paramtypes", [typeof (_p = typeof vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto !== "undefined" && vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto) === "function" ? _p : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "obtenerDatosSMS", null);
+__decorate([
+    (0, common_1.Post)('dataaditional'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_q = typeof vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto !== "undefined" && vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto) === "function" ? _q : Object]),
+    __metadata("design:returntype", typeof (_r = typeof Promise !== "undefined" && Promise) === "function" ? _r : Object)
+], MaestraController.prototype, "obtenerDatosAdicional", null);
 exports.MaestraController = MaestraController = __decorate([
     (0, common_1.Controller)('maestra'),
-    __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object, typeof (_e = typeof vrc_wspmasivo_service_1.ObtenerWspmasivoCltService !== "undefined" && vrc_wspmasivo_service_1.ObtenerWspmasivoCltService) === "function" ? _e : Object, typeof (_f = typeof vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService !== "undefined" && vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService) === "function" ? _f : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object, typeof (_e = typeof vrc_wspmasivo_service_1.ObtenerWspmasivoCltService !== "undefined" && vrc_wspmasivo_service_1.ObtenerWspmasivoCltService) === "function" ? _e : Object, typeof (_f = typeof vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService !== "undefined" && vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService) === "function" ? _f : Object, typeof (_g = typeof vrc_adicional_cliente_service_1.DatosAdicionalCltService !== "undefined" && vrc_adicional_cliente_service_1.DatosAdicionalCltService) === "function" ? _g : Object])
 ], MaestraController);
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1483,7 +1587,42 @@ __decorate([
 
 
 /***/ }),
-/* 33 */
+/* 35 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerDatosAdicionalesCltDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class ObtenerDatosAdicionalesCltDto {
+}
+exports.ObtenerDatosAdicionalesCltDto = ObtenerDatosAdicionalesCltDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerDatosAdicionalesCltDto.prototype, "dni", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerDatosAdicionalesCltDto.prototype, "num_cta", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerDatosAdicionalesCltDto.prototype, "campania", void 0);
+
+
+/***/ }),
+/* 36 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1523,7 +1662,7 @@ __decorate([
 
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1558,7 +1697,7 @@ __decorate([
 
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1589,7 +1728,7 @@ __decorate([
 
 
 /***/ }),
-/* 36 */
+/* 39 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1620,7 +1759,7 @@ __decorate([
 
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1638,7 +1777,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const XLSX = __webpack_require__(38);
+const XLSX = __webpack_require__(41);
 let ExcelService = exports.ExcelService = class ExcelService {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -1823,13 +1962,13 @@ exports.ExcelService = ExcelService = __decorate([
 
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ ((module) => {
 
 module.exports = require("xlsx");
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1845,16 +1984,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelController = void 0;
 const common_1 = __webpack_require__(2);
-const platform_express_1 = __webpack_require__(40);
-const cargasignacion_service_1 = __webpack_require__(37);
-const uploadExece_dto_1 = __webpack_require__(41);
+const platform_express_1 = __webpack_require__(43);
+const cargasignacion_service_1 = __webpack_require__(40);
+const pagos_service_1 = __webpack_require__(44);
+const uploadExece_dto_1 = __webpack_require__(45);
+const pagos_dto_1 = __webpack_require__(46);
 let ExcelController = exports.ExcelController = class ExcelController {
-    constructor(excelService) {
+    constructor(excelService, pagosService) {
         this.excelService = excelService;
+        this.pagosService = pagosService;
     }
     async uploadExcel(uploadExcelDto, file) {
         if (!file) {
@@ -1863,6 +2005,10 @@ let ExcelController = exports.ExcelController = class ExcelController {
         const { campaign_id, list_id } = uploadExcelDto;
         return this.excelService.processExcel(file, campaign_id, list_id);
     }
+    async uploadFile(file, body) {
+        const { list_id, cCAMPAIGN_ID } = body;
+        return this.pagosService.uploadFile(file, list_id, cCAMPAIGN_ID);
+    }
 };
 __decorate([
     (0, common_1.Post)('upload'),
@@ -1870,23 +2016,214 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _b : Object, typeof (_d = typeof Express !== "undefined" && (_c = Express.Multer) !== void 0 && _c.File) === "function" ? _d : Object]),
+    __metadata("design:paramtypes", [typeof (_c = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _c : Object, typeof (_e = typeof Express !== "undefined" && (_d = Express.Multer) !== void 0 && _d.File) === "function" ? _e : Object]),
     __metadata("design:returntype", Promise)
 ], ExcelController.prototype, "uploadExcel", null);
+__decorate([
+    (0, common_1.Post)('Pagos'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof Express !== "undefined" && (_f = Express.Multer) !== void 0 && _f.File) === "function" ? _g : Object, typeof (_h = typeof pagos_dto_1.UploadDto !== "undefined" && pagos_dto_1.UploadDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", Promise)
+], ExcelController.prototype, "uploadFile", null);
 exports.ExcelController = ExcelController = __decorate([
     (0, common_1.Controller)('excel'),
-    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object, typeof (_b = typeof pagos_service_1.FrPagosService !== "undefined" && pagos_service_1.FrPagosService) === "function" ? _b : Object])
 ], ExcelController);
 
 
 /***/ }),
-/* 40 */
+/* 43 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 41 */
+/* 44 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var FrPagosService_1;
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FrPagosService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(19);
+const xlsx = __webpack_require__(41);
+let FrPagosService = exports.FrPagosService = FrPagosService_1 = class FrPagosService {
+    constructor(dataSource) {
+        this.dataSource = dataSource;
+        this.logger = new common_1.Logger(FrPagosService_1.name);
+    }
+    async uploadFile(file, list_id, cCAMPAIGN_ID) {
+        const { headers, rows } = this.parseExcel(file.buffer);
+        const fieldMapping = {
+            'CAMPAÑA': 'cCAMPAIGN_ID',
+            'NUM_CUENTA': 'cNUM_CUENTA',
+            'NUM_DOCUMENTO': 'cNUM_DOCUMENTO',
+            'OBSERVACION': 'cOBSERVACION',
+            'PERIODO': 'cPERIODO',
+            'CUOTA': 'cCUOTA',
+            'FECHA_PAGO': 'dFECHA_PAGO',
+            'MONEDA': 'nMONEDA',
+            'MONTO': 'nMONTO',
+            'MONTO_CONSIDERADO': 'nMONTO_CONSIDERADO',
+            'ACTIVO': 'nSTATUS',
+        };
+        const matchedColumns = headers
+            .filter((header) => fieldMapping[header])
+            .map((header) => fieldMapping[header]);
+        matchedColumns.push('list_id', 'cCAMPAIGN_ID', 'dFECHA_CARGA_CSV');
+        const validRows = [];
+        const errors = [];
+        let totalInsertedRecords = 0;
+        for (const [rowIndex, row] of rows.entries()) {
+            try {
+                const mappedRow = headers.map((header, index) => {
+                    const columnName = fieldMapping[header];
+                    if (!columnName)
+                        return null;
+                    const columnType = this.getColumnType(columnName);
+                    return this.validateAndConvert(row[index] || null, columnType, columnName, rowIndex);
+                });
+                const currentDateTime = this.getLocalDateTime();
+                mappedRow.push(list_id, cCAMPAIGN_ID, currentDateTime);
+                validRows.push(mappedRow);
+            }
+            catch (error) {
+                errors.push({ row: rowIndex + 2, error: error.message });
+            }
+        }
+        console.log(`Total de filas válidas: ${validRows.length}`);
+        console.log(`Errores durante la validación: ${JSON.stringify(errors)}`);
+        const BATCH_SIZE = 500;
+        const batches = [];
+        for (let i = 0; i < validRows.length; i += BATCH_SIZE) {
+            batches.push(validRows.slice(i, i + BATCH_SIZE));
+        }
+        for (const batch of batches) {
+            const insertColumns = matchedColumns.join(', ');
+            const valuesStatements = batch
+                .map((row) => `(${row
+                .map((value) => {
+                if (value === null || value === undefined || Number.isNaN(value))
+                    return 'NULL';
+                if (typeof value === 'string') {
+                    return `'${value.replace(/'/g, "''")}'`;
+                }
+                return value;
+            })
+                .join(', ')})`)
+                .join(', ');
+            const sqlQuery = `
+        INSERT INTO FR_PAGOS (${insertColumns})
+        VALUES ${valuesStatements};
+      `;
+            try {
+                console.log(`Ejecutando batch con ${batch.length} registros.`);
+                await this.dataSource.query(sqlQuery);
+                totalInsertedRecords += batch.length;
+            }
+            catch (error) {
+                console.error(`Error en batch: ${error.message}`);
+                errors.push({ row: 'N/A', error: error.message });
+            }
+        }
+        console.log(`Total de registros insertados: ${totalInsertedRecords}`);
+        return errors.length > 0
+            ? `Datos insertados parcialmente (${totalInsertedRecords} registros insertados). Revisa el log para más detalles.`
+            : `Datos insertados correctamente. Total de registros insertados: ${totalInsertedRecords}.`;
+    }
+    parseExcel(buffer) {
+        try {
+            const workbook = xlsx.read(buffer, { type: 'buffer' });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+            if (!data || data.length === 0) {
+                throw new Error('El archivo Excel está vacío o no es válido.');
+            }
+            const headers = data[0];
+            const rows = data.slice(1);
+            return { headers, rows };
+        }
+        catch (error) {
+            this.logger.error(`Error al procesar el archivo Excel: ${error.message}`);
+            throw new Error('Error al procesar el archivo Excel.');
+        }
+    }
+    getColumnType(columnName) {
+        const columnDetails = {
+            cCAMPAIGN_ID: { dataType: 'varchar', maxLength: 50 },
+            cNUM_CUENTA: { dataType: 'varchar', maxLength: 50 },
+            cNUM_DOCUMENTO: { dataType: 'varchar', maxLength: 50 },
+            cOBSERVACION: { dataType: 'varchar', maxLength: 50 },
+            cPERIODO: { dataType: 'varchar', maxLength: 7 },
+            cCUOTA: { dataType: 'varchar', maxLength: 20 },
+            dFECHA_PAGO: { dataType: 'datetime', maxLength: null },
+            nMONEDA: { dataType: 'int', maxLength: null },
+            nMONTO: { dataType: 'decimal', maxLength: null },
+            nMONTO_CONSIDERADO: { dataType: 'decimal', maxLength: null },
+            nSTATUS: { dataType: 'int', maxLength: null },
+            dFECHA_CARGA_CSV: { dataType: 'datetime', maxLength: null },
+        };
+        return columnDetails[columnName];
+    }
+    validateAndConvert(value, column, columnName, rowIndex) {
+        if (value === null || value === undefined) {
+            return null;
+        }
+        switch (column.dataType) {
+            case 'varchar':
+                if (column.maxLength && value.length > column.maxLength) {
+                    throw new Error(`El valor '${value}' excede la longitud máxima (${column.maxLength}) para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return value.toString();
+            case 'decimal':
+                const numericValue = parseFloat(value);
+                if (isNaN(numericValue)) {
+                    throw new Error(`El valor '${value}' no es un número válido para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return numericValue;
+            case 'int':
+                const intValue = parseInt(value, 10);
+                if (isNaN(intValue)) {
+                    throw new Error(`El valor '${value}' no es un número entero válido para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return intValue;
+            case 'datetime':
+                const dateValue = new Date(value);
+                if (isNaN(dateValue.getTime())) {
+                    throw new Error(`El valor '${value}' no es una fecha válida para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return dateValue.toISOString();
+            default:
+                return value;
+        }
+    }
+    getLocalDateTime() {
+        return new Date().toISOString();
+    }
+};
+exports.FrPagosService = FrPagosService = FrPagosService_1 = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.DataSource !== "undefined" && typeorm_1.DataSource) === "function" ? _a : Object])
+], FrPagosService);
+
+
+/***/ }),
+/* 45 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1927,7 +2264,122 @@ __decorate([
 
 
 /***/ }),
-/* 42 */
+/* 46 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class UploadDto {
+}
+exports.UploadDto = UploadDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UploadDto.prototype, "list_id", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UploadDto.prototype, "cCAMPAIGN_ID", void 0);
+
+
+/***/ }),
+/* 47 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b, _c, _d;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FrPagos = void 0;
+const typeorm_1 = __webpack_require__(19);
+let FrPagos = exports.FrPagos = class FrPagos {
+};
+__decorate([
+    (0, typeorm_1.PrimaryColumn)(),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cNUM_CUENTA", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cCAMPAIGN_ID", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cNUM_DOCUMENTO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cOBSERVACION", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cPERIODO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "cCUOTA", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'datetime', nullable: true }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], FrPagos.prototype, "dFECHA_PAGO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'int', nullable: true }),
+    __metadata("design:type", Number)
+], FrPagos.prototype, "nMONEDA", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'decimal', precision: 18, scale: 2, nullable: true }),
+    __metadata("design:type", Number)
+], FrPagos.prototype, "nMONTO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'decimal', precision: 18, scale: 2, nullable: true }),
+    __metadata("design:type", Number)
+], FrPagos.prototype, "nMONTO_CONSIDERADO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'int', nullable: true }),
+    __metadata("design:type", Number)
+], FrPagos.prototype, "nSTATUS", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'datetime', nullable: true }),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], FrPagos.prototype, "dFECHA_REGISTRO", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'datetime', nullable: true }),
+    __metadata("design:type", typeof (_c = typeof Date !== "undefined" && Date) === "function" ? _c : Object)
+], FrPagos.prototype, "dFECHA_MODIFICACION", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], FrPagos.prototype, "list_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ type: 'datetime', nullable: true }),
+    __metadata("design:type", typeof (_d = typeof Date !== "undefined" && Date) === "function" ? _d : Object)
+], FrPagos.prototype, "dFECHA_CARGA_CSV", void 0);
+exports.FrPagos = FrPagos = __decorate([
+    (0, typeorm_1.Entity)('FR_PAGOS')
+], FrPagos);
+
+
+/***/ }),
+/* 48 */
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -1969,7 +2421,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(1);
 const common_1 = __webpack_require__(2);
 const documentacion_1 = __webpack_require__(3);
-const bodyParser = __webpack_require__(42);
+const bodyParser = __webpack_require__(48);
 const app_module_1 = __webpack_require__(5);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);

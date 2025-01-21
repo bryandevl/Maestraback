@@ -30,11 +30,14 @@ import { ExcelService } from './services/cargasignacion.service';
 import {ExcelController} from './controllers/cargabases.controller';
 
 
+import { FrPagosService } from './services/pagos.service';
+import { FrPagos } from './entities/fr-pagos.entity';
+
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity]), // Especificamos la conexión 'primary'
+    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,FrPagos]), // Especificamos la conexión 'primary'
     ConfigModule.forRoot({
       // * Definimos que es global
       isGlobal: true,
@@ -46,7 +49,7 @@ import {ExcelController} from './controllers/cargabases.controller';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,FrPagosService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}
