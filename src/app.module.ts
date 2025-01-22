@@ -28,6 +28,7 @@ import { ObtenerSmsMasivoCltService } from './services/vrc-smsmasivo.service';
 import { DetalleDeudaCltService } from './services/vrc-detalledeuda.service';
 import { ObtenerIvrMasivoCltService } from './services/vrc-ivrmasivo.service';
 import { FrPagosService } from './services/pagos.service';
+import { MascaraService } from './services/frmascara.service';
 
 import { MaestraController } from './controllers/maestra.controller';
 
@@ -51,7 +52,7 @@ import {ExcelController} from './controllers/cargabases.controller';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}

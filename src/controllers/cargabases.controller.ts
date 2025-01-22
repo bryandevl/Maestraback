@@ -9,6 +9,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ExcelService } from 'src/services/cargasignacion.service';
 import { FrPagosService } from 'src/services/pagos.service';
+import { MascaraService } from 'src/services/frmascara.service';
 import { UploadExcelDto } from 'src/dtos/uploadExece.dto';
 import { UploadDto } from 'src/dtos/pagos.dto';
 import * as XLSX from 'xlsx';
@@ -17,6 +18,7 @@ import * as XLSX from 'xlsx';
 export class ExcelController {
   constructor(private readonly excelService: ExcelService,
     private readonly pagosService: FrPagosService,
+    private readonly mascaraService: MascaraService
   ) {}
 
   @Post('upload')
@@ -45,4 +47,30 @@ export class ExcelController {
     const { list_id, cCAMPAIGN_ID } = body;
     return this.pagosService.uploadFile(file, list_id, cCAMPAIGN_ID);
   }
+
+
+
+  @Post('Mascara')
+  @UseInterceptors(FileInterceptor('file'))
+  async MascaraExcel(
+    @Body() uploadExcelDto: UploadExcelDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    if (!file) {
+      throw new BadRequestException('No se subió ningún archivo');
+    }
+
+    const { campaign_id, list_id } = uploadExcelDto;
+
+    // Llamar al servicio para procesar el archivo
+    return this.mascaraService.processExcel(file, campaign_id, list_id);
+  }
+
+
+
+
+
+
+
+
 }
