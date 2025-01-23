@@ -13,11 +13,26 @@ export class ObtenerIvrMasivoCltService {
   ) {}
 
 
-   async obtenerDatosIvr(dto: ObtenerIvrMasivoDto): Promise<ObtenerIvrMasivoClt[]> {
-      const { dni, num_cta } = dto;
-      return await this.ivrmasivoCltRepository.query(
-        `EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`,
-        [dni, num_cta || null],
-      );
-    }
+  async obtenerDatosIvr(dto: ObtenerIvrMasivoDto): Promise<any[]> {
+    const { dni, num_cta } = dto;
+  
+    // Realizar la consulta a la base de datos
+    const resultados = await this.ivrmasivoCltRepository.query(
+      `EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`,
+      [dni, num_cta || null],
+    );
+  
+    // Formatear los resultados para ajustar FEC_GESTION y HOR_GESTION
+    return resultados.map((resultado: any) => {
+      return {
+        ...resultado,
+        FEC_GESTION: resultado.FEC_GESTION
+          ? new Date(resultado.FEC_GESTION).toISOString().split('T')[0] // Solo la fecha
+          : null,
+        HOR_GESTION: resultado.HOR_GESTION
+          ? new Date(resultado.HOR_GESTION).toTimeString().split(' ')[0] // Solo la hora
+          : null,
+      };
+    });
+  }
 }
