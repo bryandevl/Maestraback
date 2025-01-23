@@ -79,9 +79,10 @@ const vrc_wspmasivo_service_1 = __webpack_require__(33);
 const vrc_smsmasivo_service_1 = __webpack_require__(34);
 const vrc_detalledeuda_service_1 = __webpack_require__(35);
 const vrc_ivrmasivo_service_1 = __webpack_require__(36);
-const maestra_controller_1 = __webpack_require__(37);
-const cargasignacion_service_1 = __webpack_require__(46);
-const cargabases_controller_1 = __webpack_require__(48);
+const pagos_service_1 = __webpack_require__(37);
+const maestra_controller_1 = __webpack_require__(39);
+const cargasignacion_service_1 = __webpack_require__(48);
+const cargabases_controller_1 = __webpack_require__(49);
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -97,7 +98,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             database_module_1.DatabaseModule,
         ],
-        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, vrc_detalledeuda_service_1.DetalleDeudaCltService, vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService],
+        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService, vrc_detalledeuda_service_1.DetalleDeudaCltService, pagos_service_1.FrPagosService],
         controllers: [app_controller_1.AppController, maestra_controller_1.MaestraController, cargabases_controller_1.ExcelController],
     })
 ], AppModule);
@@ -1642,6 +1643,195 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var FrPagosService_1;
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.FrPagosService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(19);
+const xlsx = __webpack_require__(38);
+let FrPagosService = FrPagosService_1 = class FrPagosService {
+    constructor(dataSource) {
+        this.dataSource = dataSource;
+        this.logger = new common_1.Logger(FrPagosService_1.name);
+    }
+    async uploadFile(file, list_id, cCAMPAIGN_ID) {
+        const { headers, rows } = this.parseExcel(file.buffer);
+        const fieldMapping = {
+            'CAMPAÑA': 'cCAMPAIGN_ID',
+            'NUM_CUENTA': 'cNUM_CUENTA',
+            'NUM_DOCUMENTO': 'cNUM_DOCUMENTO',
+            'OBSERVACION': 'cOBSERVACION',
+            'PERIODO': 'cPERIODO',
+            'CUOTA': 'cCUOTA',
+            'FECHA_PAGO': 'dFECHA_PAGO',
+            'MONEDA': 'nMONEDA',
+            'MONTO': 'nMONTO',
+            'MONTO_CONSIDERADO': 'nMONTO_CONSIDERADO',
+            'ACTIVO': 'nSTATUS',
+        };
+        const matchedColumns = headers
+            .filter((header) => fieldMapping[header])
+            .map((header) => fieldMapping[header]);
+        matchedColumns.push('list_id', 'cCAMPAIGN_ID', 'dFECHA_CARGA_CSV');
+        const validRows = [];
+        const errors = [];
+        let totalInsertedRecords = 0;
+        for (const [rowIndex, row] of rows.entries()) {
+            try {
+                const mappedRow = headers.map((header, index) => {
+                    const columnName = fieldMapping[header];
+                    if (!columnName)
+                        return null;
+                    const columnType = this.getColumnType(columnName);
+                    return this.validateAndConvert(row[index] || null, columnType, columnName, rowIndex);
+                });
+                const currentDateTime = this.getLocalDateTime();
+                mappedRow.push(list_id, cCAMPAIGN_ID, currentDateTime);
+                validRows.push(mappedRow);
+            }
+            catch (error) {
+                errors.push({ row: rowIndex + 2, error: error.message });
+            }
+        }
+        console.log(`Total de filas válidas: ${validRows.length}`);
+        console.log(`Errores durante la validación: ${JSON.stringify(errors)}`);
+        const BATCH_SIZE = 500;
+        const batches = [];
+        for (let i = 0; i < validRows.length; i += BATCH_SIZE) {
+            batches.push(validRows.slice(i, i + BATCH_SIZE));
+        }
+        for (const batch of batches) {
+            const insertColumns = matchedColumns.join(', ');
+            const valuesStatements = batch
+                .map((row) => `(${row
+                .map((value) => {
+                if (value === null || value === undefined || Number.isNaN(value))
+                    return 'NULL';
+                if (typeof value === 'string') {
+                    return `'${value.replace(/'/g, "''")}'`;
+                }
+                return value;
+            })
+                .join(', ')})`)
+                .join(', ');
+            const sqlQuery = `
+        INSERT INTO FR_PAGOS (${insertColumns})
+        VALUES ${valuesStatements};
+      `;
+            try {
+                console.log(`Ejecutando batch con ${batch.length} registros.`);
+                await this.dataSource.query(sqlQuery);
+                totalInsertedRecords += batch.length;
+            }
+            catch (error) {
+                console.error(`Error en batch: ${error.message}`);
+                errors.push({ row: 'N/A', error: error.message });
+            }
+        }
+        console.log(`Total de registros insertados: ${totalInsertedRecords}`);
+        return errors.length > 0
+            ? `Datos insertados parcialmente (${totalInsertedRecords} registros insertados). Revisa el log para más detalles.`
+            : `Datos insertados correctamente. Total de registros insertados: ${totalInsertedRecords}.`;
+    }
+    parseExcel(buffer) {
+        try {
+            const workbook = xlsx.read(buffer, { type: 'buffer' });
+            const sheetName = workbook.SheetNames[0];
+            const sheet = workbook.Sheets[sheetName];
+            const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+            if (!data || data.length === 0) {
+                throw new Error('El archivo Excel está vacío o no es válido.');
+            }
+            const headers = data[0];
+            const rows = data.slice(1);
+            return { headers, rows };
+        }
+        catch (error) {
+            this.logger.error(`Error al procesar el archivo Excel: ${error.message}`);
+            throw new Error('Error al procesar el archivo Excel.');
+        }
+    }
+    getColumnType(columnName) {
+        const columnDetails = {
+            cCAMPAIGN_ID: { dataType: 'varchar', maxLength: 50 },
+            cNUM_CUENTA: { dataType: 'varchar', maxLength: 50 },
+            cNUM_DOCUMENTO: { dataType: 'varchar', maxLength: 50 },
+            cOBSERVACION: { dataType: 'varchar', maxLength: 50 },
+            cPERIODO: { dataType: 'varchar', maxLength: 7 },
+            cCUOTA: { dataType: 'varchar', maxLength: 20 },
+            dFECHA_PAGO: { dataType: 'datetime', maxLength: null },
+            nMONEDA: { dataType: 'int', maxLength: null },
+            nMONTO: { dataType: 'decimal', maxLength: null },
+            nMONTO_CONSIDERADO: { dataType: 'decimal', maxLength: null },
+            nSTATUS: { dataType: 'int', maxLength: null },
+            dFECHA_CARGA_CSV: { dataType: 'datetime', maxLength: null },
+        };
+        return columnDetails[columnName];
+    }
+    validateAndConvert(value, column, columnName, rowIndex) {
+        if (value === null || value === undefined) {
+            return null;
+        }
+        switch (column.dataType) {
+            case 'varchar':
+                if (column.maxLength && value.length > column.maxLength) {
+                    throw new Error(`El valor '${value}' excede la longitud máxima (${column.maxLength}) para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return value.toString();
+            case 'decimal':
+                const numericValue = parseFloat(value);
+                if (isNaN(numericValue)) {
+                    throw new Error(`El valor '${value}' no es un número válido para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return numericValue;
+            case 'int':
+                const intValue = parseInt(value, 10);
+                if (isNaN(intValue)) {
+                    throw new Error(`El valor '${value}' no es un número entero válido para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return intValue;
+            case 'datetime':
+                const dateValue = new Date(value);
+                if (isNaN(dateValue.getTime())) {
+                    throw new Error(`El valor '${value}' no es una fecha válida para la columna '${columnName}' en la fila ${rowIndex + 2}.`);
+                }
+                return dateValue.toISOString();
+            default:
+                return value;
+        }
+    }
+    getLocalDateTime() {
+        return new Date().toISOString();
+    }
+};
+exports.FrPagosService = FrPagosService;
+exports.FrPagosService = FrPagosService = FrPagosService_1 = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.DataSource !== "undefined" && typeorm_1.DataSource) === "function" ? _a : Object])
+], FrPagosService);
+
+
+/***/ }),
+/* 38 */
+/***/ ((module) => {
+
+module.exports = require("xlsx");
+
+/***/ }),
+/* 39 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
@@ -1650,22 +1840,22 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MaestraController = void 0;
 const common_1 = __webpack_require__(2);
 const campania_service_1 = __webpack_require__(28);
-const vrc_obtenercliente_dto_1 = __webpack_require__(38);
+const vrc_obtenercliente_dto_1 = __webpack_require__(40);
 const vrc_principal_cliente_service_1 = __webpack_require__(29);
-const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(39);
+const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(41);
 const vrc_adicional_cliente_service_1 = __webpack_require__(30);
-const vrc_pagoscliente_dto_1 = __webpack_require__(40);
+const vrc_pagoscliente_dto_1 = __webpack_require__(42);
 const vrc_pagos_service_1 = __webpack_require__(31);
 const vrc_fotogestion_service_1 = __webpack_require__(32);
-const vrc_obtenergestioncliente_dto_1 = __webpack_require__(41);
-const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(42);
+const vrc_obtenergestioncliente_dto_1 = __webpack_require__(43);
+const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(44);
 const vrc_wspmasivo_service_1 = __webpack_require__(33);
-const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(43);
+const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(45);
 const vrc_smsmasivo_service_1 = __webpack_require__(34);
-const vrc_obtenerdetalledeuda_dto_1 = __webpack_require__(44);
+const vrc_obtenerdetalledeuda_dto_1 = __webpack_require__(46);
 const vrc_detalledeuda_service_1 = __webpack_require__(35);
 const vrc_ivrmasivo_service_1 = __webpack_require__(36);
-const vrc_obtenerivrmasivo_dto_1 = __webpack_require__(45);
+const vrc_obtenerivrmasivo_dto_1 = __webpack_require__(47);
 let MaestraController = class MaestraController {
     constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService, DatosAdicionalesService, detalleDeudaService, ivrmasivoCltService) {
         this.campaignService = campaignService;
@@ -1781,7 +1971,7 @@ exports.MaestraController = MaestraController = __decorate([
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1816,7 +2006,7 @@ __decorate([
 
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1851,7 +2041,7 @@ __decorate([
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1891,7 +2081,7 @@ __decorate([
 
 
 /***/ }),
-/* 41 */
+/* 43 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1926,7 +2116,7 @@ __decorate([
 
 
 /***/ }),
-/* 42 */
+/* 44 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1957,7 +2147,7 @@ __decorate([
 
 
 /***/ }),
-/* 43 */
+/* 45 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1988,7 +2178,7 @@ __decorate([
 
 
 /***/ }),
-/* 44 */
+/* 46 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2023,7 +2213,7 @@ __decorate([
 
 
 /***/ }),
-/* 45 */
+/* 47 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2054,7 +2244,7 @@ __decorate([
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2072,7 +2262,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const XLSX = __webpack_require__(47);
+const XLSX = __webpack_require__(38);
 let ExcelService = class ExcelService {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -2258,13 +2448,7 @@ exports.ExcelService = ExcelService = __decorate([
 
 
 /***/ }),
-/* 47 */
-/***/ ((module) => {
-
-module.exports = require("xlsx");
-
-/***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2280,16 +2464,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelController = void 0;
 const common_1 = __webpack_require__(2);
-const platform_express_1 = __webpack_require__(49);
-const cargasignacion_service_1 = __webpack_require__(46);
-const uploadExece_dto_1 = __webpack_require__(50);
+const platform_express_1 = __webpack_require__(50);
+const cargasignacion_service_1 = __webpack_require__(48);
+const pagos_service_1 = __webpack_require__(37);
+const uploadExece_dto_1 = __webpack_require__(51);
+const pagos_dto_1 = __webpack_require__(52);
 let ExcelController = class ExcelController {
-    constructor(excelService) {
+    constructor(excelService, pagosService) {
         this.excelService = excelService;
+        this.pagosService = pagosService;
     }
     async uploadExcel(uploadExcelDto, file) {
         if (!file) {
@@ -2297,6 +2484,10 @@ let ExcelController = class ExcelController {
         }
         const { campaign_id, list_id } = uploadExcelDto;
         return this.excelService.processExcel(file, campaign_id, list_id);
+    }
+    async uploadFile(file, body) {
+        const { list_id, cCAMPAIGN_ID } = body;
+        return this.pagosService.uploadFile(file, list_id, cCAMPAIGN_ID);
     }
 };
 exports.ExcelController = ExcelController;
@@ -2306,23 +2497,32 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_b = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _b : Object, typeof (_d = typeof Express !== "undefined" && (_c = Express.Multer) !== void 0 && _c.File) === "function" ? _d : Object]),
+    __metadata("design:paramtypes", [typeof (_c = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _c : Object, typeof (_e = typeof Express !== "undefined" && (_d = Express.Multer) !== void 0 && _d.File) === "function" ? _e : Object]),
     __metadata("design:returntype", Promise)
 ], ExcelController.prototype, "uploadExcel", null);
+__decorate([
+    (0, common_1.Post)('Pagos'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_g = typeof Express !== "undefined" && (_f = Express.Multer) !== void 0 && _f.File) === "function" ? _g : Object, typeof (_h = typeof pagos_dto_1.UploadDto !== "undefined" && pagos_dto_1.UploadDto) === "function" ? _h : Object]),
+    __metadata("design:returntype", Promise)
+], ExcelController.prototype, "uploadFile", null);
 exports.ExcelController = ExcelController = __decorate([
     (0, common_1.Controller)('excel'),
-    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object, typeof (_b = typeof pagos_service_1.FrPagosService !== "undefined" && pagos_service_1.FrPagosService) === "function" ? _b : Object])
 ], ExcelController);
 
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2363,7 +2563,37 @@ __decorate([
 
 
 /***/ }),
-/* 51 */
+/* 52 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UploadDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class UploadDto {
+}
+exports.UploadDto = UploadDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UploadDto.prototype, "list_id", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], UploadDto.prototype, "cCAMPAIGN_ID", void 0);
+
+
+/***/ }),
+/* 53 */
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -2405,7 +2635,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(1);
 const common_1 = __webpack_require__(2);
 const documentacion_1 = __webpack_require__(3);
-const bodyParser = __webpack_require__(51);
+const bodyParser = __webpack_require__(53);
 const app_module_1 = __webpack_require__(5);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
