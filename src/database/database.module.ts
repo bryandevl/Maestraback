@@ -6,9 +6,7 @@ import config from 'src/config/config';
 @Global()
 @Module({
   imports: [
-    // Conexión a la primera base de datos
     TypeOrmModule.forRootAsync({
-      // Identificador de esta conexión
       useFactory: (configService: ConfigType<typeof config>) => ({
         type: 'mssql',
         host: configService.host,
@@ -22,11 +20,15 @@ import config from 'src/config/config';
         },
         autoLoadEntities: true,
         synchronize: false,
+        logging: false, // Desactiva logs en producción para mejorar rendimiento
+        extra: {
+          max: 1000, // Aumenta el número máximo de conexiones concurrentes
+          connectionTimeoutMillis: 60000,
+          idleTimeoutMillis: 30000,
+        },
       }),
       inject: [config.KEY],
     }),
-
-    
   ],
 })
 export class DatabaseModule {}

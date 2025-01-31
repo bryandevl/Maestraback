@@ -12,13 +12,24 @@ import { FrPagosService } from 'src/services/pagos.service';
 import { MascaraService } from 'src/services/frmascara.service';
 import { UploadExcelDto } from 'src/dtos/uploadExece.dto';
 import { UploadDto } from 'src/dtos/pagos.dto';
+
+import { BQCourierService } from 'src/services/BQCourrier.service';
+import { CreateBQCourierDto } from 'src/dtos/BQCourrier.dto';
+import { Express } from 'express';
+import { Readable } from 'stream';
+import * as csv from 'csv-parser';
+
+
+
+
 import * as XLSX from 'xlsx';
 
 @Controller('excel')
 export class ExcelController {
   constructor(private readonly excelService: ExcelService,
     private readonly pagosService: FrPagosService,
-    private readonly mascaraService: MascaraService
+    private readonly mascaraService: MascaraService,
+    private readonly bqCourierService: BQCourierService
   ) {}
 
   @Post('upload')
@@ -68,9 +79,11 @@ export class ExcelController {
 
 
 
-
-
-
+  @Post('courrier')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFileS(@UploadedFile() file: Express.Multer.File, @Body() dto: CreateBQCourierDto) {
+    return this.bqCourierService.processFile(file, dto);
+  }
 
 
 }

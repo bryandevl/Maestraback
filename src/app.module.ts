@@ -35,12 +35,12 @@ import { MaestraController } from './controllers/maestra.controller';
 import { ExcelService } from './services/cargasignacion.service';
 import {ExcelController} from './controllers/cargabases.controller';
 
-
-
+import { BqCourier } from './entities/BQCourier.entity';
+import { BQCourierService } from './services/BQCourrier.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt]), // Especificamos la conexión 'primary'
+    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier]), // Especificamos la conexión 'primary'
     ConfigModule.forRoot({
       // * Definimos que es global
       isGlobal: true,
@@ -52,7 +52,7 @@ import {ExcelController} from './controllers/cargabases.controller';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}
