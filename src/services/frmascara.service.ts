@@ -143,12 +143,13 @@ export class MascaraService {
         `;
         
         const checkResult = await this.dataSource.query(checkQuery);
-        
+    
         if (checkResult[0].count > 0) {
+          // Actualización
           const updateColumns = mappedColumns.map((col, index) => {
             return `${col} = ${row[index] === null ? 'NULL' : `'${row[index]}'`}`;
           }).join(', ');
-          
+    
           const updateQuery = `
             UPDATE [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
             SET dFecha_MODIFICACION = GETDATE(), ${updateColumns}
@@ -157,15 +158,20 @@ export class MascaraService {
           await this.dataSource.query(updateQuery);
           updatedCount++;
         } else {
-          const valuesStatements = `(${row.map((value, index) => {
-            return value === null ? 'NULL' : `'${value}'`;
-          }).join(', ')})`;
-          
+          // **Validación antes de la inserción**
+          if (mappedColumns.length !== row.length) {
+            console.error(`Error: La cantidad de columnas (${mappedColumns.length}) no coincide con la cantidad de valores (${row.length}) en la fila:`, row);
+            continue; // Saltar esta fila para evitar el error
+          }
+    
+          const valuesStatements = `(${row.map((value) => (value === null ? 'NULL' : `'${value}'`)).join(', ')})`;
+    
           const insertQuery = `
             INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
             (${mappedColumns.join(', ')})
             VALUES ${valuesStatements}
           `;
+    
           await this.dataSource.query(insertQuery);
           insertedCount++;
         }
