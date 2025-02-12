@@ -34,7 +34,9 @@ import { ObtenerIvrMasivoClt } from 'src/entities/vrc-ivrmasivo.entity';
 import { ObtenerIvrMasivoCltService } from 'src/services/vrc-ivrmasivo.service';
 import { ObtenerIvrMasivoDto } from 'src/dtos/vrc-obtenerivrmasivo.dto';
 
-
+import { ObtenerColumnaMaskDto } from 'src/dtos/vrc-obtenermasksupervisor.dto';
+import { ColumnaMask } from 'src/entities/vrc-masksupervisor.entity';
+import { ColumnaMaskService } from 'src/services/vrc-masksupervisor.service';
 
 @Controller('maestra')
 export class MaestraController {
@@ -46,7 +48,8 @@ export class MaestraController {
               private readonly smsmasivoCltService: ObtenerSmsMasivoCltService,
               private readonly DatosAdicionalesService: DatosAdicionalCltService,
               private readonly detalleDeudaService: DetalleDeudaCltService,
-              private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService
+              private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService,
+              private readonly columnaMaskService: ColumnaMaskService
   ) {}
 
   @Post('campaings')
@@ -96,6 +99,11 @@ export class MaestraController {
   @Post('ivrmasivo')
   async obtenerDatosIvr(@Body() dto: ObtenerIvrMasivoDto) {
     return await this.ivrmasivoCltService.obtenerDatosIvr(dto);
+  }
+
+  @Post('columnamask')
+  async obtenerColumnaMask(@Body() dto: ObtenerColumnaMaskDto) {
+    return await this.columnaMaskService.obtenerColumnasMask(dto);
   }
 
 }
