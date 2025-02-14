@@ -18,6 +18,7 @@ import { ObtenerSmsMasivoClt } from './entities/vrc-smsmasivo.entity';
 import { DetalleDeudaCltEntity } from './entities/vrc-detalledeuda.entity';
 import { ObtenerIvrMasivoClt } from './entities/vrc-ivrmasivo.entity';
 import { ColumnaMask } from './entities/vrc-masksupervisor.entity';
+import { UpdateColumnMask } from 'src/entities/vrc-updatemasksupervisor.entity';
 
 import { CampaignService } from './services/campania.service';
 import { MainClientService } from './services/vrc-principal-cliente.service';
@@ -31,6 +32,9 @@ import { ObtenerIvrMasivoCltService } from './services/vrc-ivrmasivo.service';
 import { FrPagosService } from './services/pagos.service';
 import { MascaraService } from './services/frmascara.service';
 import { ColumnaMaskService } from './services/vrc-masksupervisor.service';
+import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
+
+
 
 import { MaestraController } from './controllers/maestra.controller';
 
@@ -44,7 +48,7 @@ import { BQCourierService } from './services/BQCourrier.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask]), // Especificamos la conexión 'primary'
+    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask,UpdateColumnMask]), // Especificamos la conexión 'primary'
     ConfigModule.forRoot({
       // * Definimos que es global
       isGlobal: true,
@@ -56,7 +60,7 @@ import { BQCourierService } from './services/BQCourrier.service';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}

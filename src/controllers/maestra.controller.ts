@@ -38,6 +38,10 @@ import { ObtenerColumnaMaskDto } from 'src/dtos/vrc-obtenermasksupervisor.dto';
 import { ColumnaMask } from 'src/entities/vrc-masksupervisor.entity';
 import { ColumnaMaskService } from 'src/services/vrc-masksupervisor.service';
 
+import { UpdateColumnMask } from 'src/entities/vrc-updatemasksupervisor.entity';
+import { UpdateColumnMaskDto } from 'src/dtos/vrc-updatemasksupervisor.dto';
+import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -49,7 +53,8 @@ export class MaestraController {
               private readonly DatosAdicionalesService: DatosAdicionalCltService,
               private readonly detalleDeudaService: DetalleDeudaCltService,
               private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService,
-              private readonly columnaMaskService: ColumnaMaskService
+              private readonly columnaMaskService: ColumnaMaskService,
+              private readonly updateColumnaMaskService: UpdateColumnMaskService,
   ) {}
 
   @Post('campaings')
@@ -106,4 +111,9 @@ export class MaestraController {
     return await this.columnaMaskService.obtenerColumnasMask(dto);
   }
 
+  @Post('updatecolumnamask')
+  async updateColumnMask(@Body() dto: UpdateColumnMaskDto) {
+    return await this.updateColumnaMaskService.updateColumnMask(dto);
+  }
+  
 }
