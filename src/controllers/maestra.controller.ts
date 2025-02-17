@@ -42,6 +42,8 @@ import { UpdateColumnMask } from 'src/entities/vrc-updatemasksupervisor.entity';
 import { UpdateColumnMaskDto } from 'src/dtos/vrc-updatemasksupervisor.dto';
 import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
 
+import { ColumnasMaskService2 } from '../services/columnas-mask.service';
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -55,6 +57,7 @@ export class MaestraController {
               private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService,
               private readonly columnaMaskService: ColumnaMaskService,
               private readonly updateColumnaMaskService: UpdateColumnMaskService,
+              private readonly columnasMaskService: ColumnasMaskService2
   ) {}
 
   @Post('campaings')
@@ -116,4 +119,29 @@ export class MaestraController {
     return await this.updateColumnaMaskService.updateColumnMask(dto);
   }
   
+
+
+
+
+
+  @Post('mascara')
+  async getColumnas(@Body('campaign_id') campaign_id: string) {
+    console.log('Solicitud recibida con campaign_id:', campaign_id);
+    if (!campaign_id) {
+      return { success: false, message: 'El campaign_id es requerido' };
+    }
+    
+    const response = await this.columnasMaskService.getColumnasByCampaign(campaign_id);
+    console.log('Respuesta enviada:', JSON.stringify(response, null, 2));
+    
+    return response;
+  }
+  
+
+
+
+
+
+
+
 }

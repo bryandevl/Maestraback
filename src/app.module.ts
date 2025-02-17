@@ -33,8 +33,8 @@ import { FrPagosService } from './services/pagos.service';
 import { MascaraService } from './services/frmascara.service';
 import { ColumnaMaskService } from './services/vrc-masksupervisor.service';
 import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
-
-
+import {ColumnasMask2} from './entities/columnas-mask.entity';
+import {ColumnasMaskService2} from './services/columnas-mask.service';
 
 import { MaestraController } from './controllers/maestra.controller';
 
@@ -48,7 +48,7 @@ import { BQCourierService } from './services/BQCourrier.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask,UpdateColumnMask]), // Especificamos la conexión 'primary'
+    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask,UpdateColumnMask,ColumnasMask2]), // Especificamos la conexión 'primary'
     ConfigModule.forRoot({
       // * Definimos que es global
       isGlobal: true,
@@ -60,7 +60,7 @@ import { BQCourierService } from './services/BQCourrier.service';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}

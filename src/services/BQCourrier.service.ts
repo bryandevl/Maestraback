@@ -5,7 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import * as csv from 'csv-parser';
 import * as xlsx from 'xlsx';
-import { BqCourier } from '../entities/BQCourier.entity';
+import { BqCourier } from '../entities/BQCourier.entity'; // o './BQCourier.entity'
+
 import { CreateBQCourierDto } from '../dtos/BQCourrier.dto';
 import { Readable } from 'stream';
 
