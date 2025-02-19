@@ -118,7 +118,7 @@ export class ExcelService {
     for (const batch of batches) {
       if (batch.some(row => row.length !== mappedColumns.length)) {
         console.error('Error: Desajuste entre columnas y valores en el batch.');
-        console.log(`Columnas esperadas: ${mappedColumns.length}, Valores en fila: ${batch[0]?.length}`);
+       // console.log(`Columnas esperadas: ${mappedColumns.length}, Valores en fila: ${batch[0]?.length}`);
         throw new InternalServerErrorException('Error en la estructura de datos. Verifica el mapeo de columnas.');
       }
     
