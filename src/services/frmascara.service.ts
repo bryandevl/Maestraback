@@ -28,55 +28,56 @@ export class MascaraService {
   private validateAndConvert(value: any, column: any, columnName: string, rowIndex: number): any {
     try {
       if (!column) return value;
-
+  
       switch (column.dataType) {
         case 'datetime':
           if (value && typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
             const date = new Date(value);
             if (!this.isValidDate(date)) {
-              console.warn(`Fila ${rowIndex + 1}: Fecha inválida en columna ${columnName}`);
+              console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Fecha inválida -> ${value}`);
               return null;
             }
-            return `${value.split(' ')[0]} 00:00:00`; // Forzar formato
+            return `${value.split(' ')[0]} 00:00:00`;
           }
-          console.warn(`Fila ${rowIndex + 1}: Fecha inválida '${value}' en columna ${columnName}`);
+          console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Fecha inválida -> ${value}`);
           return null;
-
+  
         case 'numeric':
         case 'decimal':
         case 'float':
           const parsedFloat = parseFloat(value);
           if (isNaN(parsedFloat)) {
-            console.warn(`Fila ${rowIndex + 1}: Valor no numérico '${value}' en columna ${columnName}`);
+            console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Valor no numérico -> ${value}`);
             return 0.0;
           }
           return parsedFloat;
-
+  
         case 'int':
           const parsedInt = parseInt(value, 10);
           if (isNaN(parsedInt)) {
-            console.warn(`Fila ${rowIndex + 1}: Valor no entero '${value}' en columna ${columnName}`);
+            console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Valor no entero -> ${value}`);
             return 0;
           }
           return parsedInt;
-
+  
         case 'varchar':
         case 'nvarchar':
           if (typeof value !== 'string') value = value ? String(value) : '';
           if (column.maxLength && value.length > column.maxLength) {
-            console.warn(`Fila ${rowIndex + 1}: Cadena truncada en columna ${columnName}`);
+            console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Cadena truncada, Longitud máxima ${column.maxLength}`);
             value = value.substring(0, column.maxLength);
           }
           return value.replace(/'/g, "''");
-
+  
         default:
           return value;
       }
     } catch (error) {
-      console.error(`Error al validar valor en fila ${rowIndex + 1}, columna ${columnName}: ${error.message}`);
+      console.error(`❌ Error en Fila ${rowIndex + 2}, Columna '${columnName}': ${error.message}`);
       return null;
     }
   }
+  
   async processExcel(
     file: Express.Multer.File,
     campaign_id: string,

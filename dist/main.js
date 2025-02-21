@@ -19,7 +19,7 @@ module.exports = require("@nestjs/common");
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.generateDocumentacion = generateDocumentacion;
+exports.generateDocumentacion = void 0;
 const swagger_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
 function generateDocumentacion(app) {
@@ -33,6 +33,7 @@ function generateDocumentacion(app) {
     });
     swagger_1.SwaggerModule.setup('docs/exports', app, pdfDocument);
 }
+exports.generateDocumentacion = generateDocumentacion;
 
 
 /***/ }),
@@ -70,34 +71,34 @@ const vrc_wspmasivo_entity_1 = __webpack_require__(24);
 const vrc_smsmasivo_entity_1 = __webpack_require__(25);
 const vrc_detalledeuda_entity_1 = __webpack_require__(26);
 const vrc_ivrmasivo_entity_1 = __webpack_require__(27);
-const campania_service_1 = __webpack_require__(28);
-const vrc_principal_cliente_service_1 = __webpack_require__(29);
-const vrc_adicional_cliente_service_1 = __webpack_require__(30);
-const vrc_pagos_service_1 = __webpack_require__(31);
-const vrc_fotogestion_service_1 = __webpack_require__(32);
-const vrc_wspmasivo_service_1 = __webpack_require__(33);
-const vrc_smsmasivo_service_1 = __webpack_require__(34);
-const vrc_detalledeuda_service_1 = __webpack_require__(35);
-const vrc_ivrmasivo_service_1 = __webpack_require__(36);
-const pagos_service_1 = __webpack_require__(37);
-<<<<<<< HEAD
-const frmascara_service_1 = __webpack_require__(39);
-const maestra_controller_1 = __webpack_require__(40);
-const cargasignacion_service_1 = __webpack_require__(49);
-const cargabases_controller_1 = __webpack_require__(50);
+const vrc_masksupervisor_entity_1 = __webpack_require__(28);
+const vrc_updatemasksupervisor_entity_1 = __webpack_require__(29);
+const campania_service_1 = __webpack_require__(30);
+const vrc_principal_cliente_service_1 = __webpack_require__(31);
+const vrc_adicional_cliente_service_1 = __webpack_require__(32);
+const vrc_pagos_service_1 = __webpack_require__(33);
+const vrc_fotogestion_service_1 = __webpack_require__(34);
+const vrc_wspmasivo_service_1 = __webpack_require__(35);
+const vrc_smsmasivo_service_1 = __webpack_require__(36);
+const vrc_detalledeuda_service_1 = __webpack_require__(37);
+const vrc_ivrmasivo_service_1 = __webpack_require__(38);
+const pagos_service_1 = __webpack_require__(39);
+const frmascara_service_1 = __webpack_require__(41);
+const vrc_masksupervisor_service_1 = __webpack_require__(42);
+const vrc_updatemasksupervisor_service_1 = __webpack_require__(43);
+const columnas_mask_entity_1 = __webpack_require__(44);
+const columnas_mask_service_1 = __webpack_require__(45);
+const maestra_controller_1 = __webpack_require__(46);
+const cargasignacion_service_1 = __webpack_require__(57);
+const cargabases_controller_1 = __webpack_require__(58);
+const BQCourier_entity_1 = __webpack_require__(64);
+const BQCourrier_service_1 = __webpack_require__(62);
 let AppModule = exports.AppModule = class AppModule {
-=======
-const maestra_controller_1 = __webpack_require__(39);
-const cargasignacion_service_1 = __webpack_require__(48);
-const cargabases_controller_1 = __webpack_require__(49);
-let AppModule = class AppModule {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 };
-exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity, vrc_wspmasivo_entity_1.ObtenerWspmasivoClt, vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt, vrc_adicional_cliente_entity_1.DatosAdicionalesCltEntity, vrc_detalledeuda_entity_1.DetalleDeudaCltEntity, vrc_ivrmasivo_entity_1.ObtenerIvrMasivoClt]),
+            typeorm_1.TypeOrmModule.forFeature([campania_entity_1.Campaign, vrc_principal_cliente_entity_1.MainClientes, vrc_pagos_entity_1.PagosEntity, vrc_fotogestion_entity_1.FotogestionesEntity, vrc_wspmasivo_entity_1.ObtenerWspmasivoClt, vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt, vrc_adicional_cliente_entity_1.DatosAdicionalesCltEntity, vrc_detalledeuda_entity_1.DetalleDeudaCltEntity, vrc_ivrmasivo_entity_1.ObtenerIvrMasivoClt, BQCourier_entity_1.BqCourier, vrc_masksupervisor_entity_1.ColumnaMask, vrc_updatemasksupervisor_entity_1.UpdateColumnMask, columnas_mask_entity_1.ColumnasMask2]),
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 envFilePath: '.env',
@@ -106,11 +107,7 @@ exports.AppModule = AppModule = __decorate([
             }),
             database_module_1.DatabaseModule,
         ],
-<<<<<<< HEAD
-        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService, vrc_detalledeuda_service_1.DetalleDeudaCltService, pagos_service_1.FrPagosService, frmascara_service_1.MascaraService],
-=======
-        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService, vrc_detalledeuda_service_1.DetalleDeudaCltService, pagos_service_1.FrPagosService],
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+        providers: [campania_service_1.CampaignService, vrc_principal_cliente_service_1.MainClientService, vrc_pagos_service_1.PagosService, vrc_fotogestion_service_1.GestionService, cargasignacion_service_1.ExcelService, vrc_wspmasivo_service_1.ObtenerWspmasivoCltService, vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService, vrc_adicional_cliente_service_1.DatosAdicionalCltService, vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService, vrc_detalledeuda_service_1.DetalleDeudaCltService, pagos_service_1.FrPagosService, frmascara_service_1.MascaraService, BQCourrier_service_1.BQCourierService, vrc_masksupervisor_service_1.ColumnaMaskService, vrc_updatemasksupervisor_service_1.UpdateColumnMaskService, columnas_mask_service_1.ColumnasMaskService2],
         controllers: [app_controller_1.AppController, maestra_controller_1.MaestraController, cargabases_controller_1.ExcelController],
     })
 ], AppModule);
@@ -142,7 +139,7 @@ const excel_dto_1 = __webpack_require__(7);
 const node_1 = __webpack_require__(10);
 const response_1 = __webpack_require__(11);
 const utils_1 = __webpack_require__(12);
-let AppController = class AppController {
+let AppController = exports.AppController = class AppController {
     async getExcel(dto) {
         const schema = (0, utils_1.convertRows)(dto.schema);
         const data = dto.data;
@@ -153,7 +150,6 @@ let AppController = class AppController {
         return (0, response_1.customResponse)('excel', buffer.toString('base64'));
     }
 };
-exports.AppController = AppController;
 __decorate([
     (0, common_1.Post)('excel'),
     (0, swagger_1.ApiOperation)({ summary: 'Reporte de RUCs' }),
@@ -704,9 +700,8 @@ exports.DatabaseModule = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const config_1 = __webpack_require__(15);
-let DatabaseModule = class DatabaseModule {
+let DatabaseModule = exports.DatabaseModule = class DatabaseModule {
 };
-exports.DatabaseModule = DatabaseModule;
 exports.DatabaseModule = DatabaseModule = __decorate([
     (0, common_1.Global)(),
     (0, common_1.Module)({
@@ -725,6 +720,12 @@ exports.DatabaseModule = DatabaseModule = __decorate([
                     },
                     autoLoadEntities: true,
                     synchronize: false,
+                    logging: true,
+                    extra: {
+                        max: 1000,
+                        connectionTimeoutMillis: 60000,
+                        idleTimeoutMillis: 30000,
+                    },
                 }),
                 inject: [config_1.default.KEY],
             }),
@@ -795,9 +796,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Campaign = void 0;
 const typeorm_1 = __webpack_require__(19);
-let Campaign = class Campaign {
+let Campaign = exports.Campaign = class Campaign {
 };
-exports.Campaign = Campaign;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -838,9 +838,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MainClientes = void 0;
 const typeorm_1 = __webpack_require__(19);
-let MainClientes = class MainClientes {
+let MainClientes = exports.MainClientes = class MainClientes {
 };
-exports.MainClientes = MainClientes;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -903,9 +902,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DatosAdicionalesCltEntity = void 0;
 const typeorm_1 = __webpack_require__(19);
-let DatosAdicionalesCltEntity = class DatosAdicionalesCltEntity {
+let DatosAdicionalesCltEntity = exports.DatosAdicionalesCltEntity = class DatosAdicionalesCltEntity {
 };
-exports.DatosAdicionalesCltEntity = DatosAdicionalesCltEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -945,9 +943,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.PagosEntity = void 0;
 const typeorm_1 = __webpack_require__(19);
-let PagosEntity = class PagosEntity {
+let PagosEntity = exports.PagosEntity = class PagosEntity {
 };
-exports.PagosEntity = PagosEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -1003,9 +1000,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FotogestionesEntity = void 0;
 const typeorm_1 = __webpack_require__(19);
-let FotogestionesEntity = class FotogestionesEntity {
+let FotogestionesEntity = exports.FotogestionesEntity = class FotogestionesEntity {
 };
-exports.FotogestionesEntity = FotogestionesEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -1077,9 +1073,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ObtenerWspmasivoClt = void 0;
 const typeorm_1 = __webpack_require__(19);
-let ObtenerWspmasivoClt = class ObtenerWspmasivoClt {
+let ObtenerWspmasivoClt = exports.ObtenerWspmasivoClt = class ObtenerWspmasivoClt {
 };
-exports.ObtenerWspmasivoClt = ObtenerWspmasivoClt;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -1127,9 +1122,8 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ObtenerSmsMasivoClt = void 0;
 const typeorm_1 = __webpack_require__(19);
-let ObtenerSmsMasivoClt = class ObtenerSmsMasivoClt {
+let ObtenerSmsMasivoClt = exports.ObtenerSmsMasivoClt = class ObtenerSmsMasivoClt {
 };
-exports.ObtenerSmsMasivoClt = ObtenerSmsMasivoClt;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
@@ -1173,7 +1167,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-<<<<<<< HEAD
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DetalleDeudaCltEntity = void 0;
 const typeorm_1 = __webpack_require__(19);
@@ -1267,37 +1260,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
-var _a;
-=======
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.DetalleDeudaCltEntity = void 0;
+exports.ColumnaMask = void 0;
 const typeorm_1 = __webpack_require__(19);
-let DetalleDeudaCltEntity = class DetalleDeudaCltEntity {
+let ColumnaMask = exports.ColumnaMask = class ColumnaMask {
 };
-exports.DetalleDeudaCltEntity = DetalleDeudaCltEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], DetalleDeudaCltEntity.prototype, "id", void 0);
+], ColumnaMask.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], DetalleDeudaCltEntity.prototype, "dni", void 0);
+], ColumnaMask.prototype, "campania", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], DetalleDeudaCltEntity.prototype, "num_cta", void 0);
+], ColumnaMask.prototype, "columna", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], DetalleDeudaCltEntity.prototype, "campania", void 0);
-exports.DetalleDeudaCltEntity = DetalleDeudaCltEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: 'SP_CR_ObtenerDetalleDeudaClt_VRC' })
-], DetalleDeudaCltEntity);
+], ColumnaMask.prototype, "etiqueta", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnaMask.prototype, "celda", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnaMask.prototype, "valor", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnaMask.prototype, "estado", void 0);
+exports.ColumnaMask = ColumnaMask = __decorate([
+    (0, typeorm_1.Entity)({ name: 'SP_CR_ObtenerColumnaMask_VRC' })
+], ColumnaMask);
 
 
 /***/ }),
@@ -1314,48 +1312,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ObtenerIvrMasivoClt = void 0;
+exports.UpdateColumnMask = void 0;
 const typeorm_1 = __webpack_require__(19);
-let ObtenerIvrMasivoClt = class ObtenerIvrMasivoClt {
+let UpdateColumnMask = exports.UpdateColumnMask = class UpdateColumnMask {
 };
-exports.ObtenerIvrMasivoClt = ObtenerIvrMasivoClt;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], ObtenerIvrMasivoClt.prototype, "id", void 0);
+], UpdateColumnMask.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ObtenerIvrMasivoClt.prototype, "documento", void 0);
+], UpdateColumnMask.prototype, "campaign_id", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ObtenerIvrMasivoClt.prototype, "cuenta", void 0);
+], UpdateColumnMask.prototype, "columna_etiqueta", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ObtenerIvrMasivoClt.prototype, "campaign_id", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'date' }),
-    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
-], ObtenerIvrMasivoClt.prototype, "fec_gestion", void 0);
-__decorate([
-    (0, typeorm_1.Column)({ type: 'time' }),
-    __metadata("design:type", String)
-], ObtenerIvrMasivoClt.prototype, "hor_gestion", void 0);
+], UpdateColumnMask.prototype, "celda", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], ObtenerIvrMasivoClt.prototype, "status", void 0);
-exports.ObtenerIvrMasivoClt = ObtenerIvrMasivoClt = __decorate([
-    (0, typeorm_1.Entity)('ObtenerIvrMasivoClt')
-], ObtenerIvrMasivoClt);
+], UpdateColumnMask.prototype, "valor", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], UpdateColumnMask.prototype, "estado", void 0);
+exports.UpdateColumnMask = UpdateColumnMask = __decorate([
+    (0, typeorm_1.Entity)({ name: 'SP_CR_ActualizarColumnaMask_VRC' })
+], UpdateColumnMask);
 
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1378,7 +1370,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const campania_entity_1 = __webpack_require__(18);
-let CampaignService = class CampaignService {
+let CampaignService = exports.CampaignService = class CampaignService {
     constructor(campaignRepository) {
         this.campaignRepository = campaignRepository;
     }
@@ -1386,7 +1378,6 @@ let CampaignService = class CampaignService {
         return this.campaignRepository.query('SELECT campaign_id, campaign_name FROM DA_V_vicidial_campaings');
     }
 };
-exports.CampaignService = CampaignService;
 exports.CampaignService = CampaignService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(campania_entity_1.Campaign)),
@@ -1395,7 +1386,7 @@ exports.CampaignService = CampaignService = __decorate([
 
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1413,7 +1404,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MainClientService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-let MainClientService = class MainClientService {
+let MainClientService = exports.MainClientService = class MainClientService {
     constructor(connection) {
         this.connection = connection;
     }
@@ -1426,7 +1417,6 @@ let MainClientService = class MainClientService {
         return result[0];
     }
 };
-exports.MainClientService = MainClientService;
 exports.MainClientService = MainClientService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.Connection !== "undefined" && typeorm_1.Connection) === "function" ? _a : Object])
@@ -1434,7 +1424,7 @@ exports.MainClientService = MainClientService = __decorate([
 
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1457,7 +1447,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const vrc_adicional_cliente_entity_1 = __webpack_require__(21);
-let DatosAdicionalCltService = class DatosAdicionalCltService {
+let DatosAdicionalCltService = exports.DatosAdicionalCltService = class DatosAdicionalCltService {
     constructor(datosAdicionalesRepository) {
         this.datosAdicionalesRepository = datosAdicionalesRepository;
     }
@@ -1473,7 +1463,6 @@ let DatosAdicionalCltService = class DatosAdicionalCltService {
         }
     }
 };
-exports.DatosAdicionalCltService = DatosAdicionalCltService;
 exports.DatosAdicionalCltService = DatosAdicionalCltService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vrc_adicional_cliente_entity_1.DatosAdicionalesCltEntity)),
@@ -1482,7 +1471,7 @@ exports.DatosAdicionalCltService = DatosAdicionalCltService = __decorate([
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1505,7 +1494,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
 const vrc_pagos_entity_1 = __webpack_require__(22);
 const typeorm_2 = __webpack_require__(14);
-let PagosService = class PagosService {
+let PagosService = exports.PagosService = class PagosService {
     constructor(pagosRepository) {
         this.pagosRepository = pagosRepository;
     }
@@ -1516,7 +1505,6 @@ let PagosService = class PagosService {
         return this.pagosRepository.query(`EXEC SP_CR_ObtenerPagosClt_VRC @dni = @0, @cta = @1, @campania = @2, @periodo = @3`, [dni, ctaValue, campania, periodoValue]);
     }
 };
-exports.PagosService = PagosService;
 exports.PagosService = PagosService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_2.InjectRepository)(vrc_pagos_entity_1.PagosEntity)),
@@ -1525,7 +1513,7 @@ exports.PagosService = PagosService = __decorate([
 
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1543,7 +1531,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GestionService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-let GestionService = class GestionService {
+let GestionService = exports.GestionService = class GestionService {
     constructor(connection) {
         this.connection = connection;
     }
@@ -1563,7 +1551,6 @@ let GestionService = class GestionService {
         }));
     }
 };
-exports.GestionService = GestionService;
 exports.GestionService = GestionService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.Connection !== "undefined" && typeorm_1.Connection) === "function" ? _a : Object])
@@ -1571,7 +1558,7 @@ exports.GestionService = GestionService = __decorate([
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1594,7 +1581,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const vrc_wspmasivo_entity_1 = __webpack_require__(24);
-let ObtenerWspmasivoCltService = class ObtenerWspmasivoCltService {
+let ObtenerWspmasivoCltService = exports.ObtenerWspmasivoCltService = class ObtenerWspmasivoCltService {
     constructor(wspmasivoCltRepository) {
         this.wspmasivoCltRepository = wspmasivoCltRepository;
     }
@@ -1603,7 +1590,6 @@ let ObtenerWspmasivoCltService = class ObtenerWspmasivoCltService {
         return await this.wspmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerWspmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
     }
 };
-exports.ObtenerWspmasivoCltService = ObtenerWspmasivoCltService;
 exports.ObtenerWspmasivoCltService = ObtenerWspmasivoCltService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vrc_wspmasivo_entity_1.ObtenerWspmasivoClt)),
@@ -1612,7 +1598,7 @@ exports.ObtenerWspmasivoCltService = ObtenerWspmasivoCltService = __decorate([
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1635,7 +1621,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const vrc_smsmasivo_entity_1 = __webpack_require__(25);
-let ObtenerSmsMasivoCltService = class ObtenerSmsMasivoCltService {
+let ObtenerSmsMasivoCltService = exports.ObtenerSmsMasivoCltService = class ObtenerSmsMasivoCltService {
     constructor(smsmasivoCltRepository) {
         this.smsmasivoCltRepository = smsmasivoCltRepository;
     }
@@ -1644,7 +1630,6 @@ let ObtenerSmsMasivoCltService = class ObtenerSmsMasivoCltService {
         return await this.smsmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerSMSmasivoClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
     }
 };
-exports.ObtenerSmsMasivoCltService = ObtenerSmsMasivoCltService;
 exports.ObtenerSmsMasivoCltService = ObtenerSmsMasivoCltService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vrc_smsmasivo_entity_1.ObtenerSmsMasivoClt)),
@@ -1653,7 +1638,7 @@ exports.ObtenerSmsMasivoCltService = ObtenerSmsMasivoCltService = __decorate([
 
 
 /***/ }),
-/* 35 */
+/* 37 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1676,11 +1661,7 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const vrc_detalledeuda_entity_1 = __webpack_require__(26);
-<<<<<<< HEAD
 let DetalleDeudaCltService = exports.DetalleDeudaCltService = class DetalleDeudaCltService {
-=======
-let DetalleDeudaCltService = class DetalleDeudaCltService {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
     constructor(detalleDeudaRepository) {
         this.detalleDeudaRepository = detalleDeudaRepository;
     }
@@ -1696,10 +1677,6 @@ let DetalleDeudaCltService = class DetalleDeudaCltService {
         }
     }
 };
-<<<<<<< HEAD
-=======
-exports.DetalleDeudaCltService = DetalleDeudaCltService;
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 exports.DetalleDeudaCltService = DetalleDeudaCltService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vrc_detalledeuda_entity_1.DetalleDeudaCltEntity)),
@@ -1708,7 +1685,7 @@ exports.DetalleDeudaCltService = DetalleDeudaCltService = __decorate([
 
 
 /***/ }),
-/* 36 */
+/* 38 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1731,23 +1708,26 @@ const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(14);
 const typeorm_2 = __webpack_require__(19);
 const vrc_ivrmasivo_entity_1 = __webpack_require__(27);
-<<<<<<< HEAD
 let ObtenerIvrMasivoCltService = exports.ObtenerIvrMasivoCltService = class ObtenerIvrMasivoCltService {
-=======
-let ObtenerIvrMasivoCltService = class ObtenerIvrMasivoCltService {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
     constructor(ivrmasivoCltRepository) {
         this.ivrmasivoCltRepository = ivrmasivoCltRepository;
     }
     async obtenerDatosIvr(dto) {
         const { dni, num_cta } = dto;
-        return await this.ivrmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
+        const resultados = await this.ivrmasivoCltRepository.query(`EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`, [dni, num_cta || null]);
+        return resultados.map((resultado) => {
+            return {
+                ...resultado,
+                FEC_GESTION: resultado.FEC_GESTION
+                    ? new Date(resultado.FEC_GESTION).toISOString().split('T')[0]
+                    : null,
+                HOR_GESTION: resultado.HOR_GESTION
+                    ? new Date(resultado.HOR_GESTION).toTimeString().split(' ')[0]
+                    : null,
+            };
+        });
     }
 };
-<<<<<<< HEAD
-=======
-exports.ObtenerIvrMasivoCltService = ObtenerIvrMasivoCltService;
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 exports.ObtenerIvrMasivoCltService = ObtenerIvrMasivoCltService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(vrc_ivrmasivo_entity_1.ObtenerIvrMasivoClt)),
@@ -1756,7 +1736,7 @@ exports.ObtenerIvrMasivoCltService = ObtenerIvrMasivoCltService = __decorate([
 
 
 /***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1775,12 +1755,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FrPagosService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const xlsx = __webpack_require__(38);
-<<<<<<< HEAD
+const xlsx = __webpack_require__(40);
 let FrPagosService = exports.FrPagosService = FrPagosService_1 = class FrPagosService {
-=======
-let FrPagosService = FrPagosService_1 = class FrPagosService {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
     constructor(dataSource) {
         this.dataSource = dataSource;
         this.logger = new common_1.Logger(FrPagosService_1.name);
@@ -1935,10 +1911,6 @@ let FrPagosService = FrPagosService_1 = class FrPagosService {
         return new Date().toISOString();
     }
 };
-<<<<<<< HEAD
-=======
-exports.FrPagosService = FrPagosService;
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 exports.FrPagosService = FrPagosService = FrPagosService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.DataSource !== "undefined" && typeorm_1.DataSource) === "function" ? _a : Object])
@@ -1946,13 +1918,13 @@ exports.FrPagosService = FrPagosService = FrPagosService_1 = __decorate([
 
 
 /***/ }),
-/* 38 */
+/* 40 */
 /***/ ((module) => {
 
 module.exports = require("xlsx");
 
 /***/ }),
-/* 39 */
+/* 41 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -1965,13 +1937,12 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-<<<<<<< HEAD
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MascaraService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const XLSX = __webpack_require__(38);
+const XLSX = __webpack_require__(40);
 let MascaraService = exports.MascaraService = class MascaraService {
     constructor(dataSource) {
         this.dataSource = dataSource;
@@ -2042,111 +2013,86 @@ let MascaraService = exports.MascaraService = class MascaraService {
     }
     async processExcel(file, campaign_id, list_id) {
         const BATCH_SIZE = 500;
-        console.log(`Archivo recibido: Nombre=${file.originalname}, Tamaño=${file.size}`);
+        let updatedCount = 0;
+        let insertedCount = 0;
+        console.log(`Archivo recibido: ${file.originalname}, Tamaño=${file.size}`);
         const workbook = XLSX.read(file.buffer, { type: 'buffer' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        console.log(`Total de filas leídas (incluyendo encabezados): ${data.length}`);
         if (data.length < 2) {
             throw new common_1.InternalServerErrorException('El archivo Excel está vacío o mal formateado');
         }
         const headers = data[0];
         const rows = data.slice(1);
-        console.log(`Encabezados detectados: ${headers}`);
-        console.log(`Total de filas de datos: ${rows.length}`);
         const mappingQuery = `
-      SELECT columna AS cabecera_asignacion, columna_etiqueta
+      SELECT columna AS columna, columna_etiqueta, DATA_TYPE AS dataType, CHARACTER_MAXIMUM_LENGTH AS maxLength
       FROM [BD_CR_MAESTRA].[dbo].[T_Columnas_mask]
-      WHERE campaign_id = @0
+      JOIN INFORMATION_SCHEMA.COLUMNS ON columna = COLUMN_NAME
+      WHERE campaign_id = '${campaign_id}' AND TABLE_NAME = 'FR_MASCARA'
     `;
-        const mapping = await this.dataSource.query(mappingQuery, [campaign_id]);
-        console.log(`Columnas mapeadas desde la base de datos: ${JSON.stringify(mapping)}`);
-        if (!mapping || mapping.length === 0) {
-            throw new common_1.InternalServerErrorException('No se encontraron columnas mapeadas para la campaña proporcionada');
-        }
+        const mapping = await this.dataSource.query(mappingQuery);
         const columnMapping = mapping.reduce((acc, curr) => {
-            acc[curr.columna_etiqueta] = curr.cabecera_asignacion;
-            return acc;
-        }, {});
-        const filteredHeaders = headers.filter((header) => columnMapping[header]);
-        if (filteredHeaders.length === 0) {
-            throw new common_1.InternalServerErrorException('No hay cabeceras válidas para insertar en la base de datos.');
-        }
-        const mappedColumns = filteredHeaders.map((header) => columnMapping[header]);
-        const additionalColumns = ['campaign_id', 'list_id', 'dFecha_CARGA_CSV'];
-        mappedColumns.push(...additionalColumns);
-        console.log(`Columnas finales para inserción: ${mappedColumns}`);
-        const columnInfoQuery = `
-      SELECT COLUMN_NAME AS columnName, DATA_TYPE AS dataType, CHARACTER_MAXIMUM_LENGTH AS maxLength
-      FROM INFORMATION_SCHEMA.COLUMNS
-      WHERE TABLE_NAME = 'FR_MASCARA'
-    `;
-        const columnInfo = await this.dataSource.query(columnInfoQuery);
-        const columnDetails = columnInfo.reduce((acc, curr) => {
-            acc[curr.columnName] = {
-                maxLength: curr.maxLength,
-                dataType: curr.dataType,
+            acc[curr.columna_etiqueta] = {
+                column: curr.columna,
+                type: curr.dataType || 'varchar',
+                maxLength: curr.maxLength || null
             };
             return acc;
         }, {});
-        const errors = [];
+        const filteredHeaders = headers.filter((header) => columnMapping[header]);
+        const mappedColumns = filteredHeaders.map((header) => columnMapping[header].column);
+        mappedColumns.push('campaign_id', 'list_id', 'dFecha_CARGA_CSV');
         const validRows = [];
-        let totalInsertedRecords = 0;
-        for (const [rowIndex, row] of rows.entries()) {
-            try {
-                const filteredRow = filteredHeaders.map((header) => {
-                    const columnName = columnMapping[header];
-                    const column = columnDetails[columnName];
-                    const colIndex = headers.indexOf(header);
-                    return this.validateAndConvert(row[colIndex] || null, column, columnName, rowIndex);
-                });
-                filteredRow.push(campaign_id, list_id, this.getLocalDateTime());
-                validRows.push(filteredRow);
-            }
-            catch (error) {
-                errors.push({ row: rowIndex + 2, error: error.message });
-            }
+        for (const rowIndex in rows) {
+            const row = rows[rowIndex];
+            const filteredRow = filteredHeaders.map((header) => {
+                const columnInfo = columnMapping[header];
+                return this.validateAndConvert(row[headers.indexOf(header)] || null, columnInfo, columnInfo.column, parseInt(rowIndex));
+            });
+            filteredRow.push(campaign_id, list_id, this.getLocalDateTime());
+            validRows.push(filteredRow);
         }
-        console.log(`Total de filas válidas: ${validRows.length}`);
-        console.log(`Errores durante la validación: ${JSON.stringify(errors)}`);
         const batches = [];
         for (let i = 0; i < validRows.length; i += BATCH_SIZE) {
             batches.push(validRows.slice(i, i + BATCH_SIZE));
         }
         for (const batch of batches) {
-            const insertColumns = mappedColumns.join(', ');
-            const valuesStatements = batch
-                .map((row) => `(${row
-                .map((value) => {
-                if (value === null || value === undefined || Number.isNaN(value))
-                    return 'NULL';
-                if (typeof value === 'string') {
-                    return `'${value.replace(/'/g, "''")}'`;
+            for (const row of batch) {
+                const checkQuery = `
+          SELECT COUNT(*) AS count FROM [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
+          WHERE cnum_cuenta = '${row[0]}' AND cnum_documento = '${row[1]}' AND campaign_id = '${campaign_id}' AND list_id = '${list_id}'
+        `;
+                const checkResult = await this.dataSource.query(checkQuery);
+                if (checkResult[0].count > 0) {
+                    const updateColumns = mappedColumns.map((col, index) => {
+                        return `${col} = ${row[index] === null ? 'NULL' : `'${row[index]}'`}`;
+                    }).join(', ');
+                    const updateQuery = `
+            UPDATE [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
+            SET dFecha_MODIFICACION = GETDATE(), ${updateColumns}
+            WHERE cnum_cuenta = '${row[0]}' AND cnum_documento = '${row[1]}' AND campaign_id = '${campaign_id}' AND list_id = '${list_id}'
+          `;
+                    await this.dataSource.query(updateQuery);
+                    updatedCount++;
                 }
-                return value;
-            })
-                .join(', ')})`)
-                .join(', ');
-            const sqlQuery = `
-        INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
-        (${insertColumns})
-        VALUES ${valuesStatements};
-      `;
-            try {
-                console.log(`Ejecutando batch con ${batch.length} registros.`);
-                await this.dataSource.query(sqlQuery);
-                totalInsertedRecords += batch.length;
-            }
-            catch (error) {
-                console.error(`Error en batch: ${error.message}`);
-                errors.push({ row: 'N/A', error: error.message });
+                else {
+                    if (mappedColumns.length !== row.length) {
+                        console.error(`Error: La cantidad de columnas (${mappedColumns.length}) no coincide con la cantidad de valores (${row.length}) en la fila:`, row);
+                        continue;
+                    }
+                    const valuesStatements = `(${row.map((value) => (value === null ? 'NULL' : `'${value}'`)).join(', ')})`;
+                    const insertQuery = `
+            INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
+            (${mappedColumns.join(', ')})
+            VALUES ${valuesStatements}
+          `;
+                    await this.dataSource.query(insertQuery);
+                    insertedCount++;
+                }
             }
         }
-        console.log(`Total de registros insertados: ${totalInsertedRecords}`);
-        return errors.length > 0
-            ? `Datos insertados parcialmente (${totalInsertedRecords} registros insertados). Revisa el log para más detalles.`
-            : `Datos insertados correctamente. Total de registros insertados: ${totalInsertedRecords}.`;
+        return `Proceso completado correctamente. Registros actualizados: ${updatedCount}, Registros insertados: ${insertedCount}`;
     }
 };
 exports.MascaraService = MascaraService = __decorate([
@@ -2156,7 +2102,7 @@ exports.MascaraService = MascaraService = __decorate([
 
 
 /***/ }),
-/* 40 */
+/* 42 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2169,54 +2115,244 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-=======
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ColumnaMaskService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const vrc_masksupervisor_entity_1 = __webpack_require__(28);
+let ColumnaMaskService = exports.ColumnaMaskService = class ColumnaMaskService {
+    constructor(columnaMaskRepository) {
+        this.columnaMaskRepository = columnaMaskRepository;
+    }
+    async obtenerColumnasMask(dto) {
+        const { campania } = dto;
+        try {
+            const resultados = await this.columnaMaskRepository.query(`EXEC SP_CR_ObtenerColumnaMask_VRC @campania = '${campania}'`, [campania]);
+            return resultados;
+        }
+        catch (error) {
+            console.error('Error al ejecutar el procedimiento almacenado:', error.message);
+            throw new Error('No se pudieron obtener los datos. Verifique los parámetros ingresados.');
+        }
+    }
+};
+exports.ColumnaMaskService = ColumnaMaskService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(vrc_masksupervisor_entity_1.ColumnaMask)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], ColumnaMaskService);
+
+
+/***/ }),
+/* 43 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateColumnMaskService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const vrc_updatemasksupervisor_entity_1 = __webpack_require__(29);
+let UpdateColumnMaskService = exports.UpdateColumnMaskService = class UpdateColumnMaskService {
+    constructor(columnMaskRepository) {
+        this.columnMaskRepository = columnMaskRepository;
+    }
+    async updateColumnMask(dto) {
+        const { campania, etiqueta, celda, valor, estado } = dto;
+        try {
+            await this.columnMaskRepository.query(`EXEC SP_CR_ActualizarColumnaMask_VRC 
+        @campania = '${campania}', @etiqueta = '${etiqueta}', @celda = '${celda}', @valor = '${valor}', @estado = '${estado}'`, [campania, etiqueta, celda, valor, estado]);
+            return 'Datos actualizados correctamente';
+        }
+        catch (error) {
+            console.error('Error en el procedimiento almacenado:', error);
+            throw new Error('No se pudo actualizar la columna en la base de datos');
+        }
+    }
+};
+exports.UpdateColumnMaskService = UpdateColumnMaskService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(vrc_updatemasksupervisor_entity_1.UpdateColumnMask)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], UpdateColumnMaskService);
+
+
+/***/ }),
+/* 44 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ColumnasMask2 = void 0;
+const typeorm_1 = __webpack_require__(19);
+let ColumnasMask2 = exports.ColumnasMask2 = class ColumnasMask2 {
+};
+__decorate([
+    (0, typeorm_1.PrimaryColumn)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "campaign_id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "columna", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "columna_etiqueta", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "celda", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "valor", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], ColumnasMask2.prototype, "estado", void 0);
+exports.ColumnasMask2 = ColumnasMask2 = __decorate([
+    (0, typeorm_1.Entity)('T_Columnas_mask')
+], ColumnasMask2);
+
+
+/***/ }),
+/* 45 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ColumnasMaskService2 = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const columnas_mask_entity_1 = __webpack_require__(44);
+let ColumnasMaskService2 = exports.ColumnasMaskService2 = class ColumnasMaskService2 {
+    constructor(columnasMaskRepository) {
+        this.columnasMaskRepository = columnasMaskRepository;
+    }
+    async getColumnasByCampaign(campaign_id) {
+        const columnas = await this.columnasMaskRepository
+            .createQueryBuilder('columnas')
+            .select(['columnas.celda', 'columnas.columna_etiqueta', 'columnas.valor'])
+            .where('columnas.campaign_id = :campaign_id', { campaign_id })
+            .andWhere('columnas.estado = :estado', { estado: 'S' })
+            .getRawMany();
+        console.log('Cantidad de filas recuperadas:', columnas.length);
+        console.log('Datos recuperados:', columnas);
+        if (!columnas || columnas.length === 0) {
+            console.warn('No se encontraron datos para el campaign_id:', campaign_id);
+            return {};
+        }
+        const response = {};
+        columnas.forEach((columna) => {
+            const celda = columna.columnas_celda;
+            const columnaEtiqueta = columna.columnas_columna_etiqueta;
+            const valor = columna.columnas_valor;
+            if (celda && columnaEtiqueta && valor) {
+                response[columnaEtiqueta] = { celda, valor };
+            }
+            else {
+                console.warn(`Fila con datos incompletos: ${JSON.stringify(columna)}`);
+            }
+        });
+        console.log('Respuesta formateada:', response);
+        return response;
+    }
+};
+exports.ColumnasMaskService2 = ColumnasMaskService2 = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(columnas_mask_entity_1.ColumnasMask2)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], ColumnasMaskService2);
+
+
+/***/ }),
+/* 46 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.MaestraController = void 0;
 const common_1 = __webpack_require__(2);
-const campania_service_1 = __webpack_require__(28);
-<<<<<<< HEAD
-const vrc_obtenercliente_dto_1 = __webpack_require__(41);
-const vrc_principal_cliente_service_1 = __webpack_require__(29);
-const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(42);
-const vrc_adicional_cliente_service_1 = __webpack_require__(30);
-const vrc_pagoscliente_dto_1 = __webpack_require__(43);
-const vrc_pagos_service_1 = __webpack_require__(31);
-const vrc_fotogestion_service_1 = __webpack_require__(32);
-const vrc_obtenergestioncliente_dto_1 = __webpack_require__(44);
-const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(45);
-const vrc_wspmasivo_service_1 = __webpack_require__(33);
-const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(46);
-const vrc_smsmasivo_service_1 = __webpack_require__(34);
-const vrc_obtenerdetalledeuda_dto_1 = __webpack_require__(47);
-const vrc_detalledeuda_service_1 = __webpack_require__(35);
-const vrc_ivrmasivo_service_1 = __webpack_require__(36);
-const vrc_obtenerivrmasivo_dto_1 = __webpack_require__(48);
+const campania_service_1 = __webpack_require__(30);
+const vrc_obtenercliente_dto_1 = __webpack_require__(47);
+const vrc_principal_cliente_service_1 = __webpack_require__(31);
+const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(48);
+const vrc_adicional_cliente_service_1 = __webpack_require__(32);
+const vrc_pagoscliente_dto_1 = __webpack_require__(49);
+const vrc_pagos_service_1 = __webpack_require__(33);
+const vrc_fotogestion_service_1 = __webpack_require__(34);
+const vrc_obtenergestioncliente_dto_1 = __webpack_require__(50);
+const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(51);
+const vrc_wspmasivo_service_1 = __webpack_require__(35);
+const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(52);
+const vrc_smsmasivo_service_1 = __webpack_require__(36);
+const vrc_obtenerdetalledeuda_dto_1 = __webpack_require__(53);
+const vrc_detalledeuda_service_1 = __webpack_require__(37);
+const vrc_ivrmasivo_service_1 = __webpack_require__(38);
+const vrc_obtenerivrmasivo_dto_1 = __webpack_require__(54);
+const vrc_obtenermasksupervisor_dto_1 = __webpack_require__(55);
+const vrc_masksupervisor_service_1 = __webpack_require__(42);
+const vrc_updatemasksupervisor_dto_1 = __webpack_require__(56);
+const vrc_updatemasksupervisor_service_1 = __webpack_require__(43);
+const columnas_mask_service_1 = __webpack_require__(45);
 let MaestraController = exports.MaestraController = class MaestraController {
-=======
-const vrc_obtenercliente_dto_1 = __webpack_require__(40);
-const vrc_principal_cliente_service_1 = __webpack_require__(29);
-const vrc_obteneradicionaldatos_dto_1 = __webpack_require__(41);
-const vrc_adicional_cliente_service_1 = __webpack_require__(30);
-const vrc_pagoscliente_dto_1 = __webpack_require__(42);
-const vrc_pagos_service_1 = __webpack_require__(31);
-const vrc_fotogestion_service_1 = __webpack_require__(32);
-const vrc_obtenergestioncliente_dto_1 = __webpack_require__(43);
-const vrc_obtenerwspmasivo_dto_1 = __webpack_require__(44);
-const vrc_wspmasivo_service_1 = __webpack_require__(33);
-const vrc_obtenersmsmasivo_dto_1 = __webpack_require__(45);
-const vrc_smsmasivo_service_1 = __webpack_require__(34);
-const vrc_obtenerdetalledeuda_dto_1 = __webpack_require__(46);
-const vrc_detalledeuda_service_1 = __webpack_require__(35);
-const vrc_ivrmasivo_service_1 = __webpack_require__(36);
-const vrc_obtenerivrmasivo_dto_1 = __webpack_require__(47);
-let MaestraController = class MaestraController {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
-    constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService, DatosAdicionalesService, detalleDeudaService, ivrmasivoCltService) {
+    constructor(campaignService, clientMainService, pagosService, gestionService, wspmasivoCltService, smsmasivoCltService, DatosAdicionalesService, detalleDeudaService, ivrmasivoCltService, columnaMaskService, updateColumnaMaskService, columnasMaskService) {
         this.campaignService = campaignService;
         this.clientMainService = clientMainService;
         this.pagosService = pagosService;
@@ -2226,6 +2362,9 @@ let MaestraController = class MaestraController {
         this.DatosAdicionalesService = DatosAdicionalesService;
         this.detalleDeudaService = detalleDeudaService;
         this.ivrmasivoCltService = ivrmasivoCltService;
+        this.columnaMaskService = columnaMaskService;
+        this.updateColumnaMaskService = updateColumnaMaskService;
+        this.columnasMaskService = columnasMaskService;
     }
     async getCampaigns() {
         try {
@@ -2259,8 +2398,22 @@ let MaestraController = class MaestraController {
     async obtenerDatosIvr(dto) {
         return await this.ivrmasivoCltService.obtenerDatosIvr(dto);
     }
+    async obtenerColumnaMask(dto) {
+        return await this.columnaMaskService.obtenerColumnasMask(dto);
+    }
+    async updateColumnMask(dto) {
+        return await this.updateColumnaMaskService.updateColumnMask(dto);
+    }
+    async getColumnas(campaign_id) {
+        console.log('Solicitud recibida con campaign_id:', campaign_id);
+        if (!campaign_id) {
+            return { success: false, message: 'El campaign_id es requerido' };
+        }
+        const response = await this.columnasMaskService.getColumnasByCampaign(campaign_id);
+        console.log('Respuesta enviada:', JSON.stringify(response, null, 2));
+        return response;
+    }
 };
-exports.MaestraController = MaestraController;
 __decorate([
     (0, common_1.Post)('campaings'),
     __metadata("design:type", Function),
@@ -2271,70 +2424,87 @@ __decorate([
     (0, common_1.Post)('dataprivate'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _k : Object]),
-    __metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    __metadata("design:paramtypes", [typeof (_o = typeof vrc_obtenercliente_dto_1.ObtenerDatosCltDto !== "undefined" && vrc_obtenercliente_dto_1.ObtenerDatosCltDto) === "function" ? _o : Object]),
+    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
 ], MaestraController.prototype, "obtenerDatos", null);
 __decorate([
     (0, common_1.Post)('pagos'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _m : Object]),
+    __metadata("design:paramtypes", [typeof (_q = typeof vrc_pagoscliente_dto_1.PagosClienteDto !== "undefined" && vrc_pagoscliente_dto_1.PagosClienteDto) === "function" ? _q : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "getPagos", null);
 __decorate([
     (0, common_1.Post)('gestiones'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_o = typeof vrc_obtenergestioncliente_dto_1.ObtenerDetalleGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerDetalleGestionDto) === "function" ? _o : Object]),
-    __metadata("design:returntype", typeof (_p = typeof Promise !== "undefined" && Promise) === "function" ? _p : Object)
+    __metadata("design:paramtypes", [typeof (_r = typeof vrc_obtenergestioncliente_dto_1.ObtenerDetalleGestionDto !== "undefined" && vrc_obtenergestioncliente_dto_1.ObtenerDetalleGestionDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", typeof (_s = typeof Promise !== "undefined" && Promise) === "function" ? _s : Object)
 ], MaestraController.prototype, "obtenerGestion", null);
 __decorate([
     (0, common_1.Post)('wspmasivo'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_q = typeof vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto !== "undefined" && vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto) === "function" ? _q : Object]),
+    __metadata("design:paramtypes", [typeof (_t = typeof vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto !== "undefined" && vrc_obtenerwspmasivo_dto_1.ObtenerWspmasivoCltDto) === "function" ? _t : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "obtenerDatosWSP", null);
 __decorate([
     (0, common_1.Post)('smsmasivo'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_r = typeof vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto !== "undefined" && vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto) === "function" ? _r : Object]),
+    __metadata("design:paramtypes", [typeof (_u = typeof vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto !== "undefined" && vrc_obtenersmsmasivo_dto_1.ObtenerSmsMasivoCltDto) === "function" ? _u : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "obtenerDatosSMS", null);
 __decorate([
     (0, common_1.Post)('dataaditional'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_s = typeof vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto !== "undefined" && vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto) === "function" ? _s : Object]),
-    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
+    __metadata("design:paramtypes", [typeof (_v = typeof vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto !== "undefined" && vrc_obteneradicionaldatos_dto_1.ObtenerDatosAdicionalesCltDto) === "function" ? _v : Object]),
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], MaestraController.prototype, "obtenerDatosAdicional", null);
 __decorate([
     (0, common_1.Post)('detalledeuda'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_u = typeof vrc_obtenerdetalledeuda_dto_1.ObtenerDetalleDeudaDto !== "undefined" && vrc_obtenerdetalledeuda_dto_1.ObtenerDetalleDeudaDto) === "function" ? _u : Object]),
-    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
+    __metadata("design:paramtypes", [typeof (_x = typeof vrc_obtenerdetalledeuda_dto_1.ObtenerDetalleDeudaDto !== "undefined" && vrc_obtenerdetalledeuda_dto_1.ObtenerDetalleDeudaDto) === "function" ? _x : Object]),
+    __metadata("design:returntype", typeof (_y = typeof Promise !== "undefined" && Promise) === "function" ? _y : Object)
 ], MaestraController.prototype, "obtenerDetalleDeuda", null);
 __decorate([
     (0, common_1.Post)('ivrmasivo'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_w = typeof vrc_obtenerivrmasivo_dto_1.ObtenerIvrMasivoDto !== "undefined" && vrc_obtenerivrmasivo_dto_1.ObtenerIvrMasivoDto) === "function" ? _w : Object]),
+    __metadata("design:paramtypes", [typeof (_z = typeof vrc_obtenerivrmasivo_dto_1.ObtenerIvrMasivoDto !== "undefined" && vrc_obtenerivrmasivo_dto_1.ObtenerIvrMasivoDto) === "function" ? _z : Object]),
     __metadata("design:returntype", Promise)
 ], MaestraController.prototype, "obtenerDatosIvr", null);
+__decorate([
+    (0, common_1.Post)('columnamask'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_0 = typeof vrc_obtenermasksupervisor_dto_1.ObtenerColumnaMaskDto !== "undefined" && vrc_obtenermasksupervisor_dto_1.ObtenerColumnaMaskDto) === "function" ? _0 : Object]),
+    __metadata("design:returntype", Promise)
+], MaestraController.prototype, "obtenerColumnaMask", null);
+__decorate([
+    (0, common_1.Post)('updatecolumnamask'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_1 = typeof vrc_updatemasksupervisor_dto_1.UpdateColumnMaskDto !== "undefined" && vrc_updatemasksupervisor_dto_1.UpdateColumnMaskDto) === "function" ? _1 : Object]),
+    __metadata("design:returntype", Promise)
+], MaestraController.prototype, "updateColumnMask", null);
+__decorate([
+    (0, common_1.Post)('mascara'),
+    __param(0, (0, common_1.Body)('campaign_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], MaestraController.prototype, "getColumnas", null);
 exports.MaestraController = MaestraController = __decorate([
     (0, common_1.Controller)('maestra'),
-    __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object, typeof (_e = typeof vrc_wspmasivo_service_1.ObtenerWspmasivoCltService !== "undefined" && vrc_wspmasivo_service_1.ObtenerWspmasivoCltService) === "function" ? _e : Object, typeof (_f = typeof vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService !== "undefined" && vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService) === "function" ? _f : Object, typeof (_g = typeof vrc_adicional_cliente_service_1.DatosAdicionalCltService !== "undefined" && vrc_adicional_cliente_service_1.DatosAdicionalCltService) === "function" ? _g : Object, typeof (_h = typeof vrc_detalledeuda_service_1.DetalleDeudaCltService !== "undefined" && vrc_detalledeuda_service_1.DetalleDeudaCltService) === "function" ? _h : Object, typeof (_j = typeof vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService !== "undefined" && vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService) === "function" ? _j : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof campania_service_1.CampaignService !== "undefined" && campania_service_1.CampaignService) === "function" ? _a : Object, typeof (_b = typeof vrc_principal_cliente_service_1.MainClientService !== "undefined" && vrc_principal_cliente_service_1.MainClientService) === "function" ? _b : Object, typeof (_c = typeof vrc_pagos_service_1.PagosService !== "undefined" && vrc_pagos_service_1.PagosService) === "function" ? _c : Object, typeof (_d = typeof vrc_fotogestion_service_1.GestionService !== "undefined" && vrc_fotogestion_service_1.GestionService) === "function" ? _d : Object, typeof (_e = typeof vrc_wspmasivo_service_1.ObtenerWspmasivoCltService !== "undefined" && vrc_wspmasivo_service_1.ObtenerWspmasivoCltService) === "function" ? _e : Object, typeof (_f = typeof vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService !== "undefined" && vrc_smsmasivo_service_1.ObtenerSmsMasivoCltService) === "function" ? _f : Object, typeof (_g = typeof vrc_adicional_cliente_service_1.DatosAdicionalCltService !== "undefined" && vrc_adicional_cliente_service_1.DatosAdicionalCltService) === "function" ? _g : Object, typeof (_h = typeof vrc_detalledeuda_service_1.DetalleDeudaCltService !== "undefined" && vrc_detalledeuda_service_1.DetalleDeudaCltService) === "function" ? _h : Object, typeof (_j = typeof vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService !== "undefined" && vrc_ivrmasivo_service_1.ObtenerIvrMasivoCltService) === "function" ? _j : Object, typeof (_k = typeof vrc_masksupervisor_service_1.ColumnaMaskService !== "undefined" && vrc_masksupervisor_service_1.ColumnaMaskService) === "function" ? _k : Object, typeof (_l = typeof vrc_updatemasksupervisor_service_1.UpdateColumnMaskService !== "undefined" && vrc_updatemasksupervisor_service_1.UpdateColumnMaskService) === "function" ? _l : Object, typeof (_m = typeof columnas_mask_service_1.ColumnasMaskService2 !== "undefined" && columnas_mask_service_1.ColumnasMaskService2) === "function" ? _m : Object])
 ], MaestraController);
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 41 */
-=======
-/* 40 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 47 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2369,11 +2539,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 42 */
-=======
-/* 41 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 48 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2408,11 +2574,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 43 */
-=======
-/* 42 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2452,11 +2614,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 44 */
-=======
-/* 43 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 50 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2491,11 +2649,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 45 */
-=======
-/* 44 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 51 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2526,11 +2680,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 46 */
-=======
-/* 45 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 52 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2561,11 +2711,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 47 */
-=======
-/* 46 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 53 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2600,11 +2746,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 48 */
-=======
-/* 47 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 54 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2635,11 +2777,77 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 49 */
-=======
-/* 48 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 55 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ObtenerColumnaMaskDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class ObtenerColumnaMaskDto {
+}
+exports.ObtenerColumnaMaskDto = ObtenerColumnaMaskDto;
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], ObtenerColumnaMaskDto.prototype, "campania", void 0);
+
+
+/***/ }),
+/* 56 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateColumnMaskDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class UpdateColumnMaskDto {
+}
+exports.UpdateColumnMaskDto = UpdateColumnMaskDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateColumnMaskDto.prototype, "campania", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateColumnMaskDto.prototype, "etiqueta", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateColumnMaskDto.prototype, "celda", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateColumnMaskDto.prototype, "valor", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateColumnMaskDto.prototype, "estado", void 0);
+
+
+/***/ }),
+/* 57 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2657,174 +2865,99 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelService = void 0;
 const common_1 = __webpack_require__(2);
 const typeorm_1 = __webpack_require__(19);
-const XLSX = __webpack_require__(38);
-<<<<<<< HEAD
+const XLSX = __webpack_require__(40);
 let ExcelService = exports.ExcelService = class ExcelService {
-=======
-let ExcelService = class ExcelService {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
     constructor(dataSource) {
         this.dataSource = dataSource;
     }
     getLocalDateTime() {
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+        return new Date().toISOString().slice(0, 19).replace('T', ' ');
     }
     isValidDate(value) {
-        const date = new Date(value);
-        return !isNaN(date.getTime()) && date.getFullYear() >= 1900 && date.getFullYear() <= 2100;
+        return !isNaN(Date.parse(value));
     }
-    validateAndConvert(value, column, columnName, rowIndex) {
-        try {
-            if (!column)
-                return value;
-            switch (column.dataType) {
-                case 'datetime':
-                    if (value && typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value)) {
-                        const date = new Date(value);
-                        if (!this.isValidDate(date)) {
-                            console.warn(`Fila ${rowIndex + 1}: Fecha inválida en columna ${columnName}`);
-                            return null;
-                        }
-                        return `${value.split(' ')[0]} 00:00:00`;
-                    }
-                    console.warn(`Fila ${rowIndex + 1}: Fecha inválida '${value}' en columna ${columnName}`);
-                    return null;
-                case 'numeric':
-                case 'decimal':
-                case 'float':
-                    const parsedFloat = parseFloat(value);
-                    if (isNaN(parsedFloat)) {
-                        console.warn(`Fila ${rowIndex + 1}: Valor no numérico '${value}' en columna ${columnName}`);
-                        return 0.0;
-                    }
-                    return parsedFloat;
-                case 'int':
-                    const parsedInt = parseInt(value, 10);
-                    if (isNaN(parsedInt)) {
-                        console.warn(`Fila ${rowIndex + 1}: Valor no entero '${value}' en columna ${columnName}`);
-                        return 0;
-                    }
-                    return parsedInt;
-                case 'varchar':
-                case 'nvarchar':
-                    if (typeof value !== 'string')
-                        value = value ? String(value) : '';
-                    if (column.maxLength && value.length > column.maxLength) {
-                        console.warn(`Fila ${rowIndex + 1}: Cadena truncada en columna ${columnName}`);
-                        value = value.substring(0, column.maxLength);
-                    }
-                    return value.replace(/'/g, "''");
-                default:
-                    return value;
-            }
+    validateAndConvert(value, column) {
+        if (value === null || value === undefined || value === '') {
+            return column?.columnName === 'nEstado' ? 1 : null;
         }
-        catch (error) {
-            console.error(`Error al validar valor en fila ${rowIndex + 1}, columna ${columnName}: ${error.message}`);
-            return null;
+        switch (column?.dataType) {
+            case 'datetime':
+                return this.isValidDate(value) ? new Date(value).toISOString().slice(0, 19).replace('T', ' ') : null;
+            case 'int':
+                return Number.isInteger(Number(value)) ? parseInt(value, 10) : (column?.columnName === 'nEstado' ? 1 : 0);
+            case 'numeric':
+            case 'decimal':
+            case 'float':
+                return !isNaN(parseFloat(value)) ? parseFloat(value) : 0.0;
+            case 'varchar':
+            case 'nvarchar':
+                let stringValue = String(value).trim();
+                return column.maxLength ? stringValue.slice(0, column.maxLength) : stringValue;
+            default:
+                return value;
         }
     }
     async processExcel(file, campaign_id, list_id) {
-        const BATCH_SIZE = 500;
-        console.log(`Archivo recibido: Nombre=${file.originalname}, Tamaño=${file.size}`);
+        const BATCH_SIZE = 200;
+        console.log(`Archivo recibido: ${file.originalname} (${file.size} bytes)`);
         const workbook = XLSX.read(file.buffer, { type: 'buffer' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         const data = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-        console.log(`Total de filas leídas (incluyendo encabezados): ${data.length}`);
         if (data.length < 2) {
             throw new common_1.InternalServerErrorException('El archivo Excel está vacío o mal formateado');
         }
         const headers = data[0];
         const rows = data.slice(1);
-        console.log(`Encabezados detectados: ${headers}`);
-        console.log(`Total de filas de datos: ${rows.length}`);
-        const mappingQuery = `
-      SELECT columna AS cabecera_asignacion, columna_etiqueta
-      FROM [BD_CR_MAESTRA].[dbo].[T_Columnas2]
-      WHERE campaign_id = @0
-    `;
+        const mappingQuery = `SELECT columna AS cabecera_asignacion, columna_etiqueta FROM [BD_CR_MAESTRA].[dbo].[T_Columnas2] WHERE campaign_id = @0`;
         const mapping = await this.dataSource.query(mappingQuery, [campaign_id]);
-        console.log(`Columnas mapeadas desde la base de datos: ${JSON.stringify(mapping)}`);
-        if (!mapping || mapping.length === 0) {
-            throw new common_1.InternalServerErrorException('No se encontraron columnas mapeadas para la campaña proporcionada');
+        if (!mapping.length) {
+            throw new common_1.InternalServerErrorException('No se encontraron columnas mapeadas para la campaña.');
         }
-        const columnMapping = mapping.reduce((acc, curr) => {
-            acc[curr.columna_etiqueta] = curr.cabecera_asignacion;
-            return acc;
-        }, {});
+        const columnMapping = mapping.reduce((acc, curr) => ({ ...acc, [curr.columna_etiqueta]: curr.cabecera_asignacion }), {});
         const filteredHeaders = headers.filter((header) => columnMapping[header]);
-        if (filteredHeaders.length === 0) {
-            throw new common_1.InternalServerErrorException('No hay cabeceras válidas para insertar en la base de datos.');
+        if (!filteredHeaders.length) {
+            throw new common_1.InternalServerErrorException('No hay cabeceras válidas para insertar.');
         }
-        const mappedColumns = filteredHeaders.map((header) => columnMapping[header]);
-        const additionalColumns = ['campaign_id', 'list_id', 'dFecha_CARGA_CSV'];
-        mappedColumns.push(...additionalColumns);
-        console.log(`Columnas finales para inserción: ${mappedColumns}`);
-        const columnInfoQuery = `
-      SELECT COLUMN_NAME AS columnName, DATA_TYPE AS dataType, CHARACTER_MAXIMUM_LENGTH AS maxLength
-      FROM INFORMATION_SCHEMA.COLUMNS
-      WHERE TABLE_NAME = 'FR_ASIGNACION'
-    `;
+        const columnInfoQuery = `SELECT COLUMN_NAME AS columnName, DATA_TYPE AS dataType, CHARACTER_MAXIMUM_LENGTH AS maxLength FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'FR_ASIGNACION'`;
         const columnInfo = await this.dataSource.query(columnInfoQuery);
-        const columnDetails = columnInfo.reduce((acc, curr) => {
-            acc[curr.columnName] = {
-                maxLength: curr.maxLength,
-                dataType: curr.dataType,
-            };
-            return acc;
-        }, {});
-        const errors = [];
+        const columnDetails = columnInfo.reduce((acc, curr) => ({ ...acc, [curr.columnName]: { dataType: curr.dataType, maxLength: curr.maxLength } }), {});
+        const mappedColumns = [...filteredHeaders.map((header) => columnMapping[header]), 'campaign_id', 'list_id', 'dFecha_CARGA_CSV'];
         const validRows = [];
+        const errors = [];
         let totalInsertedRecords = 0;
-        for (const [rowIndex, row] of rows.entries()) {
+        rows.forEach((row, rowIndex) => {
             try {
                 const filteredRow = filteredHeaders.map((header) => {
                     const columnName = columnMapping[header];
                     const column = columnDetails[columnName];
                     const colIndex = headers.indexOf(header);
-                    return this.validateAndConvert(row[colIndex] || null, column, columnName, rowIndex);
+                    return this.validateAndConvert(row[colIndex], column);
                 });
                 filteredRow.push(campaign_id, list_id, this.getLocalDateTime());
+                console.log(`Fila ${rowIndex + 2}:`, filteredRow);
                 validRows.push(filteredRow);
             }
             catch (error) {
                 errors.push({ row: rowIndex + 2, error: error.message });
             }
-        }
-        console.log(`Total de filas válidas: ${validRows.length}`);
-        console.log(`Errores durante la validación: ${JSON.stringify(errors)}`);
+        });
         const batches = [];
         for (let i = 0; i < validRows.length; i += BATCH_SIZE) {
             batches.push(validRows.slice(i, i + BATCH_SIZE));
         }
         for (const batch of batches) {
+            if (batch.some(row => row.length !== mappedColumns.length)) {
+                console.error('Error: Desajuste entre columnas y valores en el batch.');
+                console.log(`Columnas esperadas: ${mappedColumns.length}, Valores en fila: ${batch[0]?.length}`);
+                throw new common_1.InternalServerErrorException('Error en la estructura de datos. Verifica el mapeo de columnas.');
+            }
             const insertColumns = mappedColumns.join(', ');
             const valuesStatements = batch
-                .map((row) => `(${row
-                .map((value) => {
-                if (value === null || value === undefined || Number.isNaN(value))
-                    return 'NULL';
-                if (typeof value === 'string') {
-                    return `'${value.replace(/'/g, "''")}'`;
-                }
-                return value;
-            })
-                .join(', ')})`)
+                .map((row) => `(${row.map((value) => (value === null ? 'DEFAULT' : typeof value === 'string' ? `'${value.replace(/'/g, "''")}'` : value)).join(', ')})`)
                 .join(', ');
-            const sqlQuery = `
-        INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_ASIGNACION]
-        (${insertColumns})
-        VALUES ${valuesStatements};
-      `;
+            const sqlQuery = `INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_ASIGNACION] (${insertColumns}) VALUES ${valuesStatements};`;
             try {
-                console.log(`Ejecutando batch con ${batch.length} registros.`);
                 await this.dataSource.query(sqlQuery);
                 totalInsertedRecords += batch.length;
             }
@@ -2833,13 +2966,11 @@ let ExcelService = class ExcelService {
                 errors.push({ row: 'N/A', error: error.message });
             }
         }
-        console.log(`Total de registros insertados: ${totalInsertedRecords}`);
         return errors.length > 0
-            ? `Datos insertados parcialmente (${totalInsertedRecords} registros insertados). Revisa el log para más detalles.`
-            : `Datos insertados correctamente. Total de registros insertados: ${totalInsertedRecords}.`;
+            ? `Datos insertados parcialmente (${totalInsertedRecords} registros). Revisa el log.`
+            : `Datos insertados correctamente (${totalInsertedRecords} registros).`;
     }
 };
-exports.ExcelService = ExcelService;
 exports.ExcelService = ExcelService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [typeof (_a = typeof typeorm_1.DataSource !== "undefined" && typeorm_1.DataSource) === "function" ? _a : Object])
@@ -2847,11 +2978,7 @@ exports.ExcelService = ExcelService = __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 50 */
-=======
-/* 49 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 58 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -2867,31 +2994,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ExcelController = void 0;
 const common_1 = __webpack_require__(2);
-<<<<<<< HEAD
-const platform_express_1 = __webpack_require__(51);
-const cargasignacion_service_1 = __webpack_require__(49);
-const pagos_service_1 = __webpack_require__(37);
-const frmascara_service_1 = __webpack_require__(39);
-const uploadExece_dto_1 = __webpack_require__(52);
-const pagos_dto_1 = __webpack_require__(53);
+const platform_express_1 = __webpack_require__(59);
+const cargasignacion_service_1 = __webpack_require__(57);
+const pagos_service_1 = __webpack_require__(39);
+const frmascara_service_1 = __webpack_require__(41);
+const uploadExece_dto_1 = __webpack_require__(60);
+const pagos_dto_1 = __webpack_require__(61);
+const BQCourrier_service_1 = __webpack_require__(62);
+const BQCourrier_dto_1 = __webpack_require__(66);
+const express_1 = __webpack_require__(67);
 let ExcelController = exports.ExcelController = class ExcelController {
-    constructor(excelService, pagosService, mascaraService) {
-=======
-const platform_express_1 = __webpack_require__(50);
-const cargasignacion_service_1 = __webpack_require__(48);
-const pagos_service_1 = __webpack_require__(37);
-const uploadExece_dto_1 = __webpack_require__(51);
-const pagos_dto_1 = __webpack_require__(52);
-let ExcelController = class ExcelController {
-    constructor(excelService, pagosService) {
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+    constructor(excelService, pagosService, mascaraService, bqCourierService) {
         this.excelService = excelService;
         this.pagosService = pagosService;
         this.mascaraService = mascaraService;
+        this.bqCourierService = bqCourierService;
     }
     async uploadExcel(uploadExcelDto, file) {
         if (!file) {
@@ -2911,15 +3032,17 @@ let ExcelController = class ExcelController {
         const { campaign_id, list_id } = uploadExcelDto;
         return this.mascaraService.processExcel(file, campaign_id, list_id);
     }
+    async uploadFileS(file, dto) {
+        return this.bqCourierService.processFile(file, dto);
+    }
 };
-exports.ExcelController = ExcelController;
 __decorate([
     (0, common_1.Post)('upload'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _d : Object, typeof (_f = typeof Express !== "undefined" && (_e = Express.Multer) !== void 0 && _e.File) === "function" ? _f : Object]),
+    __metadata("design:paramtypes", [typeof (_e = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _e : Object, typeof (_g = typeof express_1.Express !== "undefined" && (_f = express_1.Express.Multer) !== void 0 && _f.File) === "function" ? _g : Object]),
     __metadata("design:returntype", Promise)
 ], ExcelController.prototype, "uploadExcel", null);
 __decorate([
@@ -2928,7 +3051,7 @@ __decorate([
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof Express !== "undefined" && (_g = Express.Multer) !== void 0 && _g.File) === "function" ? _h : Object, typeof (_j = typeof pagos_dto_1.UploadDto !== "undefined" && pagos_dto_1.UploadDto) === "function" ? _j : Object]),
+    __metadata("design:paramtypes", [typeof (_j = typeof express_1.Express !== "undefined" && (_h = express_1.Express.Multer) !== void 0 && _h.File) === "function" ? _j : Object, typeof (_k = typeof pagos_dto_1.UploadDto !== "undefined" && pagos_dto_1.UploadDto) === "function" ? _k : Object]),
     __metadata("design:returntype", Promise)
 ], ExcelController.prototype, "uploadFile", null);
 __decorate([
@@ -2937,31 +3060,32 @@ __decorate([
     __param(0, (0, common_1.Body)()),
     __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _k : Object, typeof (_m = typeof Express !== "undefined" && (_l = Express.Multer) !== void 0 && _l.File) === "function" ? _m : Object]),
+    __metadata("design:paramtypes", [typeof (_l = typeof uploadExece_dto_1.UploadExcelDto !== "undefined" && uploadExece_dto_1.UploadExcelDto) === "function" ? _l : Object, typeof (_o = typeof express_1.Express !== "undefined" && (_m = express_1.Express.Multer) !== void 0 && _m.File) === "function" ? _o : Object]),
     __metadata("design:returntype", Promise)
 ], ExcelController.prototype, "MascaraExcel", null);
+__decorate([
+    (0, common_1.Post)('courrier'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_q = typeof express_1.Express !== "undefined" && (_p = express_1.Express.Multer) !== void 0 && _p.File) === "function" ? _q : Object, typeof (_r = typeof BQCourrier_dto_1.CreateBQCourierDto !== "undefined" && BQCourrier_dto_1.CreateBQCourierDto) === "function" ? _r : Object]),
+    __metadata("design:returntype", Promise)
+], ExcelController.prototype, "uploadFileS", null);
 exports.ExcelController = ExcelController = __decorate([
     (0, common_1.Controller)('excel'),
-    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object, typeof (_b = typeof pagos_service_1.FrPagosService !== "undefined" && pagos_service_1.FrPagosService) === "function" ? _b : Object, typeof (_c = typeof frmascara_service_1.MascaraService !== "undefined" && frmascara_service_1.MascaraService) === "function" ? _c : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof cargasignacion_service_1.ExcelService !== "undefined" && cargasignacion_service_1.ExcelService) === "function" ? _a : Object, typeof (_b = typeof pagos_service_1.FrPagosService !== "undefined" && pagos_service_1.FrPagosService) === "function" ? _b : Object, typeof (_c = typeof frmascara_service_1.MascaraService !== "undefined" && frmascara_service_1.MascaraService) === "function" ? _c : Object, typeof (_d = typeof BQCourrier_service_1.BQCourierService !== "undefined" && BQCourrier_service_1.BQCourierService) === "function" ? _d : Object])
 ], ExcelController);
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 51 */
-=======
-/* 50 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 59 */
 /***/ ((module) => {
 
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-<<<<<<< HEAD
-/* 52 */
-=======
-/* 51 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 60 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3002,11 +3126,7 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 53 */
-=======
-/* 52 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 61 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -3036,11 +3156,228 @@ __decorate([
 
 
 /***/ }),
-<<<<<<< HEAD
-/* 54 */
-=======
-/* 53 */
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+/* 62 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BQCourierService = void 0;
+const common_1 = __webpack_require__(2);
+const typeorm_1 = __webpack_require__(14);
+const typeorm_2 = __webpack_require__(19);
+const csv = __webpack_require__(63);
+const xlsx = __webpack_require__(40);
+const BQCourier_entity_1 = __webpack_require__(64);
+const stream_1 = __webpack_require__(65);
+let BQCourierService = exports.BQCourierService = class BQCourierService {
+    constructor(bqCourierRepo) {
+        this.bqCourierRepo = bqCourierRepo;
+    }
+    async processFile(file, dto) {
+        let records = [];
+        if (file.mimetype === 'text/csv') {
+            records = await this.parseCSV(file.buffer);
+        }
+        else if (file.mimetype === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
+            file.mimetype === 'application/vnd.ms-excel') {
+            records = await this.parseExcel(file.buffer);
+        }
+        else {
+            throw new Error('Formato de archivo no soportado');
+        }
+        for (const record of records) {
+            record.campania = dto.CAMPANIA;
+            record.usuario = dto.USUARIO;
+            record.fecarga = new Date();
+            record.periodo = new Date().getFullYear().toString() +
+                ('0' + (new Date().getMonth() + 1)).slice(-2);
+        }
+        await this.bqCourierRepo.insert(records);
+        return `Se insertaron ${records.length} registros.`;
+    }
+    parseCSV(buffer) {
+        return new Promise((resolve, reject) => {
+            const results = [];
+            const stream = stream_1.Readable.from(buffer.toString());
+            stream.pipe(csv({ separator: ';' }))
+                .on('data', (data) => {
+                if (data.DOCUMENTO && data.CLIENTE && data.DIRECCION) {
+                    results.push({
+                        documento: data.DOCUMENTO.trim(),
+                        cliente: data.CLIENTE.trim(),
+                        direccion: data.DIRECCION.trim(),
+                        departamento: data.DEPARTAMENTO?.trim() || '',
+                        provincia: data.PROVINCIA?.trim() || '',
+                        distrito: data.DISTRITO?.trim() || '',
+                        deuda: parseFloat(data.DEUDA.replace(',', '.')) || 0,
+                        cancelacion: parseFloat(data.CANCELACION.replace(',', '.')) || 0,
+                        campania: '',
+                        usuario: '',
+                    });
+                }
+                else {
+                    console.warn(`⚠️ Fila inválida ignorada: ${JSON.stringify(data)}`);
+                }
+            })
+                .on('end', () => resolve(results))
+                .on('error', (err) => reject(err));
+        });
+    }
+    parseExcel(buffer) {
+        const workbook = xlsx.read(buffer, { type: 'buffer' });
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        return xlsx.utils.sheet_to_json(sheet);
+    }
+};
+exports.BQCourierService = BQCourierService = __decorate([
+    (0, common_1.Injectable)(),
+    __param(0, (0, typeorm_1.InjectRepository)(BQCourier_entity_1.BqCourier)),
+    __metadata("design:paramtypes", [typeof (_a = typeof typeorm_2.Repository !== "undefined" && typeorm_2.Repository) === "function" ? _a : Object])
+], BQCourierService);
+
+
+/***/ }),
+/* 63 */
+/***/ ((module) => {
+
+module.exports = require("csv-parser");
+
+/***/ }),
+/* 64 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BqCourier = void 0;
+const typeorm_1 = __webpack_require__(19);
+let BqCourier = exports.BqCourier = class BqCourier {
+};
+__decorate([
+    (0, typeorm_1.PrimaryColumn)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "documento", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "cliente", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "direccion", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "departamento", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "provincia", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "distrito", void 0);
+__decorate([
+    (0, typeorm_1.Column)('decimal'),
+    __metadata("design:type", Number)
+], BqCourier.prototype, "deuda", void 0);
+__decorate([
+    (0, typeorm_1.Column)('decimal'),
+    __metadata("design:type", Number)
+], BqCourier.prototype, "cancelacion", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "campania", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "periodo", void 0);
+__decorate([
+    (0, typeorm_1.Column)('date'),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], BqCourier.prototype, "fecarga", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], BqCourier.prototype, "usuario", void 0);
+__decorate([
+    (0, typeorm_1.Column)('date'),
+    __metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], BqCourier.prototype, "fecha_envio", void 0);
+exports.BqCourier = BqCourier = __decorate([
+    (0, typeorm_1.Entity)('BQ_COURIER')
+], BqCourier);
+
+
+/***/ }),
+/* 65 */
+/***/ ((module) => {
+
+module.exports = require("stream");
+
+/***/ }),
+/* 66 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateBQCourierDto = void 0;
+const class_validator_1 = __webpack_require__(9);
+class CreateBQCourierDto {
+}
+exports.CreateBQCourierDto = CreateBQCourierDto;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBQCourierDto.prototype, "CAMPANIA", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateBQCourierDto.prototype, "USUARIO", void 0);
+
+
+/***/ }),
+/* 67 */
+/***/ ((module) => {
+
+module.exports = require("express");
+
+/***/ }),
+/* 68 */
 /***/ ((module) => {
 
 module.exports = require("body-parser");
@@ -3074,7 +3411,7 @@ module.exports = require("body-parser");
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
 
@@ -3082,11 +3419,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(1);
 const common_1 = __webpack_require__(2);
 const documentacion_1 = __webpack_require__(3);
-<<<<<<< HEAD
-const bodyParser = __webpack_require__(54);
-=======
-const bodyParser = __webpack_require__(53);
->>>>>>> a5a1b6fe34a9afec378b8ee30581e12a9b65e1c0
+const bodyParser = __webpack_require__(68);
 const app_module_1 = __webpack_require__(5);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
@@ -3106,7 +3439,7 @@ async function bootstrap() {
     (0, documentacion_1.generateDocumentacion)(app);
     app.use(bodyParser.json({ limit: '50mb' }));
     app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-    await app.listen(process.env.PORT || 3000, () => {
+    await app.listen(process.env.PORT || 3000, '0.0.0.0', () => {
         logger.log(`Server running on port ${process.env.PORT || 3000}`);
         logger.log(`Modo ${process.env.NODE_ENV ? process.env.NODE_ENV : 'Desarrollo'}`);
         logger.log(__dirname);
