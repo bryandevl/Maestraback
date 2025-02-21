@@ -43,6 +43,8 @@ import { UpdateColumnMaskDto } from 'src/dtos/vrc-updatemasksupervisor.dto';
 import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
 
 import { ColumnasMaskService2 } from '../services/columnas-mask.service';
+import { VrcResultMaskService } from '../services/vrc-resultmask.service';
+import { ObtenerValoresDto } from 'src/dtos/vrc-resultmask.dto';
 
 @Controller('maestra')
 export class MaestraController {
@@ -57,7 +59,8 @@ export class MaestraController {
               private readonly ivrmasivoCltService: ObtenerIvrMasivoCltService,
               private readonly columnaMaskService: ColumnaMaskService,
               private readonly updateColumnaMaskService: UpdateColumnMaskService,
-              private readonly columnasMaskService: ColumnasMaskService2
+              private readonly columnasMaskService: ColumnasMaskService2,
+              private readonly resultMaskService: VrcResultMaskService,
   ) {}
 
   @Post('campaings')
@@ -138,10 +141,10 @@ export class MaestraController {
   }
   
 
-
-
-
-
+  @Post('resultmascara')
+  async obtenerValores(@Body() obtenerValoresDto: ObtenerValoresDto) {
+    return this.resultMaskService.obtenerResultadoMascara(obtenerValoresDto.campania_id);
+  }
 
 
 }
