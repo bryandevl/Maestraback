@@ -87,18 +87,21 @@ export class MascaraService {
     let updatedCount = 0;
     let insertedCount = 0;
     console.log(`Archivo recibido: ${file.originalname}, Tamaño=${file.size}`);
+  
+    // Leer el archivo Excel
     const workbook = XLSX.read(file.buffer, { type: 'buffer' });
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
     const data: any[][] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-    
+  
     if (data.length < 2) {
       throw new InternalServerErrorException('El archivo Excel está vacío o mal formateado');
     }
-    
+  
     const headers = data[0];
     const rows = data.slice(1);
-    
+  
+    // Obtener el mapeo de columnas desde la base de datos
     const mappingQuery = `
       SELECT columna AS columna, columna_etiqueta, DATA_TYPE AS dataType, CHARACTER_MAXIMUM_LENGTH AS maxLength
       FROM [BD_CR_MAESTRA].[dbo].[T_Columnas_mask]
@@ -106,20 +109,23 @@ export class MascaraService {
       WHERE campaign_id = '${campaign_id}' AND TABLE_NAME = 'FR_MASCARA'
     `;
     const mapping = await this.dataSource.query(mappingQuery);
-    
+  
+    // Crear un mapeo de columnas
     const columnMapping = mapping.reduce((acc, curr) => {
       acc[curr.columna_etiqueta] = {
         column: curr.columna,
         type: curr.dataType || 'varchar',
-        maxLength: curr.maxLength || null
+        maxLength: curr.maxLength || null,
       };
       return acc;
     }, {});
-    
+  
+    // Filtrar las columnas que están en el mapeo
     const filteredHeaders = headers.filter((header) => columnMapping[header]);
     const mappedColumns = filteredHeaders.map((header) => columnMapping[header].column);
     mappedColumns.push('campaign_id', 'list_id', 'dFecha_CARGA_CSV');
-    
+  
+    // Procesar las filas válidas
     const validRows = [];
     for (const rowIndex in rows) {
       const row = rows[rowIndex];
@@ -130,57 +136,68 @@ export class MascaraService {
       filteredRow.push(campaign_id, list_id, this.getLocalDateTime());
       validRows.push(filteredRow);
     }
-    
+  
+    // Procesar en lotes
     const batches = [];
     for (let i = 0; i < validRows.length; i += BATCH_SIZE) {
       batches.push(validRows.slice(i, i + BATCH_SIZE));
     }
-    
+  
     for (const batch of batches) {
       for (const row of batch) {
+        // Depuración: Verificar los valores de cnum_cuenta y cnum_documento
+        const cnum_cuenta = row[mappedColumns.indexOf('cnum_cuenta')];
+        const cnum_documento = row[mappedColumns.indexOf('cnum_documento')];
+        console.log(`Valores de búsqueda: cnum_cuenta=${cnum_cuenta}, cnum_documento=${cnum_documento}`);
+  
+        // Consulta de verificación mejorada
         const checkQuery = `
           SELECT COUNT(*) AS count FROM [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
-          WHERE cnum_cuenta = '${row[0]}' AND cnum_documento = '${row[1]}' AND campaign_id = '${campaign_id}' AND list_id = '${list_id}'
+          WHERE (cnum_cuenta = '${cnum_cuenta}' OR (cnum_cuenta IS NULL AND '${cnum_cuenta}' IS NULL))
+            AND cnum_documento = '${cnum_documento}'
+            AND campaign_id = '${campaign_id}'
+            AND list_id = '${list_id}'
         `;
-        
+        console.log(`Consulta de verificación: ${checkQuery}`);
+  
         const checkResult = await this.dataSource.query(checkQuery);
-    
+        console.log(`Resultado de verificación: ${checkResult[0].count}`);
+  
         if (checkResult[0].count > 0) {
           // Actualización
-          const updateColumns = mappedColumns.map((col, index) => {
-            return `${col} = ${row[index] === null ? 'NULL' : `'${row[index]}'`}`;
-          }).join(', ');
-    
+          const updateColumns = mappedColumns
+            .filter((col, index) => !['campaign_id', 'list_id', 'dFecha_CARGA_CSV'].includes(col)) // Excluir columnas que no deben actualizarse
+            .map((col, index) => {
+              const value = row[index];
+              return `${col} = ${value === null ? 'NULL' : (typeof value === 'number' ? value : `'${value}'`)}`;
+            })
+            .join(', ');
+  
           const updateQuery = `
             UPDATE [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
             SET dFecha_MODIFICACION = GETDATE(), ${updateColumns}
-            WHERE cnum_cuenta = '${row[0]}' AND cnum_documento = '${row[1]}' AND campaign_id = '${campaign_id}' AND list_id = '${list_id}'
+            WHERE cnum_cuenta = '${cnum_cuenta}' AND cnum_documento = '${cnum_documento}' AND campaign_id = '${campaign_id}' AND list_id = '${list_id}'
           `;
+          console.log(`Consulta de actualización: ${updateQuery}`);
           await this.dataSource.query(updateQuery);
           updatedCount++;
         } else {
-          // **Validación antes de la inserción**
-          if (mappedColumns.length !== row.length) {
-            console.error(`Error: La cantidad de columnas (${mappedColumns.length}) no coincide con la cantidad de valores (${row.length}) en la fila:`, row);
-            continue; // Saltar esta fila para evitar el error
-          }
-    
-          const valuesStatements = `(${row.map((value) => (value === null ? 'NULL' : `'${value}'`)).join(', ')})`;
-    
+          // Inserción
+          const valuesStatements = `(${row.map((value) => (value === null ? 'NULL' : (typeof value === 'number' ? value : `'${value}'`))).join(', ')})`;
+  
           const insertQuery = `
             INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
             (${mappedColumns.join(', ')})
             VALUES ${valuesStatements}
           `;
-    
+          console.log(`Consulta de inserción: ${insertQuery}`);
           await this.dataSource.query(insertQuery);
           insertedCount++;
         }
       }
     }
-    
+  
     return `Proceso completado correctamente. Registros actualizados: ${updatedCount}, Registros insertados: ${insertedCount}`;
   }
-  
-  
+
 }
