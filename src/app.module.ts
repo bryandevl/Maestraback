@@ -35,6 +35,7 @@ import { ColumnaMaskService } from './services/vrc-masksupervisor.service';
 import { UpdateColumnMaskService } from 'src/services/vrc-updatemasksupervisor.service';
 import {ColumnasMask2} from './entities/columnas-mask.entity';
 import {ColumnasMaskService2} from './services/columnas-mask.service';
+import { VrcResultMaskService } from './services/vrc-resultmask.service';
 
 import { MaestraController } from './controllers/maestra.controller';
 
@@ -60,7 +61,7 @@ import { BQCourierService } from './services/BQCourrier.service';
     }),
     DatabaseModule,
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2,VrcResultMaskService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}
