@@ -5,46 +5,44 @@ import { ColumnasMask2 } from 'src/entities/columnas-mask.entity';
 
 @Injectable()
 export class VrcResultMaskService {
-constructor(
+  constructor(
     @InjectRepository(ColumnasMask2)
-    private readonly resultmaskRepository: Repository<ColumnasMask2>,
+    private readonly resultMaskRepository: Repository<ColumnasMask2>,
     private readonly dataSource: DataSource,
-) {}
+  ) {}
 
-async obtenerResultadoMascara(campaign_id: string) {
-    // 1. Obtener las asignaciones de la campaña 
-    const asignaciones = await this.resultmaskRepository.find({ where: { campaign_id, estado: 'S' } });
-    if (!asignaciones.length) return [];
+  // Obtiene las columnas configuradas en T_Columnas_mask para una campaña específica.
+  async obtenerResultadoMascara(campaign_id: string): Promise<any[]> {
+     // 1️⃣ OBTENER COLUMNAS DE T_Columnas_mask
+      const columnas = await this.resultMaskRepository
+      .createQueryBuilder('columnas')
+      .select(['columnas.celda', 'columnas.columna_etiqueta', 'columnas.valor', 'columnas.columna']) // Incluir columna para hacer el match
+      .where('columnas.campaign_id = :campaign_id', { campaign_id })
+      .andWhere('columnas.estado = :estado', { estado: 'S' })
+      .getRawMany();
 
-    if (!asignaciones.length) {
-        return [];
+    if (!columnas.length) {
+      console.warn(`No se encontraron datos para la campaña: ${campaign_id}`);
+      return [];
     }
-    // 2. Obtener todas las columnas de `FR_MASCARA` dinámicamente
-    const columnasFrMascara = await this.dataSource.query(`SELECT COLUMN_NAME as columnName FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'FR_MASCARA'`);
 
-    const columnasDisponibles = columnasFrMascara.map((columna) => columna.columnName);
+    // 2️⃣ CREAR QUERY DINÁMICA PARA FR_MASCARA
+    const columnasSelect = columnas.map(col => `[${col.columnas_columna}]`).join(', ');
+    const query = `SELECT ${columnasSelect} FROM FR_MASCARA WHERE campaign_id = @0`;
+    const rawData = await this.dataSource.query(query, [campaign_id]);
 
-    // 3. Obtener datos dinámicamente
-    const resultados = await Promise.all(
-        asignaciones.map(async ({ columna, celda, columna_etiqueta }) => {
-        let resultado = null;
-        if (columnasDisponibles.includes(columna)) {
-            const queryResult = await this.dataSource.query(
-            `SELECT ${columna} AS valor FROM FR_MASCARA WHERE campaign_id = ${campaign_id}`,
-            [campaign_id]
-            );
-            resultado = queryResult.length ? queryResult[0].valor : null;
-        }
+    // Si no hay datos en FR_MASCARA, devolver valores null
+    const rowData = rawData.length ? rawData[0] : {};
 
-            return {
-                campaign_id,
-                columna_cabecera: columna_etiqueta,
-                celda,
-                valor: celda,
-                resultado,
-            };
-        })
-    );
-        return resultados;
-    }
+    // 3️⃣ FORMATEAR RESPUESTA
+    const resultados = columnas.map(col => ({
+      campaign_id,
+      columna_cabecera: col.columnas_columna_etiqueta,
+      celda: col.columnas_celda,
+      valor: col.columnas_valor,
+      resultado: rowData[col.columnas_columna] ?? null, // Si no hay dato, será null
+    }));
+
+    return resultados;
+  }
 }
