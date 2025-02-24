@@ -142,13 +142,8 @@ export class MaestraController {
   
 
   @Post('resultmascara')
-  async obtenerValores(@Body() body: { campaign_id: string }) {
-    if (!body.campaign_id) {
-      return { error: 'Debe enviar un campaign_id válido' };
-    }
-
-    return this.resultMaskService.obtenerResultadoMascara(body.campaign_id);
+  async obtenerValores(@Body() dto: ObtenerValoresDto) {
+    return await this.resultMaskService.obtenerResultadoMascara(dto);
   }
-
 
 }
