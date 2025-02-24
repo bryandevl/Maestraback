@@ -46,6 +46,8 @@ import { ColumnasMaskService2 } from '../services/columnas-mask.service';
 import { VrcResultMaskService } from '../services/vrc-resultmask.service';
 import { ObtenerValoresDto } from 'src/dtos/vrc-resultmask.dto';
 
+import { clearMascaraService } from 'src/services/vrc-clearmasksupervisor.service';
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -61,6 +63,7 @@ export class MaestraController {
               private readonly updateColumnaMaskService: UpdateColumnMaskService,
               private readonly columnasMaskService: ColumnasMaskService2,
               private readonly resultMaskService: VrcResultMaskService,
+              private readonly clearMaskService: clearMascaraService,
   ) {}
 
   @Post('campaings')
@@ -123,10 +126,6 @@ export class MaestraController {
   }
   
 
-
-
-
-
   @Post('mascara')
   async getColumnas(@Body('campaign_id') campaign_id: string) {
     console.log('Solicitud recibida con campaign_id:', campaign_id);
@@ -146,4 +145,9 @@ export class MaestraController {
     return await this.resultMaskService.obtenerResultadoMascara(dto);
   }
 
+
+  @Post('clearmask')
+  async clearMask(@Body() dto: ObtenerColumnaMaskDto) {
+    return await this.clearMaskService.clearMaskByCampaign(dto);
+  }
 }
