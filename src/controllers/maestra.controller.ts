@@ -148,6 +148,7 @@ export class MaestraController {
 
   @Post('clearmask')
   async clearMask(@Body() dto: ObtenerColumnaMaskDto) {
-    return await this.clearMaskService.clearMaskByCampaign(dto);
+    const result = await this.clearMaskService.clearMaskByCampaign(dto);
+    return result;
   }
 }
