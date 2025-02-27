@@ -20,7 +20,7 @@ import config from 'src/config/config';
         },
         autoLoadEntities: true,
         synchronize: false,
-        logging: true, // Desactiva logs en producción para mejorar rendimiento
+        logging: false, // Desactiva logs en producción para mejorar rendimiento
         extra: {
           max: 1000, // Aumenta el número máximo de conexiones concurrentes
           connectionTimeoutMillis: 60000,
