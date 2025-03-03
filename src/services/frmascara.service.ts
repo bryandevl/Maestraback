@@ -166,12 +166,14 @@ export class MascaraService {
         if (checkResult[0].count > 0) {
           // Actualización
           const updateColumns = mappedColumns
-            .filter((col, index) => !['campaign_id', 'list_id', 'dFecha_CARGA_CSV'].includes(col)) // Excluir columnas que no deben actualizarse
-            .map((col, index) => {
-              const value = row[index];
-              return `${col} = ${value === null ? 'NULL' : (typeof value === 'number' ? value : `'${value}'`)}`;
-            })
-            .join(', ');
+  .filter((col, index) => !['campaign_id', 'list_id', 'dFecha_CARGA_CSV'].includes(col))
+  .map((col, index) => {
+    const value = row[index];
+    if (value === null) return `${col} = NULL`;
+    if (typeof value === 'number') return `${col} = ${value}`;
+    return `${col} = '${String(value).replace(/'/g, "''")}'`; // Escapa comillas
+  })
+  .join(', ');
   
           const updateQuery = `
             UPDATE [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
@@ -183,7 +185,12 @@ export class MascaraService {
           updatedCount++;
         } else {
           // Inserción
-          const valuesStatements = `(${row.map((value) => (value === null ? 'NULL' : (typeof value === 'number' ? value : `'${value}'`))).join(', ')})`;
+          const valuesStatements = `(${row.map((value) => {
+            if (value === null) return 'NULL';
+            if (typeof value === 'number') return value;
+            return `'${String(value).replace(/'/g, "''")}'`; // Escapa comillas simples
+          }).join(', ')})`;
+          
   
           const insertQuery = `
             INSERT INTO [BD_CR_MAESTRA].[dbo].[FR_MASCARA]
