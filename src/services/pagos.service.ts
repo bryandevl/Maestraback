@@ -76,10 +76,10 @@ export class FrPagosService {
   }
 
   private async upsertPayment(row: any) {
-    const { cNUM_CUENTA, cNUM_DOCUMENTO, cPERIODO, ...updateFields } = row;
+    const { cNUM_CUENTA, cNUM_DOCUMENTO, cPERIODO,cCAMPAIGN_ID,list_id, ...updateFields } = row;
 
     const existingRecord = await this.dataSource.query(
-        `SELECT TOP 1 1 FROM FR_PAGOS WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}'`
+        `SELECT TOP 1 1 FROM FR_PAGOS WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}' 'AND cCAMPAIGN_ID='${cCAMPAIGN_ID}' 'AND list_id='${list_id}'`
     );
 
     if (existingRecord.length > 0) {
@@ -89,7 +89,7 @@ export class FrPagosService {
             .join(', ');
 
         await this.dataSource.query(
-            `UPDATE FR_PAGOS SET ${updateFieldsSql} WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}'`
+            `UPDATE FR_PAGOS SET ${updateFieldsSql} WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}' 'AND cCAMPAIGN_ID='${cCAMPAIGN_ID}' 'AND list_id='${list_id}'`
         );
     } else {
         // Inserción

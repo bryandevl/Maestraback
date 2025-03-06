@@ -16,28 +16,28 @@ export class ExcelService {
 
   private validateAndConvert(value: any, column: any): any {
     if (value === null || value === undefined || value === '') {
-      return column?.columnName === 'nEstado' ? 1 : null; // 🔥 Si es nEstado, usa 1 en lugar de null
+      return column?.columnName === 'nEstado' ? 1 : null;
     }
   
     switch (column?.dataType) {
       case 'datetime':
         return this.isValidDate(value) ? new Date(value).toISOString().slice(0, 19).replace('T', ' ') : null;
-
+  
       case 'int':
-        return Number.isInteger(Number(value)) ? parseInt(value, 10) : (column?.columnName === 'nEstado' ? 1 : 0); // 🔥 Si es nEstado, usa 1 en lugar de 0
+        const intValue = Number(value);
+        return Number.isInteger(intValue) ? intValue : (column?.columnName === 'nEstado' ? 1 : 0);
+  
       case 'numeric':
       case 'decimal':
       case 'float':
-
-        return !isNaN(parseFloat(value)) ? parseFloat(value) : 0.0;
-
+        const floatValue = parseFloat(value);
+        return isNaN(floatValue) ? 0.0 : floatValue; // 👈 Si es NaN, usa 0.0 en lugar de NaN
+  
       case 'varchar':
-
       case 'nvarchar':
-
         let stringValue = String(value).trim();
         return column.maxLength ? stringValue.slice(0, column.maxLength) : stringValue;
-
+  
       default:
         return value;
     }
@@ -90,17 +90,23 @@ export class ExcelService {
     // Procesar las filas
     rows.forEach((row, rowIndex) => {
       try {
-        const filteredRow = filteredHeaders.map((header) => {
+        const filteredRow = filteredHeaders.map((header, colIndex) => {
           const columnName = columnMapping[header];
           const column = columnDetails[columnName];
-          const colIndex = headers.indexOf(header);
-          return this.validateAndConvert(row[colIndex], column);
+          const colValue = row[headers.indexOf(header)];
+          
+          const convertedValue = this.validateAndConvert(colValue, column);
+    
+          // 🚨 Detecta valores NaN y muestra la fila y columna donde ocurre
+          if (typeof convertedValue === 'number' && isNaN(convertedValue)) {
+            console.error(`⚠️ Error en fila ${rowIndex + 2}, columna '${header}' → Valor inválido: ${colValue}`);
+            errors.push({ row: rowIndex + 2, column: header, error: `Valor inválido: ${colValue}` });
+          }
+    
+          return convertedValue;
         });
     
         filteredRow.push(campaign_id, list_id, this.getLocalDateTime());
-    
-        console.log(`Fila ${rowIndex + 2}:`, filteredRow); // 🔍 Revisa los valores antes de insertarlos
-    
         validRows.push(filteredRow);
       } catch (error) {
         errors.push({ row: rowIndex + 2, error: error.message });
