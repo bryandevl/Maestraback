@@ -48,6 +48,9 @@ import { ObtenerValoresDto } from 'src/dtos/vrc-resultmask.dto';
 
 import { clearMascaraService } from 'src/services/vrc-clearmasksupervisor.service';
 
+import { MascaraFormatoService } from 'src/services/vrc-mascaraformato.service';
+import { MascaraFormatoDto } from 'src/dtos/vrc-mascaraformato.dto';
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -64,6 +67,7 @@ export class MaestraController {
               private readonly columnasMaskService: ColumnasMaskService2,
               private readonly resultMaskService: VrcResultMaskService,
               private readonly clearMaskService: clearMascaraService,
+              private readonly mascaraFormatoService: MascaraFormatoService,
   ) {}
 
   @Post('campaings')
@@ -150,5 +154,10 @@ export class MaestraController {
   async clearMask(@Body() dto: ObtenerColumnaMaskDto) {
     const result = await this.clearMaskService.clearMaskByCampaign(dto);
     return result;
+  }
+
+  @Post('mascaraformato')
+  async upsertMascaraformato(@Body() dto: MascaraFormatoDto) {
+    return this.mascaraFormatoService.upsertMascaraFormato(dto);
   }
 }
