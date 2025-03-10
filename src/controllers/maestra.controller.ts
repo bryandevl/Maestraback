@@ -1,5 +1,5 @@
 // campaign.controller.ts
-import { Controller, Post , Get , Body ,Query} from '@nestjs/common';
+import { Controller, Post , Get , Body ,Query ,HttpException, HttpStatus} from '@nestjs/common';
 import { CampaignService } from 'src/services/campania.service';
 
 import { MainClientes } from 'src/entities/vrc-principal-cliente.entity';
@@ -48,6 +48,9 @@ import { ObtenerValoresDto } from 'src/dtos/vrc-resultmask.dto';
 
 import { clearMascaraService } from 'src/services/vrc-clearmasksupervisor.service';
 
+import { MascaraFormatoService } from 'src/services/vrc-mascaraformato.service';
+import { MascaraFormatoDto } from 'src/dtos/vrc-mascaraformato.dto';
+
 @Controller('maestra')
 export class MaestraController {
   constructor(private readonly campaignService: CampaignService,
@@ -64,6 +67,7 @@ export class MaestraController {
               private readonly columnasMaskService: ColumnasMaskService2,
               private readonly resultMaskService: VrcResultMaskService,
               private readonly clearMaskService: clearMascaraService,
+              private readonly mascaraFormatoService: MascaraFormatoService,
   ) {}
 
   @Post('campaings')
@@ -151,4 +155,27 @@ export class MaestraController {
     const result = await this.clearMaskService.clearMaskByCampaign(dto);
     return result;
   }
+
+  @Post('upsertmascaraformato')
+  async upsertMascaraformato(@Body() dto: MascaraFormatoDto) {
+    return this.mascaraFormatoService.upsertMascaraFormato(dto);
+  }
+
+  @Post('selectmascaraformato')
+  async selectMascaraformato(@Body() body: { campaign_id: string }) {
+    const { campaign_id } = body;
+        if (!campaign_id) {
+            throw new HttpException("El campaign_id es requerido.", HttpStatus.BAD_REQUEST);
+        }
+        return this.mascaraFormatoService.selectMascaraFormato(campaign_id);
+    }
+
+    @Post('clearmascaraformato')
+    async clearMascaraformato(@Body() body: { campaign_id: string }) {
+      const { campaign_id } = body;
+        if (!campaign_id) {
+            throw new HttpException("El campaign_id es requerido.", HttpStatus.BAD_REQUEST);
+        }
+        return this.mascaraFormatoService.clearMascaraFormato(campaign_id);
+    }
 }
