@@ -1,5 +1,5 @@
 // campaign.controller.ts
-import { Controller, Post , Get , Body ,Query} from '@nestjs/common';
+import { Controller, Post , Get , Body ,Query ,HttpException, HttpStatus} from '@nestjs/common';
 import { CampaignService } from 'src/services/campania.service';
 
 import { MainClientes } from 'src/entities/vrc-principal-cliente.entity';
@@ -156,8 +156,26 @@ export class MaestraController {
     return result;
   }
 
-  @Post('mascaraformato')
+  @Post('upsertmascaraformato')
   async upsertMascaraformato(@Body() dto: MascaraFormatoDto) {
     return this.mascaraFormatoService.upsertMascaraFormato(dto);
   }
+
+  @Post('selectmascaraformato')
+  async selectMascaraformato(@Body() body: { campaign_id: string }) {
+    const { campaign_id } = body;
+        if (!campaign_id) {
+            throw new HttpException("El campaign_id es requerido.", HttpStatus.BAD_REQUEST);
+        }
+        return this.mascaraFormatoService.selectMascaraFormato(campaign_id);
+    }
+
+    @Post('clearmascaraformato')
+    async clearMascaraformato(@Body() body: { campaign_id: string }) {
+      const { campaign_id } = body;
+        if (!campaign_id) {
+            throw new HttpException("El campaign_id es requerido.", HttpStatus.BAD_REQUEST);
+        }
+        return this.mascaraFormatoService.clearMascaraFormato(campaign_id);
+    }
 }

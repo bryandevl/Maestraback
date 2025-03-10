@@ -1,12 +1,9 @@
 // src/entities/vrc-mascaraformato.entity.ts
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryColumn, Column } from 'typeorm';
 
 @Entity('T_Mascaraformato')
 export class MascaraFormato {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column()
+    @PrimaryColumn()
     campaign_id: string;
 
     @Column()
