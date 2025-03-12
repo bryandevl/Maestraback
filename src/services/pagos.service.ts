@@ -25,15 +25,11 @@ export class FrPagosService {
       'ACTIVO': 'nSTATUS',
     };
 
-    const matchedColumns = headers
-      .filter(header => fieldMapping[header])
-      .map(header => fieldMapping[header]);
-
+    const matchedColumns = headers.filter(header => fieldMapping[header]).map(header => fieldMapping[header]);
     matchedColumns.push('list_id', 'cCAMPAIGN_ID', 'dFECHA_CARGA_CSV');
 
     const validRows = [];
     const errors = [];
-    let totalProcessedRecords = 0;
 
     for (const [rowIndex, row] of rows.entries()) {
       try {
@@ -45,86 +41,79 @@ export class FrPagosService {
             mappedRow[columnName] = this.validateAndConvert(row[index], columnType, columnName, rowIndex);
           }
         });
-
+    
+        // Filtrar solo filas con NUM_DOCUMENTO válido
+        if (!mappedRow['cNUM_DOCUMENTO']) {
+          continue;
+        }
+    
         mappedRow['list_id'] = list_id;
         mappedRow['cCAMPAIGN_ID'] = cCAMPAIGN_ID;
         mappedRow['dFECHA_CARGA_CSV'] = this.getLocalDateTime();
-
+    
         validRows.push(mappedRow);
       } catch (error) {
         errors.push({ row: rowIndex + 2, error: error.message });
       }
     }
 
-    console.log(`Total de filas válidas: ${validRows.length}`);
-    console.log(`Errores durante la validación: ${JSON.stringify(errors)}`);
-
-    for (const row of validRows) {
-      try {
-        await this.upsertPayment(row);
-        totalProcessedRecords++;
-      } catch (error) {
-        console.error(`Error en registro: ${error.message}`);
-        errors.push({ row: 'N/A', error: error.message });
+    if (validRows.length > 0) {
+      await this.deleteExistingCampaignData(cCAMPAIGN_ID,list_id , validRows[0].cPERIODO);
+      for (const row of validRows) {
+        await this.insertPayment(row);
       }
     }
 
-    console.log(`Total de registros procesados: ${totalProcessedRecords}`);
     return errors.length > 0
-      ? `Datos procesados parcialmente (${totalProcessedRecords} registros actualizados/insertados). Revisa el log para más detalles.`
-      : `Datos procesados correctamente. Total de registros actualizados/insertados: ${totalProcessedRecords}.`;
+      ? `Datos procesados parcialmente. Verifica el log.`
+      : `Datos procesados correctamente.`;
   }
 
-  private async upsertPayment(row: any) {
-    const { cNUM_CUENTA, cNUM_DOCUMENTO, cPERIODO,cCAMPAIGN_ID, ...updateFields } = row;
-
-    const existingRecord = await this.dataSource.query(
-        `SELECT TOP 1 1 FROM FR_PAGOS WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}' AND cCAMPAIGN_ID='${cCAMPAIGN_ID}' `
-    );
-
-    if (existingRecord.length > 0) {
-        // Actualización
-        const updateFieldsSql = Object.entries(updateFields)
-            .map(([key, value]) => `${key} = '${value}'`)
-            .join(', ');
-
-        await this.dataSource.query(
-            `UPDATE FR_PAGOS SET ${updateFieldsSql} WHERE cNUM_CUENTA = '${cNUM_CUENTA}' AND cNUM_DOCUMENTO = '${cNUM_DOCUMENTO}' AND cPERIODO = '${cPERIODO}' AND cCAMPAIGN_ID='${cCAMPAIGN_ID}'`
-        );
+  private async deleteExistingCampaignData(cCAMPAIGN_ID: string, list_id: string, cPERIODO: string) {
+    const checkQuery = `
+      SELECT COUNT(*) as count FROM FR_PAGOS 
+      WHERE cCAMPAIGN_ID = '${cCAMPAIGN_ID}' 
+      AND cPERIODO = '${cPERIODO}' 
+      AND list_id = '${list_id}'
+    `;
+    const [result] = await this.dataSource.query(checkQuery);
+    this.logger.log(`Registros a eliminar: ${result.count}`);
+  
+    if (result.count > 0) {
+      const deleteQuery = `
+        DELETE FROM FR_PAGOS 
+        WHERE cCAMPAIGN_ID = '${cCAMPAIGN_ID}' 
+        AND cPERIODO = '${cPERIODO}' 
+        AND list_id = '${list_id}'
+      `;
+      await this.dataSource.query(deleteQuery);
+      this.logger.log(`Registros eliminados correctamente.`);
     } else {
-        // Inserción
-        const columns = Object.keys(row).join(', ');
-        const values = Object.values(row)
-            .map(value => (value === null ? 'NULL' : `'${value}'`))
-            .join(', ');
-
-        await this.dataSource.query(
-            `INSERT INTO FR_PAGOS (${columns}) VALUES (${values})`
-        );
+      this.logger.warn(`No se encontraron registros para eliminar.`);
     }
-}
+  }
+  
 
+  private async insertPayment(row: any) {
+    const columns = Object.keys(row).join(', ');
+    const values = Object.values(row).map(value => (value === null ? 'NULL' : `'${value}'`)).join(', ');
 
+    await this.dataSource.query(
+      `INSERT INTO FR_PAGOS (${columns}) VALUES (${values})`
+    );
+  }
 
   private parseExcel(buffer: Buffer): { headers: string[]; rows: any[] } {
-    try {
-      const workbook = xlsx.read(buffer, { type: 'buffer' });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
+    const workbook = xlsx.read(buffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[sheetName];
+    const data = xlsx.utils.sheet_to_json(sheet, { header: 1 });
 
-      if (!data || data.length === 0) {
-        throw new Error('El archivo Excel está vacío o no es válido.');
-      }
-
-      const headers = data[0] as string[];
-      const rows = data.slice(1);
-
-      return { headers, rows };
-    } catch (error) {
-      this.logger.error(`Error al procesar el archivo Excel: ${error.message}`);
-      throw new Error('Error al procesar el archivo Excel.');
+    if (!data || data.length === 0) {
+      throw new Error('El archivo Excel está vacío o no es válido.');
     }
+
+    return { headers: data[0] as string[], rows: data.slice(1) };
   }
 
   private getColumnType(columnName: string) {
@@ -135,60 +124,52 @@ export class FrPagosService {
       cOBSERVACION: { dataType: 'varchar', maxLength: 50 },
       cPERIODO: { dataType: 'varchar', maxLength: 7 },
       cCUOTA: { dataType: 'varchar', maxLength: 20 },
-      dFECHA_PAGO: { dataType: 'datetime', maxLength: null },
-      nMONEDA: { dataType: 'int', maxLength: null },
-      nMONTO: { dataType: 'decimal', maxLength: null },
-      nMONTO_CONSIDERADO: { dataType: 'decimal', maxLength: null },
-      nSTATUS: { dataType: 'int', maxLength: null },
-      dFECHA_CARGA_CSV: { dataType: 'datetime', maxLength: null },
+      dFECHA_PAGO: { dataType: 'datetime' },
+      nMONEDA: { dataType: 'int' },
+      nMONTO: { dataType: 'decimal' },
+      nMONTO_CONSIDERADO: { dataType: 'decimal' },
+      nSTATUS: { dataType: 'int' },
+      dFECHA_CARGA_CSV: { dataType: 'datetime' },
     }[columnName];
   }
 
-  private validateAndConvert(value: any, column: { maxLength: number | null; dataType: string }, columnName: string, rowIndex: number) {
+  private convertExcelDate(value: any): string | null {
+    if (!value) return null;
+
+    if (!isNaN(value)) {
+        // Si es un número, es un serial de Excel -> Convertir a fecha
+        const excelStartDate = new Date(1899, 11, 30); // Base de fecha de Excel
+        const jsDate = new Date(excelStartDate.getTime() + value * 86400000);
+        return jsDate.toISOString().split('T')[0] + ' 00:00:00';
+    }
+
+    try {
+        // Si es una cadena, intenta convertirla a una fecha válida
+        const parsedDate = new Date(value);
+        if (!isNaN(parsedDate.getTime())) {
+            return parsedDate.toISOString().split('T')[0] + ' 00:00:00';
+        }
+    } catch (error) {
+        console.warn(`Fecha inválida en fila: ${value}`);
+    }
+
+    return null; // Si no es una fecha válida, retorna NULL
+}
+
+
+
+  private validateAndConvert(value: any, column: { maxLength?: number; dataType: string }, columnName: string, rowIndex: number) {
     if (value === null || value === undefined) return null;
 
     switch (column.dataType) {
       case 'varchar':
-        if (column.maxLength && value.length > column.maxLength) {
-          throw new Error(`El valor '${value}' excede la longitud máxima (${column.maxLength}) en la fila ${rowIndex + 2}.`);
-        }
-        return value.toString();
-
+        return value.toString().slice(0, column.maxLength);
       case 'decimal':
         return isNaN(value) ? null : parseFloat(value);
-
       case 'int':
         return isNaN(value) ? null : parseInt(value, 10);
-
         case 'datetime':
-          let parsedDate: Date;
-      
-          if (typeof value === 'number') {
-              // Convertir número de serie de Excel a fecha real
-              parsedDate = new Date((value - 25569) * 86400000);
-          } else if (typeof value === 'string') {
-              // Convertir formato dd/mm/yyyy a yyyy-mm-dd
-              const dateParts = value.split('/');
-              if (dateParts.length === 3) {
-                  const day = parseInt(dateParts[0], 10);
-                  const month = parseInt(dateParts[1], 10) - 1; // Meses en JS van de 0 a 11
-                  const year = parseInt(dateParts[2], 10);
-                  parsedDate = new Date(year, month, day);
-              } else {
-                  parsedDate = new Date(value);
-              }
-          } else {
-              parsedDate = new Date(value);
-          }
-      
-          if (isNaN(parsedDate.getTime())) {
-              console.warn(`⚠️ Fila ${rowIndex + 2}, Columna '${columnName}': Fecha inválida -> ${value}`);
-              return null;
-          }
-      
-          return parsedDate.toISOString().split('T')[0] + ' 00:00:00';
-      
-
+          return this.convertExcelDate(value); // Usa la nueva función para fechas
       default:
         return value;
     }
@@ -197,8 +178,4 @@ export class FrPagosService {
   private getLocalDateTime(): string {
     return new Date().toISOString().split('T')[0] + ' 00:00:00';
   }
-
-
-
 }
-
