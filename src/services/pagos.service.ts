@@ -1,3 +1,4 @@
+
 import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import * as xlsx from 'xlsx';
@@ -30,6 +31,7 @@ export class FrPagosService {
 
     const validRows = [];
     const errors = [];
+    let processedCount = 0; // Contador de registros procesados correctamente
 
     for (const [rowIndex, row] of rows.entries()) {
       try {
@@ -41,16 +43,16 @@ export class FrPagosService {
             mappedRow[columnName] = this.validateAndConvert(row[index], columnType, columnName, rowIndex);
           }
         });
-    
+
         // Filtrar solo filas con NUM_DOCUMENTO válido
         if (!mappedRow['cNUM_DOCUMENTO']) {
           continue;
         }
-    
+
         mappedRow['list_id'] = list_id;
         mappedRow['cCAMPAIGN_ID'] = cCAMPAIGN_ID;
         mappedRow['dFECHA_CARGA_CSV'] = this.getLocalDateTime();
-    
+
         validRows.push(mappedRow);
       } catch (error) {
         errors.push({ row: rowIndex + 2, error: error.message });
@@ -58,15 +60,16 @@ export class FrPagosService {
     }
 
     if (validRows.length > 0) {
-      await this.deleteExistingCampaignData(cCAMPAIGN_ID,list_id , validRows[0].cPERIODO);
+      await this.deleteExistingCampaignData(cCAMPAIGN_ID, list_id, validRows[0].cPERIODO);
       for (const row of validRows) {
         await this.insertPayment(row);
+        processedCount++; // Incrementar el contador por cada registro insertado
       }
     }
 
     return errors.length > 0
-      ? `Datos procesados parcialmente. Verifica el log.`
-      : `Datos procesados correctamente.`;
+      ? `Datos procesados parcialmente. ${processedCount} registros procesados correctamente. Verifica el log.`
+      : `Datos procesados correctamente. Total registros procesados: ${processedCount}.`;
   }
 
   private async deleteExistingCampaignData(cCAMPAIGN_ID: string, list_id: string, cPERIODO: string) {
@@ -78,7 +81,7 @@ export class FrPagosService {
     `;
     const [result] = await this.dataSource.query(checkQuery);
     this.logger.log(`Registros a eliminar: ${result.count}`);
-  
+
     if (result.count > 0) {
       const deleteQuery = `
         DELETE FROM FR_PAGOS 
@@ -92,7 +95,6 @@ export class FrPagosService {
       this.logger.warn(`No se encontraron registros para eliminar.`);
     }
   }
-  
 
   private async insertPayment(row: any) {
     const columns = Object.keys(row).join(', ');
@@ -137,26 +139,22 @@ export class FrPagosService {
     if (!value) return null;
 
     if (!isNaN(value)) {
-        // Si es un número, es un serial de Excel -> Convertir a fecha
-        const excelStartDate = new Date(1899, 11, 30); // Base de fecha de Excel
-        const jsDate = new Date(excelStartDate.getTime() + value * 86400000);
-        return jsDate.toISOString().split('T')[0] + ' 00:00:00';
+      const excelStartDate = new Date(1899, 11, 30);
+      const jsDate = new Date(excelStartDate.getTime() + value * 86400000);
+      return jsDate.toISOString().split('T')[0] + ' 00:00:00';
     }
 
     try {
-        // Si es una cadena, intenta convertirla a una fecha válida
-        const parsedDate = new Date(value);
-        if (!isNaN(parsedDate.getTime())) {
-            return parsedDate.toISOString().split('T')[0] + ' 00:00:00';
-        }
+      const parsedDate = new Date(value);
+      if (!isNaN(parsedDate.getTime())) {
+        return parsedDate.toISOString().split('T')[0] + ' 00:00:00';
+      }
     } catch (error) {
-        console.warn(`Fecha inválida en fila: ${value}`);
+      console.warn(`Fecha inválida en fila: ${value}`);
     }
 
-    return null; // Si no es una fecha válida, retorna NULL
-}
-
-
+    return null;
+  }
 
   private validateAndConvert(value: any, column: { maxLength?: number; dataType: string }, columnName: string, rowIndex: number) {
     if (value === null || value === undefined) return null;
@@ -168,8 +166,8 @@ export class FrPagosService {
         return isNaN(value) ? null : parseFloat(value);
       case 'int':
         return isNaN(value) ? null : parseInt(value, 10);
-        case 'datetime':
-          return this.convertExcelDate(value); // Usa la nueva función para fechas
+      case 'datetime':
+        return this.convertExcelDate(value);
       default:
         return value;
     }
