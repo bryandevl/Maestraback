@@ -1,4 +1,4 @@
-import { Controller, Post, Body, InternalServerErrorException } from '@nestjs/common';
+import { Controller, Post, Body, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { Pass1Service } from 'src/services/Omni1.service';
 import { Pass2Service } from 'src/services/Omni2.service';
 import { Pass3Service } from 'src/services/Omni3.service';
@@ -61,12 +61,32 @@ export class PassController {
 
 
   @Post('userlog')
-  async createUser(
+  async createOrUpdateUser(
     @Body('correo') correo: string,
     @Body('pass') pass: string,
     @Body('caducida') caducida: number,
   ): Promise<UserLog> {
-    return this.userLogService.createUser(correo, pass, caducida);
+    return this.userLogService.createOrUpdateUser(correo, pass, caducida);
+  }
+
+
+
+  @Post('all')
+  async getAllUsers(): Promise<UserLog[]> {
+    return this.userLogService.getAllUsers();
+  }
+
+  @Post('password')
+  async getPasswordByEmail(@Body('correo') correo: string): Promise<{ password: string }> {
+    try {
+      const password = await this.userLogService.getPasswordByEmail(correo);
+      return { password };
+    } catch (error) {
+      if (error.message === 'Usuario no encontrado') {
+        throw new NotFoundException('Usuario no encontrado.');
+      }
+      throw new InternalServerErrorException('No se pudo obtener la contraseña.');
+    }
   }
 
 
