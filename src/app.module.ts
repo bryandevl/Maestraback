@@ -46,7 +46,7 @@ import { MaestraController } from './controllers/maestra.controller';
 import { ExcelService } from './services/cargasignacion.service';
 import {ExcelController} from './controllers/cargabases.controller';
 
-import { BqCourier } from './entities/BQCourier.entity';
+import { BqCourier } from 'src/entities/BqCourier.entity';
 import { BQCourierService } from './services/BQCourrier.service';
 import { OmnicanalDatabaseModule } from './database/omnicanal-database.module';
 
