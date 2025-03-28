@@ -64,11 +64,13 @@ import { ZimbraService  } from 'src/services/zimbra.service';
 import {AsteriskdService} from 'src/services/asterisk.service';
 import { InfocallService } from './services/infocall.service';
 import { HttpModule } from '@nestjs/axios';
+import {UserLogService} from './services/user-log.service'; 
+import {UserLog} from './entities/user-log.entity'; // Asegúrate de que la ruta sea correcta
 
 @Module({
   imports: [
     HttpModule,
-    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask,UpdateColumnMask,ColumnasMask2,MascaraFormato]), // Especificamos la conexión 'primary'
+    TypeOrmModule.forFeature([Campaign,MainClientes,PagosEntity,FotogestionesEntity,ObtenerWspmasivoClt,ObtenerSmsMasivoClt,DatosAdicionalesCltEntity,DetalleDeudaCltEntity,ObtenerIvrMasivoClt,BqCourier,ColumnaMask,UpdateColumnMask,ColumnasMask2,MascaraFormato,UserLog]), // Especificamos la conexión 'primary'
     ConfigModule.forRoot({
       // * Definimos que es global
       isGlobal: true,
@@ -85,7 +87,7 @@ import { HttpModule } from '@nestjs/axios';
     BlasterDatabaseModule,
     
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2,VrcResultMaskService,clearMascaraService,MascaraFormatoService,Pass1Service,Pass2Service,BlasterService,Pass3Service,EncryptionService,ZimbraService,AsteriskdService,InfocallService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2,VrcResultMaskService,clearMascaraService,MascaraFormatoService,Pass1Service,Pass2Service,BlasterService,Pass3Service,EncryptionService,ZimbraService,AsteriskdService,InfocallService,UserLogService],
   controllers: [AppController, MaestraController,ExcelController,PassController,EncryptionController],
 })
 export class AppModule {}

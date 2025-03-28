@@ -8,6 +8,10 @@ import { AsteriskdService } from 'src/services/asterisk.service';
 import {InfocallService} from 'src/services/infocall.service';
 
 
+import { UserLogService   } from 'src/services/user-log.service';
+import { UserLog  } from 'src/entities/user-log.entity'; // Asegúrate de que la ruta sea correcta
+
+
 @Controller('usuarios')
 export class PassController {
   constructor(
@@ -18,6 +22,7 @@ export class PassController {
     private readonly zimbraService: ZimbraService,
     private readonly asteriskdService: AsteriskdService,
     private readonly infocallService: InfocallService,
+    private readonly userLogService: UserLogService,
   ) {}
 
   @Post('uppassword')
@@ -52,4 +57,17 @@ export class PassController {
 
     return { message: 'Contraseña actualizada correctamente en todos los servicios' };
   }
+
+
+
+  @Post('userlog')
+  async createUser(
+    @Body('correo') correo: string,
+    @Body('pass') pass: string,
+    @Body('caducida') caducida: number,
+  ): Promise<UserLog> {
+    return this.userLogService.createUser(correo, pass, caducida);
+  }
+
+
 }
