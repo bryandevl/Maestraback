@@ -18,8 +18,8 @@ export class ObtenerIvrMasivoCltService {
   
     // Realizar la consulta a la base de datos
     const resultados = await this.ivrmasivoCltRepository.query(
-      `EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}', @cta = ${num_cta ? `'${num_cta}'` : 'NULL'}`,
-      [dni, num_cta || null],
+      `EXEC [dbo].[SP_CR_ObtenerIVRClt_VRC] @dni = '${dni}'`,
+      [dni],
     );
   
     // Formatear los resultados para ajustar FEC_GESTION y HOR_GESTION
