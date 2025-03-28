@@ -50,6 +50,9 @@ import { clearMascaraService } from 'src/services/vrc-clearmasksupervisor.servic
 
 import { MascaraFormatoService } from 'src/services/vrc-mascaraformato.service';
 import { MascaraFormatoDto } from 'src/dtos/vrc-mascaraformato.dto';
+import { BusquedaClienteDto } from 'src/dtos/vrc-busquedacliente.dto';
+import { vrcDatosClienteEntity } from 'src/entities/vrc-datos-cliente.entity';
+import { vrcResultadoClienteService } from 'src/services/vrc-resultadocliente.service';
 
 @Controller('maestra')
 export class MaestraController {
@@ -68,6 +71,7 @@ export class MaestraController {
               private readonly resultMaskService: VrcResultMaskService,
               private readonly clearMaskService: clearMascaraService,
               private readonly mascaraFormatoService: MascaraFormatoService,
+              private readonly datosClienteService: vrcResultadoClienteService,
   ) {}
 
   @Post('campaings')
@@ -178,4 +182,9 @@ export class MaestraController {
         }
         return this.mascaraFormatoService.clearMascaraFormato(campaign_id);
     }
+    @Post('datoscliente')
+    async obtenerDatosCliente(@Body() dto: BusquedaClienteDto) : Promise<vrcDatosClienteEntity[]> {
+        return this.datosClienteService.obtenerDatosCliente(dto);
+    }
+
 }
