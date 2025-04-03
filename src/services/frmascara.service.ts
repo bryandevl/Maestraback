@@ -83,7 +83,7 @@ export class MascaraService {
     campaign_id: string,
     list_id: string,
   ): Promise<string> {
-    const BATCH_SIZE = 500;
+    const BATCH_SIZE = 200;
     let updatedCount = 0;
     let insertedCount = 0;
     console.log(`Archivo recibido: ${file.originalname}, Tamaño=${file.size}`);
