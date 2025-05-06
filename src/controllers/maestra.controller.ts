@@ -265,7 +265,7 @@ async getHoraPosicion(@Body() data: HoraPosicionDto, @Res() res: Response) {
             
             // Log específico para depurar
             if (cabecera === "CAMPAÑA") {
-              console.log('Procesando CAMPAÑA:', valor);
+             // console.log('Procesando CAMPAÑA:', valor);
             }
             
             // Formatear el valor
@@ -285,7 +285,7 @@ async getHoraPosicion(@Body() data: HoraPosicionDto, @Res() res: Response) {
             
             // Para el campo CAMPAÑA, asegurarnos de que se use el valor completo
             if (cabecera === "CAMPAÑA") {
-              console.log('Valor final CAMPAÑA:', valor);
+            //  console.log('Valor final CAMPAÑA:', valor);
             }
             
             // Agregar a la línea
