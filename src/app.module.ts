@@ -61,6 +61,7 @@ import {UserLog} from './entities/user-log.entity'; // Asegúrate de que la ruta
 
 import { vrcDatosClienteEntity } from './entities/vrc-datos-cliente.entity';
 import { vrcResultadoClienteService } from './services/vrc-resultadocliente.service';
+import { HoraGestionService } from './services/horaposicion.service';
 
 @Module({
   imports: [
@@ -79,7 +80,7 @@ import { vrcResultadoClienteService } from './services/vrc-resultadocliente.serv
  
     
   ],
-  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2,VrcResultMaskService,clearMascaraService,MascaraFormatoService,EncryptionService,AsteriskdService,UserLogService,vrcResultadoClienteService],
+  providers: [CampaignService,MainClientService,PagosService,GestionService,ExcelService,ObtenerWspmasivoCltService,ObtenerSmsMasivoCltService,DatosAdicionalCltService,ObtenerIvrMasivoCltService,DetalleDeudaCltService,FrPagosService,MascaraService,BQCourierService,ColumnaMaskService,UpdateColumnMaskService,ColumnasMaskService2,VrcResultMaskService,clearMascaraService,MascaraFormatoService,EncryptionService,AsteriskdService,UserLogService,vrcResultadoClienteService,HoraGestionService],
   controllers: [AppController, MaestraController,ExcelController],
 })
 export class AppModule {}
