@@ -227,7 +227,7 @@ async getHoraPosicion(@Body() data: HoraPosicionDto, @Res() res: Response) {
     
     // Log para verificar la estructura del primer registro
     if (resultado && resultado.length > 0) {
-      console.log('Estructura del primer registro:', JSON.stringify(resultado[0], null, 2));
+     // console.log('Estructura del primer registro:', JSON.stringify(resultado[0], null, 2));
     }
     
     // Verificar si hay datos para generar el archivo
@@ -253,7 +253,7 @@ async getHoraPosicion(@Body() data: HoraPosicionDto, @Res() res: Response) {
         // Procesar cada registro obtenido
         for (const entry of resultado) {
           // Log específico para el campo CAMPAÑA
-          console.log('Valor CAMPAÑA (original):', entry["CAMPAÑA"]);
+        //  console.log('Valor CAMPAÑA (original):', entry["CAMPAÑA"]);
           
           // Crear una línea para este registro
           let line = '';
@@ -305,7 +305,7 @@ async getHoraPosicion(@Body() data: HoraPosicionDto, @Res() res: Response) {
         }
         
         // Log de comprobación
-        console.log('Primeras 300 caracteres del contenido TXT:', txtContent.substring(0, 300));
+        //console.log('Primeras 300 caracteres del contenido TXT:', txtContent.substring(0, 300));
         
         // Importar iconv para codificación
         const iconv = require('iconv-lite');
